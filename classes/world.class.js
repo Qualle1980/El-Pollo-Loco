@@ -90,9 +90,21 @@
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
-        this.character.draw(this.ctx);
+        this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.repeatDraw();
+    }
+
+    // Draws all objects from the given array.
+    addObjectsToMap(objects) {
+        objects.forEach((object) => this.addToMap(object));
+    }
+
+    // Draws one object with optional horizontal flipping.
+    addToMap(object) {
+        if (object.otherDirection) this.flipImage(object);
+        object.draw(this.ctx);
+        if (object.otherDirection) this.flipImageBack(object);
     }
 
     // Requests the next draw frame.
@@ -100,13 +112,19 @@
         requestAnimationFrame(() => this.draw());
     }
 
-    // Draws all objects from the given array.
-    addObjectsToMap(objects) {
-        objects.forEach((object) => object.draw(this.ctx));
+    // Flips an object before drawing it.
+    flipImage(object) {
+        this.ctx.save();
+        this.ctx.translate(object.width, 0);
+        this.ctx.scale(-1, 1);
+        object.x = object.x * -1;
+    }
+
+    // Restores an object after drawing it flipped.
+    flipImageBack(object) {
+        object.x = object.x * -1;
+        this.ctx.restore();
     }
 
     // #endregion
 }
-
-
-

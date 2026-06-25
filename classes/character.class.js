@@ -34,6 +34,18 @@
         if (this.canMoveLeft()) this.moveLeft();
     }
 
+    // Moves the character right and sets its direction.
+    moveRight() {
+        super.moveRight();
+        this.otherDirection = false;
+    }
+
+    // Moves the character left and sets its direction.
+    moveLeft() {
+        super.moveLeft();
+        this.otherDirection = true;
+    }
+
     // Checks if the character can move right.
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.canvas.width - this.width;
