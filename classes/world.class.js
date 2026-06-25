@@ -7,14 +7,16 @@
     enemies = [];
     canvas;
     ctx;
+    keyboard;
 
     // #endregion
 
     // #region constructor
 
     // Creates the world and starts drawing it.
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
         this.createBackground();
         this.createClouds();
@@ -95,4 +97,5 @@
 
     // #endregion
 }
+
 
