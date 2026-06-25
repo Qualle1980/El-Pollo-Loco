@@ -18,10 +18,20 @@
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
+        this.setWorld();
         this.createBackground();
         this.createClouds();
         this.createEnemies();
         this.draw();
+    }
+
+    // #endregion
+
+    // #region setup
+
+    // Connects world references to game objects.
+    setWorld() {
+        this.character.world = this;
     }
 
     // #endregion
@@ -97,5 +107,6 @@
 
     // #endregion
 }
+
 
 
