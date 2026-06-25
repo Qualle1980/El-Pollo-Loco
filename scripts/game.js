@@ -10,8 +10,7 @@ function init() {
 }
 
 function createCharacter() {
-    character = new MovableObject();
-    character.loadImage('./assets/img/2_character_pepe/2_walk/W-21.png');
+    character = new Character();
     character.img.onload = drawCharacter;
 }
 
