@@ -14,10 +14,10 @@
 
     // #region constructor
 
-    // Creates a chicken enemy at the given x position.
-    constructor(x) {
+    // Creates a chicken enemy at a random x position.
+    constructor() {
         super();
-        this.x = x;
+        this.x = 200 + Math.random() * 500;
         this.speed = 0.6;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);

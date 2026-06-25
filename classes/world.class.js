@@ -67,18 +67,9 @@
 
     // #region enemies
 
-    // Creates enemies with random distance variations.
+    // Creates the visible enemies.
     createEnemies() {
-        this.enemies = [
-            new Chicken(this.getRandomEnemyX(450)),
-            new Chicken(this.getRandomEnemyX(650)),
-            new Chicken(this.getRandomEnemyX(850))
-        ];
-    }
-
-    // Returns a randomized enemy x position.
-    getRandomEnemyX(startX) {
-        return startX + Math.random() * 120;
+        this.enemies = [new Chicken(), new Chicken(), new Chicken()];
     }
 
     // #endregion
@@ -128,3 +119,4 @@
 
     // #endregion
 }
+

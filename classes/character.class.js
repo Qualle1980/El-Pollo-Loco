@@ -25,6 +25,7 @@
         super();
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.applyGravity();
         this.animate();
     }
 
@@ -38,10 +39,11 @@
         IntervalHub.setStoppableInterval(() => this.playCharacter(), 100);
     }
 
-    // Handles horizontal character movement.
+    // Handles horizontal movement and jumping.
     moveCharacter() {
         if (this.canMoveRight()) this.moveRight();
         if (this.canMoveLeft()) this.moveLeft();
+        if (this.canJump()) this.jump();
     }
 
     // Moves the character right and sets its direction.
@@ -64,6 +66,11 @@
     // Checks if the character can move left.
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
+    }
+
+    // Checks if the character can jump.
+    canJump() {
+        return this.world.keyboard.UP && !this.isAboveGround();
     }
 
     // #endregion
