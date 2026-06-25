@@ -6,6 +6,7 @@
     width = 100;
     height = 250;
     img;
+    imageCache = {};
 
     // #endregion
 
@@ -15,6 +16,18 @@
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
+    }
+
+    // Loads all images from the given array.
+    loadImages(paths) {
+        paths.forEach((path) => this.addImageToCache(path));
+    }
+
+    // Adds one image to the image cache.
+    addImageToCache(path) {
+        const img = new Image();
+        img.src = path;
+        this.imageCache[path] = img;
     }
 
     // #endregion
