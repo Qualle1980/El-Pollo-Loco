@@ -6,3 +6,5 @@ function init() {
     ctx = canvas.getContext('2d');
     console.log('Game initialized');
 }
+
+window.addEventListener('load', init);
