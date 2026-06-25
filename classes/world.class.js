@@ -22,14 +22,20 @@
 
     // #region background
 
-    // Creates the visible background layers.
+    // Creates multiple background blocks for later scrolling.
     createBackground() {
-        this.backgroundObjects = [
-            new BackgroundObject('./assets/img/5_background/layers/air.png', 0),
-            new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 0),
-            new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 0),
-            new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 0)
-        ];
+        this.addBackgroundBlock(-720, 2);
+        this.addBackgroundBlock(0, 1);
+        this.addBackgroundBlock(720, 2);
+        this.addBackgroundBlock(1440, 1);
+    }
+
+    // Adds one layered background block at the given x position.
+    addBackgroundBlock(x, imageNumber) {
+        this.backgroundObjects.push(new BackgroundObject('./assets/img/5_background/layers/air.png', x));
+        this.backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/3_third_layer/${imageNumber}.png`, x));
+        this.backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/2_second_layer/${imageNumber}.png`, x));
+        this.backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/1_first_layer/${imageNumber}.png`, x));
     }
 
     // #endregion
