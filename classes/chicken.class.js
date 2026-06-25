@@ -15,6 +15,16 @@
         this.x = x;
         this.speed = 0.5 + Math.random() * 0.5;
         this.loadImage('./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
+        this.animate();
+    }
+
+    // #endregion
+
+    // #region animation
+
+    // Moves the chicken continuously to the left.
+    animate() {
+        IntervalHub.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
     }
 
     // #endregion
