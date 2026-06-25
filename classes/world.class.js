@@ -4,6 +4,7 @@
     character = new Character();
     backgroundObjects = [];
     clouds = [];
+    enemies = [];
     canvas;
     ctx;
 
@@ -17,6 +18,7 @@
         this.ctx = canvas.getContext('2d');
         this.createBackground();
         this.createClouds();
+        this.createEnemies();
         this.draw();
     }
 
@@ -51,6 +53,15 @@
 
     // #endregion
 
+    // #region enemies
+
+    // Creates the visible enemies.
+    createEnemies() {
+        this.enemies = [new Chicken(450), new Chicken(620), new Chicken(850)];
+    }
+
+    // #endregion
+
     // #region drawing
 
     // Clears the canvas and draws all world objects.
@@ -59,6 +70,7 @@
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.character.draw(this.ctx);
+        this.addObjectsToMap(this.enemies);
         this.repeatDraw();
     }
 
