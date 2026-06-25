@@ -15,16 +15,28 @@
         './assets/img/2_character_pepe/2_walk/W-25.png',
         './assets/img/2_character_pepe/2_walk/W-26.png'
     ];
+    IMAGES_JUMPING = [
+        './assets/img/2_character_pepe/3_jump/J-31.png',
+        './assets/img/2_character_pepe/3_jump/J-32.png',
+        './assets/img/2_character_pepe/3_jump/J-33.png',
+        './assets/img/2_character_pepe/3_jump/J-34.png',
+        './assets/img/2_character_pepe/3_jump/J-35.png',
+        './assets/img/2_character_pepe/3_jump/J-36.png',
+        './assets/img/2_character_pepe/3_jump/J-37.png',
+        './assets/img/2_character_pepe/3_jump/J-38.png',
+        './assets/img/2_character_pepe/3_jump/J-39.png'
+    ];
 
     // #endregion
 
     // #region constructor
 
-    // Creates the character and loads its walking images.
+    // Creates the character and loads its animation images.
     constructor() {
         super();
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
         this.applyGravity();
         this.animate();
     }
@@ -77,9 +89,11 @@
 
     // #region animation
 
-    // Plays the walking animation while the character moves.
+    // Plays the current character animation.
     playCharacter() {
-        if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
+        if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
+        else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
+        else this.img = this.imageCache[this.IMAGES_WALKING[0]];
     }
 
     // Checks if the character is currently moving.
@@ -89,3 +103,5 @@
 
     // #endregion
 }
+
+
