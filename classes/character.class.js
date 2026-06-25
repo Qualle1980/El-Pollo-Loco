@@ -30,8 +30,18 @@
 
     // Handles horizontal character movement.
     moveCharacter() {
-        if (this.world.keyboard.RIGHT) this.moveRight();
-        if (this.world.keyboard.LEFT) this.moveLeft();
+        if (this.canMoveRight()) this.moveRight();
+        if (this.canMoveLeft()) this.moveLeft();
+    }
+
+    // Checks if the character can move right.
+    canMoveRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.canvas.width - this.width;
+    }
+
+    // Checks if the character can move left.
+    canMoveLeft() {
+        return this.world.keyboard.LEFT && this.x > 0;
     }
 
     // #endregion
