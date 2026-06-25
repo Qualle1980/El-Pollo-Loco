@@ -3,6 +3,7 @@
 
     character = new Character();
     backgroundObjects = [];
+    clouds = [];
     canvas;
     ctx;
 
@@ -15,6 +16,7 @@
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.createBackground();
+        this.createClouds();
         this.draw();
     }
 
@@ -40,12 +42,22 @@
 
     // #endregion
 
+    // #region clouds
+
+    // Creates the visible clouds.
+    createClouds() {
+        this.clouds = [new Cloud(100), new Cloud(500), new Cloud(900)];
+    }
+
+    // #endregion
+
     // #region drawing
 
     // Clears the canvas and draws all world objects.
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.clouds);
         this.character.draw(this.ctx);
         this.repeatDraw();
     }
