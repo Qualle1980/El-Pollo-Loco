@@ -65,9 +65,8 @@ export class World {
         if (!this.character.isColliding(enemy)) enemy.hasHitCharacter = false;
     }
 
-    // Bounces the character after hitting an enemy from above.
+    // Kills the enemy after the character hits it from above.
     hitEnemyFromAbove(enemy) {
-        this.character.speedY = 15;
         enemy.kill();
         enemy.hasHitCharacter = true;
     }

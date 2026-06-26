@@ -41,7 +41,13 @@ export class MovableObject extends DrawableObject {
     // Updates the vertical position while falling or jumping.
     handleGravity() {
         if (this.isAboveGround() || this.speedY > 0) this.moveVertically();
-        if (!this.isAboveGround()) this.y = this.groundY;
+        if (!this.isAboveGround()) this.setOnGround();
+    }
+
+    // Places the object on the ground and stops falling.
+    setOnGround() {
+        this.y = this.groundY;
+        this.speedY = 0;
     }
 
     // Moves the object vertically based on its y speed.
