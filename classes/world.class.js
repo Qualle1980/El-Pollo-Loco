@@ -1,4 +1,8 @@
-﻿class World {
+import { Character } from './character.class.js';
+import { StatusBar } from './status-bar.class.js';
+import { level1 } from '../levels/level1.js';
+
+export class World {
     // #region properties
 
     character = new Character();

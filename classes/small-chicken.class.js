@@ -1,4 +1,6 @@
-class SmallChicken extends Chicken {
+import { Chicken } from './chicken.class.js';
+
+export class SmallChicken extends Chicken {
     // #region properties
 
     y = 370;

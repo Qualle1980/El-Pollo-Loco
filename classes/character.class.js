@@ -1,4 +1,7 @@
-﻿class Character extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { IntervalHelper } from '../helper_classes/interval-helper.js';
+
+export class Character extends MovableObject {
     // #region properties
 
     x = 120;

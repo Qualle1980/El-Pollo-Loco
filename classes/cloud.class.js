@@ -1,4 +1,7 @@
-﻿class Cloud extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { IntervalHelper } from '../helper_classes/interval-helper.js';
+
+export class Cloud extends MovableObject {
     // #region properties
 
     y = 20;

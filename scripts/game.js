@@ -1,4 +1,7 @@
-﻿// #region variables
+import { World } from '../classes/world.class.js';
+import { Keyboard } from '../classes/keyboard.class.js';
+
+// #region variables
 
 let canvas;
 let world;
@@ -12,6 +15,8 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    window.world = world;
+    window.keyboard = keyboard;
 }
 
 // #endregion

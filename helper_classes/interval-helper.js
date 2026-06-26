@@ -1,4 +1,4 @@
-class IntervalHelper {
+export class IntervalHelper {
     // #region properties
 
     static intervalIds = [];

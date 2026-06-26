@@ -1,4 +1,4 @@
-﻿class Keyboard {
+export class Keyboard {
     // #region properties
 
     LEFT = false;

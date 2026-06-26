@@ -1,4 +1,4 @@
-﻿class DrawableObject {
+export class DrawableObject {
     // #region properties
 
     x = 120;

@@ -1,4 +1,7 @@
-﻿class Chicken extends MovableObject {
+import { MovableObject } from './movable-object.class.js';
+import { IntervalHelper } from '../helper_classes/interval-helper.js';
+
+export class Chicken extends MovableObject {
     // #region properties
 
     y = 360;

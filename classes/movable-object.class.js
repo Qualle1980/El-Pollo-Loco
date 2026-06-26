@@ -1,4 +1,7 @@
-﻿class MovableObject extends DrawableObject {
+import { DrawableObject } from './drawable-object.class.js';
+import { IntervalHelper } from '../helper_classes/interval-helper.js';
+
+export class MovableObject extends DrawableObject {
     // #region properties
 
     speed = 0.15;
