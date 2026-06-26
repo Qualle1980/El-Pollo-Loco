@@ -104,7 +104,8 @@
 
     // Plays the current character animation.
     playCharacter() {
-        if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
+        if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
+        else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
         else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
         else this.img = this.imageCache[this.IMAGES_WALKING[0]];
     }
