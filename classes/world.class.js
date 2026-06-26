@@ -76,6 +76,16 @@
 
     // #endregion
 
+    // #region collision
+
+    // Checks if the character touches an enemy.
+    checkCollisions() {
+        this.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) console.log('Collision with chicken');
+        });
+    }
+    // #endregion
+
     // #region drawing
 
     // Clears the canvas and draws all world objects.
@@ -83,6 +93,7 @@
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
         this.drawWorldObjects();
+        this.checkCollisions();
         this.ctx.translate(-this.cameraX, 0);
         this.repeatDraw();
     }
