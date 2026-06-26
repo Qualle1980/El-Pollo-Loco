@@ -2,6 +2,7 @@
     // #region properties
 
     character = new Character();
+    statusBar = new StatusBar();
     backgroundObjects = [];
     clouds = [];
     enemies = [];
@@ -105,6 +106,7 @@
         this.drawWorldObjects();
         this.checkCollisions();
         this.ctx.translate(-this.cameraX, 0);
+        this.addToMap(this.statusBar);
         this.repeatDraw();
     }
 
