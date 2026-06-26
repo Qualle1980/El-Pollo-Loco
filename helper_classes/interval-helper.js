@@ -1,4 +1,4 @@
-﻿class IntervalHub {
+class IntervalHelper {
     // #region properties
 
     static intervalIds = [];
@@ -10,13 +10,13 @@
     // Starts an interval and stores its id.
     static setStoppableInterval(fn, time) {
         const id = setInterval(fn, time);
-        IntervalHub.intervalIds.push(id);
+        IntervalHelper.intervalIds.push(id);
     }
 
     // Stops all stored intervals.
     static stopAllIntervals() {
-        IntervalHub.intervalIds.forEach(clearInterval);
-        IntervalHub.intervalIds = [];
+        IntervalHelper.intervalIds.forEach(clearInterval);
+        IntervalHelper.intervalIds = [];
     }
 
     // #endregion

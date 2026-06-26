@@ -24,7 +24,7 @@
 
     // Moves the cloud continuously to the left.
     animate() {
-        IntervalHub.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
+        IntervalHelper.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
     }
 
     // #endregion

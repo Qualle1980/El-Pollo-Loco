@@ -60,8 +60,8 @@
 
     // Moves and animates the character based on pressed keys.
     animate() {
-        IntervalHub.setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
-        IntervalHub.setStoppableInterval(() => this.playCharacter(), 100);
+        IntervalHelper.setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
+        IntervalHelper.setStoppableInterval(() => this.playCharacter(), 100);
     }
 
     // Handles horizontal movement and jumping.

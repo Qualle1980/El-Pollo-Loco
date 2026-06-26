@@ -41,8 +41,8 @@
 
     // Moves and animates the chicken continuously.
     animate() {
-        IntervalHub.setStoppableInterval(() => this.moveChicken(), 1000 / 60);
-        IntervalHub.setStoppableInterval(() => this.playChicken(), 200);
+        IntervalHelper.setStoppableInterval(() => this.moveChicken(), 1000 / 60);
+        IntervalHelper.setStoppableInterval(() => this.playChicken(), 200);
     }
 
     // Moves the chicken while it is alive.

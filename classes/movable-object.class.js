@@ -32,7 +32,7 @@
 
     // Applies gravity to the object.
     applyGravity() {
-        IntervalHub.setStoppableInterval(() => this.handleGravity(), 1000 / 25);
+        IntervalHelper.setStoppableInterval(() => this.handleGravity(), 1000 / 25);
     }
 
     // Updates the vertical position while falling or jumping.
