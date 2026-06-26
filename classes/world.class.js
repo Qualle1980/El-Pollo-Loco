@@ -115,6 +115,7 @@
         this.ctx.translate(this.cameraX, 0);
         this.drawWorldObjects();
         this.checkCollisions();
+        this.removeDeadEnemies();
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusBar);
         this.repeatDraw();
@@ -126,6 +127,17 @@
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+    }
+
+    // Removes dead enemies after a short delay.
+    removeDeadEnemies() {
+        this.enemies = this.enemies.filter((enemy) => !this.canRemoveEnemy(enemy));
+    }
+
+    // Checks if a dead enemy can be removed.
+    canRemoveEnemy(enemy) {
+        const timePassed = new Date().getTime() - enemy.deadAt;
+        return enemy.dead && timePassed > 800;
     }
 
     // Draws all objects from the given array.

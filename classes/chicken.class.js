@@ -6,6 +6,7 @@
     height = 70;
     hasHitCharacter = false;
     dead = false;
+    deadAt = 0;
     offset = {
         top: 5,
         right: 5,
@@ -58,6 +59,7 @@
     // Marks the chicken as dead.
     kill() {
         this.dead = true;
+        this.deadAt = new Date().getTime();
     }
 
     // #endregion
