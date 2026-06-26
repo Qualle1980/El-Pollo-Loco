@@ -28,7 +28,7 @@
     constructor(position = 0) {
         super();
         this.x = 600 + position * 300 + Math.random() * 150;
-        this.speed = 0.6;
+        this.speed = 0.15 + Math.random() * 0.25;
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.addImageToCache(this.IMAGE_DEAD);
