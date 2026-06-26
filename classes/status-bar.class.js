@@ -1,4 +1,5 @@
 import { DrawableObject } from './drawable-object.class.js';
+import { ImageHelper } from '../helper_classes/image-helper.js';
 
 export class StatusBar extends DrawableObject {
     // #region properties
@@ -8,14 +9,7 @@ export class StatusBar extends DrawableObject {
     width = 200;
     height = 60;
     percentage = 100;
-    IMAGES = [
-        './assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
-        './assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
-        './assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
-        './assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
-        './assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        './assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
-    ];
+    IMAGES = ImageHelper.STATUSBAR.healthBlue;
 
     // #endregion
 
