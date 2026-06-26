@@ -80,9 +80,19 @@
 
     // Checks if the character touches an enemy.
     checkCollisions() {
-        this.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) console.log('Collision with chicken');
-        });
+        this.enemies.forEach((enemy) => this.checkEnemyCollision(enemy));
+    }
+
+    // Handles one enemy collision with the character.
+    checkEnemyCollision(enemy) {
+        if (this.character.isColliding(enemy) && !enemy.hasHitCharacter) this.hitCharacter(enemy);
+        if (!this.character.isColliding(enemy)) enemy.hasHitCharacter = false;
+    }
+
+    // Damages the character and marks the enemy contact.
+    hitCharacter(enemy) {
+        this.character.hit();
+        enemy.hasHitCharacter = true;
     }
     // #endregion
 
