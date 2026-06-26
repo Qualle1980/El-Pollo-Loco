@@ -15,6 +15,7 @@
         './assets/img/2_character_pepe/2_walk/W-25.png',
         './assets/img/2_character_pepe/2_walk/W-26.png'
     ];
+
     IMAGES_JUMPING = [
         './assets/img/2_character_pepe/3_jump/J-31.png',
         './assets/img/2_character_pepe/3_jump/J-32.png',
@@ -25,6 +26,11 @@
         './assets/img/2_character_pepe/3_jump/J-37.png',
         './assets/img/2_character_pepe/3_jump/J-38.png',
         './assets/img/2_character_pepe/3_jump/J-39.png'
+    ];
+    IMAGES_HURT = [
+        './assets/img/2_character_pepe/4_hurt/H-41.png',
+        './assets/img/2_character_pepe/4_hurt/H-42.png',
+        './assets/img/2_character_pepe/4_hurt/H-43.png'
     ];
 
     // #endregion
@@ -37,6 +43,7 @@
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
     }
