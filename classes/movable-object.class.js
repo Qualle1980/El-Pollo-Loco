@@ -64,6 +64,11 @@
             this.rY < object.rY + object.rH;
     }
 
+    // Checks if this object touches another object from above.
+    isCollidingFromAbove(object) {
+        return this.isColliding(object) && this.speedY < 0;
+    }
+
     // #endregion
 
     // #region damage

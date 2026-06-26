@@ -86,8 +86,17 @@
 
     // Handles one enemy collision with the character.
     checkEnemyCollision(enemy) {
-        if (this.character.isColliding(enemy) && !enemy.hasHitCharacter) this.hitCharacter(enemy);
+        if (enemy.dead) return;
+        if (this.character.isCollidingFromAbove(enemy) && !enemy.hasHitCharacter) this.hitEnemyFromAbove(enemy);
+        else if (this.character.isColliding(enemy) && !enemy.hasHitCharacter) this.hitCharacter(enemy);
         if (!this.character.isColliding(enemy)) enemy.hasHitCharacter = false;
+    }
+
+    // Bounces the character after hitting an enemy from above.
+    hitEnemyFromAbove(enemy) {
+        this.character.speedY = 15;
+        enemy.kill();
+        enemy.hasHitCharacter = true;
     }
 
     // Damages the character and marks the enemy contact.
