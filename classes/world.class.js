@@ -93,6 +93,7 @@
     // Damages the character and marks the enemy contact.
     hitCharacter(enemy) {
         this.character.hit();
+        this.statusBar.setPercentage(this.character.energy);
         enemy.hasHitCharacter = true;
     }
     // #endregion
