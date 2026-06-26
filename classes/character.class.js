@@ -7,6 +7,12 @@
     height = 250;
     speed = 5;
     world;
+    offset = {
+        top: 80,
+        right: 20,
+        bottom: 10,
+        left: 20
+    };
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
         './assets/img/2_character_pepe/2_walk/W-22.png',

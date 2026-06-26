@@ -7,6 +7,36 @@
     height = 250;
     img;
     imageCache = {};
+    offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    };
+
+    // #endregion
+
+    // #region collision rectangle
+
+    // Returns the collision rectangle x position.
+    get rX() {
+        return this.x + this.offset.left;
+    }
+
+    // Returns the collision rectangle y position.
+    get rY() {
+        return this.y + this.offset.top;
+    }
+
+    // Returns the collision rectangle width.
+    get rW() {
+        return this.width - this.offset.left - this.offset.right;
+    }
+
+    // Returns the collision rectangle height.
+    get rH() {
+        return this.height - this.offset.top - this.offset.bottom;
+    }
 
     // #endregion
 

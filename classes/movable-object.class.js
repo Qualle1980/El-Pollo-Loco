@@ -58,13 +58,14 @@
 
     // Checks if this object touches another object.
     isColliding(object) {
-        return this.x + this.width > object.x &&
-            this.y + this.height > object.y &&
-            this.x < object.x + object.width &&
-            this.y < object.y + object.height;
+        return this.rX + this.rW > object.rX &&
+            this.rY + this.rH > object.rY &&
+            this.rX < object.rX + object.rW &&
+            this.rY < object.rY + object.rH;
     }
 
     // #endregion
+
     // #region damage
 
     // Reduces energy and stores the hit time.
