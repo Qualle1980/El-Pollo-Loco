@@ -3,6 +3,7 @@
 
     character = new Character();
     statusBar = new StatusBar();
+    level = level1;
     backgroundObjects = [];
     clouds = [];
     enemies = [];
@@ -22,9 +23,7 @@
         this.keyboard = keyboard;
         this.ctx = canvas.getContext('2d');
         this.setWorld();
-        this.createBackground();
-        this.createClouds();
-        this.createEnemies();
+        this.setLevelObjects();
         this.draw();
     }
 
@@ -37,42 +36,12 @@
         this.character.world = this;
     }
 
-    // #endregion
-
-    // #region background
-
-    // Creates multiple background blocks for later scrolling.
-    createBackground() {
-        this.addBackgroundBlock(-720, 2);
-        this.addBackgroundBlock(0, 1);
-        this.addBackgroundBlock(720, 2);
-        this.addBackgroundBlock(1440, 1);
-    }
-
-    // Adds one layered background block at the given x position.
-    addBackgroundBlock(x, imageNumber) {
-        this.backgroundObjects.push(new BackgroundObject('./assets/img/5_background/layers/air.png', x));
-        this.backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/3_third_layer/${imageNumber}.png`, x));
-        this.backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/2_second_layer/${imageNumber}.png`, x));
-        this.backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/1_first_layer/${imageNumber}.png`, x));
-    }
-
-    // #endregion
-
-    // #region clouds
-
-    // Creates the visible clouds.
-    createClouds() {
-        this.clouds = [new Cloud(100), new Cloud(500), new Cloud(900)];
-    }
-
-    // #endregion
-
-    // #region enemies
-
-    // Creates the visible enemies.
-    createEnemies() {
-        this.enemies = [new Chicken(0), new SmallChicken(1), new Chicken(2), new SmallChicken(3)];
+    // Gets all visible objects from the current level.
+    setLevelObjects() {
+        this.enemies = this.level.enemies;
+        this.clouds = this.level.clouds;
+        this.backgroundObjects = this.level.backgroundObjects;
+        this.levelEndX = this.level.levelEndX;
     }
 
     // #endregion
