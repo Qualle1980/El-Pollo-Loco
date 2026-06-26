@@ -7,6 +7,9 @@
     speedY = 0;
     acceleration = 2.5;
     groundY = 180;
+    energy = 100;
+    lastHit = 0;
+    damage = 10;
 
     // #endregion
 
@@ -47,6 +50,28 @@
     // Checks if the object is above the ground.
     isAboveGround() {
         return this.y < this.groundY;
+    }
+
+    // #endregion
+
+    // #region damage
+
+    // Reduces energy and stores the hit time.
+    hit() {
+        this.energy -= this.damage;
+        if (this.energy < 0) this.energy = 0;
+        this.lastHit = new Date().getTime();
+    }
+
+    // Checks if the object was recently hit.
+    isHurt() {
+        const timePassed = new Date().getTime() - this.lastHit;
+        return timePassed / 1000 < 0.5;
+    }
+
+    // Checks if the object has no energy left.
+    isDead() {
+        return this.energy === 0;
     }
 
     // #endregion

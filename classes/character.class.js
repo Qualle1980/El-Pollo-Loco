@@ -56,6 +56,7 @@
         if (this.canMoveRight()) this.moveRight();
         if (this.canMoveLeft()) this.moveLeft();
         if (this.canJump()) this.jump();
+        this.updateCamera();
     }
 
     // Moves the character right and sets its direction.
@@ -72,7 +73,7 @@
 
     // Checks if the character can move right.
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.canvas.width - this.width;
+        return this.world.keyboard.RIGHT && this.x < this.world.levelEndX;
     }
 
     // Checks if the character can move left.
@@ -83,6 +84,11 @@
     // Checks if the character can jump.
     canJump() {
         return this.world.keyboard.UP && !this.isAboveGround();
+    }
+
+    // Updates the world camera position.
+    updateCamera() {
+        this.world.cameraX = -this.x + 120;
     }
 
     // #endregion
@@ -103,5 +109,3 @@
 
     // #endregion
 }
-
-

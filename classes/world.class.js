@@ -8,6 +8,8 @@
     canvas;
     ctx;
     keyboard;
+    cameraX = 0;
+    levelEndX = 1440;
 
     // #endregion
 
@@ -79,11 +81,18 @@
     // Clears the canvas and draws all world objects.
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.cameraX, 0);
+        this.drawWorldObjects();
+        this.ctx.translate(-this.cameraX, 0);
+        this.repeatDraw();
+    }
+
+    // Draws all objects inside the world.
+    drawWorldObjects() {
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-        this.repeatDraw();
     }
 
     // Draws all objects from the given array.
@@ -119,4 +128,3 @@
 
     // #endregion
 }
-
