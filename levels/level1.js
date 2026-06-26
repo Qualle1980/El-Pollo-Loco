@@ -4,6 +4,7 @@ import { SmallChicken } from '../classes/small-chicken.class.js';
 import { Endboss } from '../classes/endboss.class.js';
 import { Cloud } from '../classes/cloud.class.js';
 import { BackgroundObject } from '../classes/background-object.class.js';
+import { Coin } from '../classes/coin.class.js';
 
 export const level1 = new Level(
     [
@@ -43,6 +44,11 @@ export const level1 = new Level(
         new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 2880),
         new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 2880),
         new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 2880)
+    ],
+    [
+        new Coin(500, 120),
+        new Coin(650, 120),
+        new Coin(800, 120)
     ],
     2880
 );

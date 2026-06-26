@@ -11,6 +11,7 @@ export class World {
     backgroundObjects = [];
     clouds = [];
     enemies = [];
+    coins = [];
     canvas;
     ctx;
     keyboard;
@@ -45,6 +46,7 @@ export class World {
         this.enemies = this.level.enemies;
         this.clouds = this.level.clouds;
         this.backgroundObjects = this.level.backgroundObjects;
+        this.coins = this.level.coins;
         this.levelEndX = this.level.levelEndX;
     }
 
@@ -99,6 +101,7 @@ export class World {
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.coins);
     }
 
     // Removes dead enemies after a short delay.

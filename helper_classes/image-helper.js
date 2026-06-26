@@ -30,4 +30,15 @@ export class ImageHelper {
     };
 
     // #endregion
+
+    // #region coin images
+
+    static COIN = {
+        idle: [
+            './assets/img/8_coin/coin_1.png',
+            './assets/img/8_coin/coin_2.png'
+        ]
+    };
+
+    // #endregion
 }
