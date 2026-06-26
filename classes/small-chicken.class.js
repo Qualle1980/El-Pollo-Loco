@@ -18,4 +18,16 @@ class SmallChicken extends Chicken {
     IMAGE_DEAD = './assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
     // #endregion
+
+    // #region constructor
+
+    // Creates a small chicken and loads its own images.
+    constructor(position = 0) {
+        super(position);
+        this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING);
+        this.addImageToCache(this.IMAGE_DEAD);
+    }
+
+    // #endregion
 }

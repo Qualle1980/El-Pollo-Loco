@@ -72,7 +72,7 @@
 
     // Creates the visible enemies.
     createEnemies() {
-        this.enemies = [new Chicken(), new Chicken(), new Chicken()];
+        this.enemies = [new Chicken(0), new SmallChicken(1), new Chicken(2), new SmallChicken(3)];
     }
 
     // #endregion
