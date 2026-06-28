@@ -5,6 +5,7 @@ import { Endboss } from '../classes/endboss.class.js';
 import { Cloud } from '../classes/cloud.class.js';
 import { BackgroundObject } from '../classes/background-object.class.js';
 import { Coin } from '../classes/coin.class.js';
+import { Bottle } from '../classes/bottle.class.js';
 
 export const level1 = new Level(
     [
@@ -52,6 +53,11 @@ export const level1 = new Level(
         new Coin(1100, 130),
         new Coin(1250, 190),
         new Coin(1400, 250)
+    ],
+    [
+        new Bottle(450),
+        new Bottle(1000),
+        new Bottle(1650)
     ],
     2880
 );
