@@ -14,6 +14,8 @@ export class Endboss extends MovableObject {
     deadAt = 0;
     damage = 10;
     IMAGES_ALERT = ImageHelper.CHICKEN_BOSS.alert;
+    IMAGES_HURT = ImageHelper.CHICKEN_BOSS.hurt;
+    IMAGES_DEAD = ImageHelper.CHICKEN_BOSS.dead;
     offset = {
         top: 60,
         right: 40,
@@ -30,6 +32,8 @@ export class Endboss extends MovableObject {
         super();
         this.loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.animate();
     }
 
@@ -37,9 +41,16 @@ export class Endboss extends MovableObject {
 
     // #region animation
 
-    // Plays the alert animation continuously.
+    // Plays the matching endboss animation.
     animate() {
-        IntervalHelper.setStoppableInterval(() => this.playAnimation(this.IMAGES_ALERT), 200);
+        IntervalHelper.setStoppableInterval(() => this.playEndboss(), 200);
+    }
+
+    // Selects the animation for the current endboss state.
+    playEndboss() {
+        if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
+        else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
+        else this.playAnimation(this.IMAGES_ALERT);
     }
 
     // Marks the endboss as dead.
