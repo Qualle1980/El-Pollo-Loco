@@ -1,5 +1,6 @@
 import { Character } from './character.class.js';
 import { StatusBar } from './status-bar.class.js';
+import { CoinStatusBar } from './coin-status-bar.class.js';
 import { level1 } from '../levels/level1.js';
 
 export class World {
@@ -7,6 +8,7 @@ export class World {
 
     character = new Character();
     statusBar = new StatusBar();
+    coinStatusBar = new CoinStatusBar();
     level = level1;
     backgroundObjects = [];
     clouds = [];
@@ -90,6 +92,7 @@ export class World {
     checkCoinCollision(coin) {
         if (!this.character.isColliding(coin)) return;
         this.character.collectCoin();
+        this.coinStatusBar.setPercentage(this.character.coins * 20);
         this.removeObjectFromMap(this.coins, coin);
     }
 
@@ -112,6 +115,7 @@ export class World {
         this.removeDeadEnemies();
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusBar);
+        this.addToMap(this.coinStatusBar);
         this.repeatDraw();
     }
 
