@@ -3,6 +3,7 @@ import { StatusBar } from './status-bar.class.js';
 import { CoinStatusBar } from './coin-status-bar.class.js';
 import { BottleStatusBar } from './bottle-status-bar.class.js';
 import { ThrowableObject } from './throwable-object.class.js';
+import { Endboss } from './endboss.class.js';
 import { level1 } from '../levels/level1.js';
 
 export class World {
@@ -133,6 +134,7 @@ export class World {
         this.drawWorldObjects();
         this.checkCollisions();
         this.checkThrowObjects();
+        this.checkThrowableCollisions();
         this.removeLandedBottles();
         this.removeDeadEnemies();
         this.ctx.translate(-this.cameraX, 0);
@@ -176,6 +178,28 @@ export class World {
     // Removes bottles after they hit the ground.
     removeLandedBottles() {
         this.throwableObjects = this.throwableObjects.filter((bottle) => bottle.bottleFlying);
+    }
+
+    // Checks if thrown bottles hit enemies.
+    checkThrowableCollisions() {
+        this.throwableObjects.forEach((bottle) => this.checkThrowableCollision(bottle));
+    }
+
+    // Checks one thrown bottle against all enemies.
+    checkThrowableCollision(bottle) {
+        this.enemies.forEach((enemy) => this.hitEnemyWithBottle(bottle, enemy));
+    }
+
+    // Kills a normal enemy when it is hit by a bottle.
+    hitEnemyWithBottle(bottle, enemy) {
+        if (!this.canHitEnemyWithBottle(bottle, enemy)) return;
+        enemy.kill();
+        bottle.bottleFlying = false;
+    }
+
+    // Checks if a bottle can hit the given enemy.
+    canHitEnemyWithBottle(bottle, enemy) {
+        return bottle.bottleFlying && !(enemy instanceof Endboss) && !enemy.dead && bottle.isColliding(enemy);
     }
 
     // Removes dead enemies after a short delay.

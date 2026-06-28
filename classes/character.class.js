@@ -43,6 +43,15 @@ export class Character extends MovableObject {
         './assets/img/2_character_pepe/4_hurt/H-42.png',
         './assets/img/2_character_pepe/4_hurt/H-43.png'
     ];
+    IMAGES_DEAD = [
+        './assets/img/2_character_pepe/5_dead/D-51.png',
+        './assets/img/2_character_pepe/5_dead/D-52.png',
+        './assets/img/2_character_pepe/5_dead/D-53.png',
+        './assets/img/2_character_pepe/5_dead/D-54.png',
+        './assets/img/2_character_pepe/5_dead/D-55.png',
+        './assets/img/2_character_pepe/5_dead/D-56.png',
+        './assets/img/2_character_pepe/5_dead/D-57.png'
+    ];
 
     // #endregion
 
@@ -55,6 +64,7 @@ export class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
     }
@@ -71,6 +81,7 @@ export class Character extends MovableObject {
 
     // Handles horizontal movement and jumping.
     moveCharacter() {
+        if (this.isDead()) return;
         if (this.canMoveRight()) this.moveRight();
         if (this.canMoveLeft()) this.moveLeft();
         if (this.canJump()) this.jump();
@@ -134,7 +145,8 @@ export class Character extends MovableObject {
 
     // Plays the current character animation.
     playCharacter() {
-        if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
+        if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
+        else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
         else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
         else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
         else this.img = this.imageCache[this.IMAGES_WALKING[0]];
