@@ -1,6 +1,7 @@
 import { Character } from './character.class.js';
 import { StatusBar } from './status-bar.class.js';
 import { CoinStatusBar } from './coin-status-bar.class.js';
+import { BottleStatusBar } from './bottle-status-bar.class.js';
 import { level1 } from '../levels/level1.js';
 
 export class World {
@@ -9,6 +10,7 @@ export class World {
     character = new Character();
     statusBar = new StatusBar();
     coinStatusBar = new CoinStatusBar();
+    bottleStatusBar = new BottleStatusBar();
     level = level1;
     backgroundObjects = [];
     clouds = [];
@@ -108,6 +110,7 @@ export class World {
     checkBottleCollision(bottle) {
         if (!this.character.isColliding(bottle)) return;
         this.character.collectBottle();
+        this.bottleStatusBar.setPercentage(this.character.bottles * 20);
         this.removeObjectFromMap(this.bottles, bottle);
     }
 
@@ -131,6 +134,7 @@ export class World {
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.coinStatusBar);
+        this.addToMap(this.bottleStatusBar);
         this.repeatDraw();
     }
 
