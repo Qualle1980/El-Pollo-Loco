@@ -54,6 +54,7 @@ export class World {
     // Gets all visible objects from the current level.
     setLevelObjects() {
         this.enemies = this.level.enemies;
+        this.enemies.forEach((enemy) => enemy.world = this);
         this.clouds = this.level.clouds;
         this.backgroundObjects = this.level.backgroundObjects;
         this.coins = this.level.coins;
