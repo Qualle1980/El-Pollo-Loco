@@ -10,6 +10,7 @@ export class Character extends MovableObject {
     height = 250;
     speed = 5;
     coins = 0;
+    bottles = 0;
     world;
     offset = {
         top: 80,
@@ -115,6 +116,11 @@ export class Character extends MovableObject {
     // Increases the collected coin amount.
     collectCoin() {
         this.coins++;
+    }
+
+    // Increases the collected bottle amount.
+    collectBottle() {
+        this.bottles++;
     }
 
     // #endregion

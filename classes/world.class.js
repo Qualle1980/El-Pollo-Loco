@@ -62,6 +62,7 @@ export class World {
     checkCollisions() {
         this.enemies.forEach((enemy) => this.checkEnemyCollision(enemy));
         this.checkCoinCollisions();
+        this.checkBottleCollisions();
     }
 
     // Handles one enemy collision with the character.
@@ -96,6 +97,18 @@ export class World {
         this.character.collectCoin();
         this.coinStatusBar.setPercentage(this.character.coins * 20);
         this.removeObjectFromMap(this.coins, coin);
+    }
+
+    // Checks if the character touches bottles.
+    checkBottleCollisions() {
+        this.bottles.forEach((bottle) => this.checkBottleCollision(bottle));
+    }
+
+    // Collects one bottle when the character touches it.
+    checkBottleCollision(bottle) {
+        if (!this.character.isColliding(bottle)) return;
+        this.character.collectBottle();
+        this.removeObjectFromMap(this.bottles, bottle);
     }
 
     // Removes one object from the given array.
