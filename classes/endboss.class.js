@@ -12,7 +12,7 @@ export class Endboss extends MovableObject {
     hasHitCharacter = false;
     dead = false;
     deadAt = 0;
-    damage = 10;
+    damage = 20;
     IMAGES_ALERT = ImageHelper.CHICKEN_BOSS.alert;
     IMAGES_HURT = ImageHelper.CHICKEN_BOSS.hurt;
     IMAGES_DEAD = ImageHelper.CHICKEN_BOSS.dead;

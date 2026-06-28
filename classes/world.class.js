@@ -115,7 +115,7 @@ export class World {
     checkBottleCollision(bottle) {
         if (!this.character.isColliding(bottle)) return;
         this.character.collectBottle();
-        this.bottleStatusBar.setPercentage(this.character.bottles * 20);
+        this.bottleStatusBar.setPercentage(this.getBottlePercentage());
         this.removeObjectFromMap(this.bottles, bottle);
     }
 
@@ -175,7 +175,12 @@ export class World {
         const bottle = new ThrowableObject(this.character.x + 80, this.character.y + 100, this.character.otherDirection);
         this.throwableObjects.push(bottle);
         this.character.throwBottle();
-        this.bottleStatusBar.setPercentage(this.character.bottles * 20);
+        this.bottleStatusBar.setPercentage(this.getBottlePercentage());
+    }
+
+    // Converts collected bottles into status bar percentage.
+    getBottlePercentage() {
+        return this.character.bottles * 20;
     }
 
     // Removes bottles after they hit the ground.

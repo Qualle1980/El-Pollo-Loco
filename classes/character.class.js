@@ -132,6 +132,7 @@ export class Character extends MovableObject {
     // Increases the collected bottle amount.
     collectBottle() {
         this.bottles++;
+        if (this.bottles > 5) this.bottles = 5;
     }
 
     // Reduces the collected bottle amount after throwing.

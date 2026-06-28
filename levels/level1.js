@@ -13,12 +13,16 @@ export const level1 = new Level(
         new SmallChicken(1),
         new Chicken(2),
         new SmallChicken(3),
+        new Chicken(5),
+        new SmallChicken(6),
         new Endboss()
     ],
     [
         new Cloud(100),
         new Cloud(500),
-        new Cloud(900)
+        new Cloud(900),
+        new Cloud(1500),
+        new Cloud(2300)
     ],
     [
         new BackgroundObject('./assets/img/5_background/layers/air.png', -720),
@@ -52,12 +56,18 @@ export const level1 = new Level(
         new Coin(800, 240),
         new Coin(1100, 130),
         new Coin(1250, 190),
-        new Coin(1400, 250)
+        new Coin(1400, 250),
+        new Coin(1550, 120),
+        new Coin(1650, 180),
+        new Coin(1750, 240)
     ],
     [
         new Bottle(450),
         new Bottle(1000),
-        new Bottle(1650)
+        new Bottle(1650),
+        new Bottle(1800),
+        new Bottle(1950),
+        new Bottle(2100)
     ],
     2880
 );
