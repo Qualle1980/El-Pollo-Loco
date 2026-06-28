@@ -2,6 +2,7 @@ import { Character } from './character.class.js';
 import { StatusBar } from './status-bar.class.js';
 import { CoinStatusBar } from './coin-status-bar.class.js';
 import { BottleStatusBar } from './bottle-status-bar.class.js';
+import { ThrowableObject } from './throwable-object.class.js';
 import { level1 } from '../levels/level1.js';
 
 export class World {
@@ -17,6 +18,7 @@ export class World {
     enemies = [];
     coins = [];
     bottles = [];
+    throwableObjects = [];
     canvas;
     ctx;
     keyboard;
@@ -130,6 +132,8 @@ export class World {
         this.ctx.translate(this.cameraX, 0);
         this.drawWorldObjects();
         this.checkCollisions();
+        this.checkThrowObjects();
+        this.removeLandedBottles();
         this.removeDeadEnemies();
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusBar);
@@ -146,6 +150,32 @@ export class World {
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.coins);
         this.addObjectsToMap(this.bottles);
+        this.addObjectsToMap(this.throwableObjects);
+    }
+
+    // Throws one bottle when the throw key is pressed.
+    checkThrowObjects() {
+        if (!this.canThrowBottle()) return;
+        this.throwBottle();
+        this.keyboard.THROW = false;
+    }
+
+    // Checks if the character has a bottle to throw.
+    canThrowBottle() {
+        return this.keyboard.THROW && this.character.bottles > 0;
+    }
+
+    // Creates a throwable bottle and updates the bottle bar.
+    throwBottle() {
+        const bottle = new ThrowableObject(this.character.x + 80, this.character.y + 100, this.character.otherDirection);
+        this.throwableObjects.push(bottle);
+        this.character.throwBottle();
+        this.bottleStatusBar.setPercentage(this.character.bottles * 20);
+    }
+
+    // Removes bottles after they hit the ground.
+    removeLandedBottles() {
+        this.throwableObjects = this.throwableObjects.filter((bottle) => bottle.bottleFlying);
     }
 
     // Removes dead enemies after a short delay.

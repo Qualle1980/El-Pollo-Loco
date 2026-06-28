@@ -123,6 +123,11 @@ export class Character extends MovableObject {
         this.bottles++;
     }
 
+    // Reduces the collected bottle amount after throwing.
+    throwBottle() {
+        if (this.bottles > 0) this.bottles--;
+    }
+
     // #endregion
 
     // #region animation
