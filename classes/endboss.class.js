@@ -12,6 +12,7 @@ export class Endboss extends MovableObject {
     hasHitCharacter = false;
     dead = false;
     deadAt = 0;
+    damage = 10;
     IMAGES_ALERT = ImageHelper.CHICKEN_BOSS.alert;
     offset = {
         top: 60,
@@ -41,8 +42,11 @@ export class Endboss extends MovableObject {
         IntervalHelper.setStoppableInterval(() => this.playAnimation(this.IMAGES_ALERT), 200);
     }
 
-    // Prevents the endboss from being removed like a chicken.
-    kill() {}
+    // Marks the endboss as dead.
+    kill() {
+        this.dead = true;
+        this.deadAt = new Date().getTime();
+    }
 
     // #endregion
 }
