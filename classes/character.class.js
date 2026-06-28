@@ -9,6 +9,7 @@ export class Character extends MovableObject {
     width = 100;
     height = 250;
     speed = 5;
+    coins = 0;
     world;
     offset = {
         top: 80,
@@ -105,6 +106,15 @@ export class Character extends MovableObject {
     // Updates the world camera position.
     updateCamera() {
         this.world.cameraX = -this.x + 120;
+    }
+
+    // #endregion
+
+    // #region collecting
+
+    // Increases the collected coin amount.
+    collectCoin() {
+        this.coins++;
     }
 
     // #endregion

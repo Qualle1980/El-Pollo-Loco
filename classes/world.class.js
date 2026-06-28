@@ -57,6 +57,7 @@ export class World {
     // Checks if the character touches an enemy.
     checkCollisions() {
         this.enemies.forEach((enemy) => this.checkEnemyCollision(enemy));
+        this.checkCoinCollisions();
     }
 
     // Handles one enemy collision with the character.
@@ -79,6 +80,25 @@ export class World {
         this.statusBar.setPercentage(this.character.energy);
         enemy.hasHitCharacter = true;
     }
+
+    // Checks if the character touches coins.
+    checkCoinCollisions() {
+        this.coins.forEach((coin) => this.checkCoinCollision(coin));
+    }
+
+    // Collects one coin when the character touches it.
+    checkCoinCollision(coin) {
+        if (!this.character.isColliding(coin)) return;
+        this.character.collectCoin();
+        this.removeObjectFromMap(this.coins, coin);
+    }
+
+    // Removes one object from the given array.
+    removeObjectFromMap(array, objectToRemove) {
+        const index = array.indexOf(objectToRemove);
+        if (index > -1) array.splice(index, 1);
+    }
+
     // #endregion
 
     // #region drawing
