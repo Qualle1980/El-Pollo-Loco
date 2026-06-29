@@ -11,6 +11,7 @@ export class Character extends MovableObject {
     speed = 5;
     coins = 0;
     bottles = 0;
+    deadImageIndex = 0;
     world;
     offset = {
         top: 80,
@@ -146,11 +147,19 @@ export class Character extends MovableObject {
 
     // Plays the current character animation.
     playCharacter() {
-        if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
+        if (this.isDead()) this.playDeathAnimation();
         else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
         else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
         else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
         else this.img = this.imageCache[this.IMAGES_WALKING[0]];
+    }
+
+    // Plays the death animation once and keeps the last image.
+    playDeathAnimation() {
+        const lastIndex = this.IMAGES_DEAD.length - 1;
+        const imagePath = this.IMAGES_DEAD[this.deadImageIndex];
+        this.img = this.imageCache[imagePath];
+        if (this.deadImageIndex < lastIndex) this.deadImageIndex++;
     }
 
     // Checks if the character is currently moving.

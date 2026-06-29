@@ -26,6 +26,7 @@ h1 {
 }
 
 .game-wrapper {
+    position: relative;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -38,4 +39,27 @@ canvas {
     max-width: 100%;
     background-color: black;
     border: 2px solid white;
+}
+
+.end-screen {
+    position: absolute;
+    inset: 0;
+    width: 720px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.72);
+    color: white;
+}
+
+.end-screen h2 {
+    margin: 0;
+    font-size: 56px;
+    text-transform: uppercase;
+}
+
+.d-none {
+    display: none;
 }

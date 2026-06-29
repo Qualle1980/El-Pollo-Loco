@@ -274,7 +274,13 @@ export class World {
     // Stops the game loop and all registered intervals.
     stopGame() {
         IntervalHelper.stopAllIntervals();
+        if (this.character.isDead()) this.showGameOverScreen();
         this.gameStopped = true;
+    }
+
+    // Shows the game over screen.
+    showGameOverScreen() {
+        document.getElementById('gameOverScreen').classList.remove('d-none');
     }
 
     // Draws all objects from the given array.
