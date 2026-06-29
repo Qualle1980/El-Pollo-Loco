@@ -57,6 +57,7 @@ canvas {
     border: 2px solid white;
 }
 
+.menu-screen,
 .end-screen {
     position: absolute;
     inset: 0;
@@ -70,12 +71,44 @@ canvas {
     color: white;
 }
 
+.menu-screen {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-screen h2,
 .end-screen h2 {
     margin: 0;
     font-family: 'Flamenco', Arial, sans-serif;
     font-size: 56px;
     font-weight: 400;
     text-transform: uppercase;
+}
+
+.menu-button {
+    padding: 10px 28px;
+    border: 2px solid white;
+    background-color: #f8c471;
+    color: black;
+    font-family: 'Flamenco', Arial, sans-serif;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.how-to-play {
+    text-align: center;
+    font-size: 18px;
+}
+
+.how-to-play h3 {
+    margin: 0 0 8px;
+    font-family: 'Flamenco', Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.how-to-play p {
+    margin: 4px 0;
 }
 
 .d-none {
