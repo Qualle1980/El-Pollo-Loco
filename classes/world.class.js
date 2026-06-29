@@ -275,12 +275,18 @@ export class World {
     stopGame() {
         IntervalHelper.stopAllIntervals();
         if (this.character.isDead()) this.showGameOverScreen();
+        if (this.isEndbossDead()) this.showWinScreen();
         this.gameStopped = true;
     }
 
     // Shows the game over screen.
     showGameOverScreen() {
         document.getElementById('gameOverScreen').classList.remove('d-none');
+    }
+
+    // Shows the win screen.
+    showWinScreen() {
+        document.getElementById('winScreen').classList.remove('d-none');
     }
 
     // Draws all objects from the given array.
