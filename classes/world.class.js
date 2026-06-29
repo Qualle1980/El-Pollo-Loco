@@ -76,9 +76,21 @@ export class World {
     // Handles one enemy collision with the character.
     checkEnemyCollision(enemy) {
         if (enemy.dead) return;
+        if (enemy instanceof Endboss) return this.checkEndbossCollision(enemy);
         if (this.character.isCollidingFromAbove(enemy) && !enemy.hasHitCharacter) this.hitEnemyFromAbove(enemy);
         else if (this.character.isColliding(enemy) && !enemy.hasHitCharacter) this.hitCharacter(enemy);
         if (!this.character.isColliding(enemy)) enemy.hasHitCharacter = false;
+    }
+
+    // Handles the collision between the character and the endboss.
+    checkEndbossCollision(endboss) {
+        if (this.canEndbossHitCharacter(endboss)) this.hitCharacter(endboss);
+        if (!this.character.isColliding(endboss)) endboss.hasHitCharacter = false;
+    }
+
+    // Checks if the endboss can damage the character.
+    canEndbossHitCharacter(endboss) {
+        return endboss.canAttack() && this.character.isColliding(endboss) && !endboss.hasHitCharacter;
     }
 
     // Kills the enemy after the character hits it from above.
