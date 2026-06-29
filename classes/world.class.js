@@ -6,6 +6,7 @@ import { EndbossStatusBar } from './endboss-status-bar.class.js';
 import { ThrowableObject } from './throwable-object.class.js';
 import { Endboss } from './endboss.class.js';
 import { level1 } from '../levels/level1.js';
+import { IntervalHelper } from '../helper_classes/interval-helper.js';
 
 export class World {
     // #region properties
@@ -27,6 +28,8 @@ export class World {
     keyboard;
     cameraX = 0;
     levelEndX = 1440;
+    gameEnding = false;
+    gameStopped = false;
 
     // #endregion
 
@@ -144,6 +147,7 @@ export class World {
 
     // Clears the canvas and draws all world objects.
     draw() {
+        if (this.gameStopped) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
         this.drawWorldObjects();
@@ -157,6 +161,7 @@ export class World {
         this.addToMap(this.coinStatusBar);
         this.addToMap(this.bottleStatusBar);
         if (this.isNearEndboss()) this.addToMap(this.endbossStatusBar);
+        this.checkGameEnd();
         this.repeatDraw();
     }
 
@@ -245,7 +250,31 @@ export class World {
     // Checks if a dead enemy can be removed.
     canRemoveEnemy(enemy) {
         const timePassed = new Date().getTime() - enemy.deadAt;
-        return enemy.dead && timePassed > 800;
+        return !(enemy instanceof Endboss) && enemy.dead && timePassed > 800;
+    }
+
+    // Checks if the game should stop after win or death.
+    checkGameEnd() {
+        if (this.gameEnding) return;
+        if (this.character.isDead() || this.isEndbossDead()) this.stopGameSoon();
+    }
+
+    // Checks if the endboss has no energy left.
+    isEndbossDead() {
+        const endboss = this.enemies.find((enemy) => enemy instanceof Endboss);
+        return endboss && endboss.isDead();
+    }
+
+    // Stops all intervals after the final animation can play.
+    stopGameSoon() {
+        this.gameEnding = true;
+        setTimeout(() => this.stopGame(), 1200);
+    }
+
+    // Stops the game loop and all registered intervals.
+    stopGame() {
+        IntervalHelper.stopAllIntervals();
+        this.gameStopped = true;
     }
 
     // Draws all objects from the given array.
