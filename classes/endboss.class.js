@@ -18,6 +18,7 @@ export class Endboss extends MovableObject {
     isMoving = false;
     IMAGES_WALKING = ImageHelper.CHICKEN_BOSS.walk;
     IMAGES_ALERT = ImageHelper.CHICKEN_BOSS.alert;
+    IMAGES_ATTACK = ImageHelper.CHICKEN_BOSS.attack;
     IMAGES_HURT = ImageHelper.CHICKEN_BOSS.hurt;
     IMAGES_DEAD = ImageHelper.CHICKEN_BOSS.dead;
     offset = {
@@ -37,6 +38,7 @@ export class Endboss extends MovableObject {
         this.loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
@@ -56,6 +58,7 @@ export class Endboss extends MovableObject {
     playEndboss() {
         if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
         else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
+        else if (this.canAttack()) this.playAnimation(this.IMAGES_ATTACK);
         else if (this.isMoving) this.playAnimation(this.IMAGES_WALKING);
         else this.playAnimation(this.IMAGES_ALERT);
     }
@@ -69,6 +72,11 @@ export class Endboss extends MovableObject {
     // Checks if the endboss should start moving.
     canMoveEndboss() {
         return this.world && !this.dead && this.world.character.x > this.x - 600;
+    }
+
+    // Checks if the character is close enough for an attack.
+    canAttack() {
+        return this.world && !this.dead && this.world.character.x > this.x - 180;
     }
 
     // Marks the endboss as dead.
