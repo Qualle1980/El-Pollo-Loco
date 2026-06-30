@@ -13,25 +13,38 @@
         <h1>El Pollo Loco</h1>
 
         <section class="game-wrapper">
-            <canvas id="canvas" width="720" height="480"></canvas>
-            <button id="fullscreenButton" class="fullscreen-button" type="button">Fullscreen</button>
-            <div id="startScreen" class="menu-screen">
-                <h2>El Pollo Loco</h2>
-                <button id="startButton" class="menu-button" type="button">Start Game</button>
-                <div class="how-to-play">
-                    <h3>How to play</h3>
-                    <p>Left / Right: Arrow keys</p>
-                    <p>Jump: Space</p>
-                    <p>Throw bottle: D</p>
+            <div class="game-stage">
+                <canvas id="canvas" width="720" height="480"></canvas>
+                <button id="fullscreenButton" class="fullscreen-button" type="button" aria-label="Fullscreen">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 19v-5h2v3h3v2H5Zm0-9V5h5v2H7v3H5Zm9 9v-2h3v-3h2v5h-5Zm3-9V7h-3V5h5v5h-2Z"/>
+                    </svg>
+                </button>
+                <div id="startScreen" class="menu-screen">
+                    <div class="start-menu">
+                        <button id="startButton" class="menu-button" type="button">Start Game</button>
+                    </div>
+                    <div class="how-to-play-menu">
+                        <button id="howToPlayButton" class="menu-button" type="button">How to play</button>
+                    </div>
+                    <div id="howToPlayScreen" class="how-to-play-screen d-none">
+                        <div class="how-to-play">
+                            <button id="closeHowToPlayButton" class="close-button" type="button">X</button>
+                            <h3>How to play</h3>
+                            <p>Left / Right: Arrow keys</p>
+                            <p>Jump: Space</p>
+                            <p>Throw bottle: D</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="gameOverScreen" class="end-screen d-none">
-                <h2>Game Over</h2>
-                <button class="menu-button restart-button" type="button">Restart</button>
-            </div>
-            <div id="winScreen" class="end-screen d-none">
-                <h2>You Win</h2>
-                <button class="menu-button restart-button" type="button">Restart</button>
+                <div id="gameOverScreen" class="end-screen d-none">
+                    <h2>Game Over</h2>
+                    <button class="menu-button restart-button" type="button">Restart</button>
+                </div>
+                <div id="winScreen" class="end-screen d-none">
+                    <h2>You Win</h2>
+                    <button class="menu-button restart-button" type="button">Restart</button>
+                </div>
             </div>
         </section>
     </main>

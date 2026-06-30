@@ -18,8 +18,11 @@ let gameWrapper;
 function init() {
     canvas = document.getElementById('canvas');
     startScreen = document.getElementById('startScreen');
-    gameWrapper = document.querySelector('.game-wrapper');
+    gameWrapper = document.querySelector('.game-stage');
     document.getElementById('startButton').addEventListener('click', startGame);
+    document.getElementById('howToPlayButton').addEventListener('click', showHowToPlay);
+    document.getElementById('closeHowToPlayButton').addEventListener('click', hideHowToPlay);
+    document.getElementById('howToPlayScreen').addEventListener('click', closeHowToPlayByClick);
     document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     window.keyboard = keyboard;
@@ -49,6 +52,21 @@ function hideEndScreens() {
     document.getElementById('winScreen').classList.add('d-none');
 }
 
+// Shows the key explanation screen.
+function showHowToPlay() {
+    document.getElementById('howToPlayScreen').classList.remove('d-none');
+}
+
+// Hides the key explanation screen.
+function hideHowToPlay() {
+    document.getElementById('howToPlayScreen').classList.add('d-none');
+}
+
+// Closes the key explanation when the dark background is clicked.
+function closeHowToPlayByClick(event) {
+    if (event.target.id === 'howToPlayScreen') hideHowToPlay();
+}
+
 // Switches the game area in and out of fullscreen mode.
 function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
@@ -61,6 +79,7 @@ function toggleFullscreen() {
 
 // Stores pressed keyboard keys.
 window.addEventListener('keydown', (event) => {
+    if (codeClosesHowToPlay(event.code)) hideHowToPlay();
     if (codeStartsGame(event.code)) startGame();
     if (codeRestartsGame(event.code)) restartGame();
     updateKey(event.code, true);
@@ -93,6 +112,11 @@ function codeRestartsGame(code) {
 function isEndScreenVisible() {
     return !document.getElementById('gameOverScreen').classList.contains('d-none') ||
         !document.getElementById('winScreen').classList.contains('d-none');
+}
+
+// Checks if the key should close the key explanation.
+function codeClosesHowToPlay(code) {
+    return code === 'Escape' && !document.getElementById('howToPlayScreen').classList.contains('d-none');
 }
 
 // #endregion
