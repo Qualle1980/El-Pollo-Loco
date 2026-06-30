@@ -11,6 +11,8 @@ export class Character extends MovableObject {
     speed = 5;
     coins = 0;
     bottles = 0;
+    idleImageIndex = 0;
+    idleFrameCounter = 0;
     deadImageIndex = 0;
     world;
     offset = {
@@ -19,6 +21,18 @@ export class Character extends MovableObject {
         bottom: 10,
         left: 20
     };
+    IMAGES_IDLE = [
+        './assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        './assets/img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
         './assets/img/2_character_pepe/2_walk/W-22.png',
@@ -61,7 +75,8 @@ export class Character extends MovableObject {
     // Creates the character and loads its animation images.
     constructor() {
         super();
-        this.loadImage(this.IMAGES_WALKING[0]);
+        this.loadImage(this.IMAGES_IDLE[0]);
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -148,10 +163,33 @@ export class Character extends MovableObject {
     // Plays the current character animation.
     playCharacter() {
         if (this.isDead()) this.playDeathAnimation();
-        else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
-        else if (this.isAboveGround()) this.playAnimation(this.IMAGES_JUMPING);
-        else if (this.isMoving()) this.playAnimation(this.IMAGES_WALKING);
-        else this.img = this.imageCache[this.IMAGES_WALKING[0]];
+        else if (this.isHurt()) this.playMovingAnimation(this.IMAGES_HURT);
+        else if (this.isAboveGround()) this.playMovingAnimation(this.IMAGES_JUMPING);
+        else if (this.isMoving()) this.playMovingAnimation(this.IMAGES_WALKING);
+        else this.playIdleAnimation();
+    }
+
+    // Plays an active animation and resets the idle sequence.
+    playMovingAnimation(images) {
+        this.idleImageIndex = 0;
+        this.idleFrameCounter = 0;
+        this.playAnimation(images);
+    }
+
+    // Plays the idle animation once and keeps the last image.
+    playIdleAnimation() {
+        if (this.waitForIdleFrame()) return;
+        const lastIndex = this.IMAGES_IDLE.length - 1;
+        const imagePath = this.IMAGES_IDLE[this.idleImageIndex];
+        this.img = this.imageCache[imagePath];
+        if (this.idleImageIndex < lastIndex) this.idleImageIndex++;
+    }
+
+    // Slows down the idle animation to about two seconds.
+    waitForIdleFrame() {
+        this.idleFrameCounter++;
+        if (this.idleFrameCounter >= 2) this.idleFrameCounter = 0;
+        return this.idleFrameCounter !== 0;
     }
 
     // Plays the death animation once and keeps the last image.
