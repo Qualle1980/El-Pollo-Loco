@@ -67,12 +67,13 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 20px;
     background-color: rgba(0, 0, 0, 0.72);
     color: white;
 }
 
 .menu-screen {
-    flex-direction: column;
     gap: 20px;
 }
 

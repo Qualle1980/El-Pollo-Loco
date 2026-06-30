@@ -5,7 +5,7 @@ import { BottleStatusBar } from './bottle-status-bar.class.js';
 import { EndbossStatusBar } from './endboss-status-bar.class.js';
 import { ThrowableObject } from './throwable-object.class.js';
 import { Endboss } from './endboss.class.js';
-import { level1 } from '../levels/level1.js';
+import { createLevel1 } from '../levels/level1.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 
 export class World {
@@ -16,7 +16,7 @@ export class World {
     coinStatusBar = new CoinStatusBar();
     bottleStatusBar = new BottleStatusBar();
     endbossStatusBar = new EndbossStatusBar();
-    level = level1;
+    level = createLevel1();
     backgroundObjects = [];
     clouds = [];
     enemies = [];

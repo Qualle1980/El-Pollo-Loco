@@ -1,5 +1,6 @@
 import { World } from '../classes/world.class.js';
 import { Keyboard } from '../classes/keyboard.class.js';
+import { IntervalHelper } from '../helper_classes/interval-helper.js';
 
 // #region variables
 
@@ -17,6 +18,7 @@ function init() {
     canvas = document.getElementById('canvas');
     startScreen = document.getElementById('startScreen');
     document.getElementById('startButton').addEventListener('click', startGame);
+    document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     window.keyboard = keyboard;
 }
 
@@ -28,6 +30,22 @@ function startGame() {
     window.world = world;
 }
 
+// Restarts the game without reloading the page.
+function restartGame() {
+    IntervalHelper.stopAllIntervals();
+    keyboard = new Keyboard();
+    hideEndScreens();
+    world = new World(canvas, keyboard);
+    window.keyboard = keyboard;
+    window.world = world;
+}
+
+// Hides all game end screens.
+function hideEndScreens() {
+    document.getElementById('gameOverScreen').classList.add('d-none');
+    document.getElementById('winScreen').classList.add('d-none');
+}
+
 // #endregion
 
 // #region keyboard events
@@ -35,6 +53,7 @@ function startGame() {
 // Stores pressed keyboard keys.
 window.addEventListener('keydown', (event) => {
     if (codeStartsGame(event.code)) startGame();
+    if (codeRestartsGame(event.code)) restartGame();
     updateKey(event.code, true);
 });
 
@@ -54,6 +73,17 @@ function updateKey(code, isPressed) {
 // Checks if the key should start the game.
 function codeStartsGame(code) {
     return code === 'Enter' && !world;
+}
+
+// Checks if the key should restart the game.
+function codeRestartsGame(code) {
+    return code === 'Enter' && isEndScreenVisible();
+}
+
+// Checks if an end screen is currently visible.
+function isEndScreenVisible() {
+    return !document.getElementById('gameOverScreen').classList.contains('d-none') ||
+        !document.getElementById('winScreen').classList.contains('d-none');
 }
 
 // #endregion

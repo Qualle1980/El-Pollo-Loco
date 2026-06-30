@@ -7,8 +7,9 @@ import { BackgroundObject } from '../classes/background-object.class.js';
 import { Coin } from '../classes/coin.class.js';
 import { Bottle } from '../classes/bottle.class.js';
 
-export const level1 = new Level(
-    [
+// Creates a fresh first level for a new game.
+export function createLevel1() {
+    return new Level([
         new Chicken(0),
         new SmallChicken(1),
         new Chicken(2),
@@ -69,5 +70,5 @@ export const level1 = new Level(
         new Bottle(1950),
         new Bottle(2100)
     ],
-    2880
-);
+    2880);
+}
