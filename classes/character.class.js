@@ -13,6 +13,9 @@ export class Character extends MovableObject {
     bottles = 0;
     idleImageIndex = 0;
     idleFrameCounter = 0;
+    longIdleImageIndex = 0;
+    longIdleFrameCounter = 0;
+    lastAction = new Date().getTime();
     deadImageIndex = 0;
     world;
     offset = {
@@ -32,6 +35,18 @@ export class Character extends MovableObject {
         './assets/img/2_character_pepe/1_idle/idle/I-8.png',
         './assets/img/2_character_pepe/1_idle/idle/I-9.png',
         './assets/img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+    IMAGES_LONG_IDLE = [
+        './assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-14.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-15.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-16.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-17.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-18.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-19.png',
+        './assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
     IMAGES_WALKING = [
         './assets/img/2_character_pepe/2_walk/W-21.png',
@@ -77,6 +92,7 @@ export class Character extends MovableObject {
         super();
         this.loadImage(this.IMAGES_IDLE[0]);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_HURT);
@@ -171,13 +187,14 @@ export class Character extends MovableObject {
 
     // Plays an active animation and resets the idle sequence.
     playMovingAnimation(images) {
-        this.idleImageIndex = 0;
-        this.idleFrameCounter = 0;
+        this.resetIdleAnimations();
         this.playAnimation(images);
     }
 
     // Plays the idle animation once and keeps the last image.
     playIdleAnimation() {
+        if (!this.isIdle()) return;
+        if (this.isLongIdle()) return this.playLongIdleAnimation();
         if (this.waitForIdleFrame()) return;
         const lastIndex = this.IMAGES_IDLE.length - 1;
         const imagePath = this.IMAGES_IDLE[this.idleImageIndex];
@@ -190,6 +207,41 @@ export class Character extends MovableObject {
         this.idleFrameCounter++;
         if (this.idleFrameCounter >= 2) this.idleFrameCounter = 0;
         return this.idleFrameCounter !== 0;
+    }
+
+    // Plays the sleeping animation once and keeps the last image.
+    playLongIdleAnimation() {
+        if (this.waitForLongIdleFrame()) return;
+        const imageIndex = this.longIdleImageIndex % this.IMAGES_LONG_IDLE.length;
+        const imagePath = this.IMAGES_LONG_IDLE[imageIndex];
+        this.img = this.imageCache[imagePath];
+        this.longIdleImageIndex++;
+    }
+
+    // Slows down the long idle animation.
+    waitForLongIdleFrame() {
+        this.longIdleFrameCounter++;
+        if (this.longIdleFrameCounter >= 2) this.longIdleFrameCounter = 0;
+        return this.longIdleFrameCounter !== 0;
+    }
+
+    // Checks if the character has been idle long enough to sleep.
+    isLongIdle() {
+        return new Date().getTime() - this.lastAction > 4000;
+    }
+
+    // Checks if the character has been idle long enough.
+    isIdle() {
+        return new Date().getTime() - this.lastAction > 2000;
+    }
+
+    // Resets idle animations after an action.
+    resetIdleAnimations() {
+        this.lastAction = new Date().getTime();
+        this.idleImageIndex = 0;
+        this.idleFrameCounter = 0;
+        this.longIdleImageIndex = 0;
+        this.longIdleFrameCounter = 0;
     }
 
     // Plays the death animation once and keeps the last image.
