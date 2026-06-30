@@ -48,6 +48,11 @@ h1 {
     width: 100%;
 }
 
+.game-wrapper:fullscreen {
+    align-items: center;
+    background-color: #f8c471;
+}
+
 canvas {
     display: block;
     width: 720px;
@@ -55,6 +60,20 @@ canvas {
     max-width: 100%;
     background-color: black;
     border: 2px solid white;
+}
+
+.fullscreen-button {
+    position: absolute;
+    top: 12px;
+    right: calc(50% - 348px);
+    z-index: 3;
+    padding: 6px 12px;
+    border: 2px solid white;
+    background-color: #f8c471;
+    color: black;
+    font-family: 'Flamenco', Arial, sans-serif;
+    font-size: 22px;
+    cursor: pointer;
 }
 
 .menu-screen,
@@ -71,6 +90,7 @@ canvas {
     gap: 20px;
     background-color: rgba(0, 0, 0, 0.72);
     color: white;
+    z-index: 2;
 }
 
 .menu-screen {
@@ -114,4 +134,10 @@ canvas {
 
 .d-none {
     display: none;
+}
+
+@media (max-width: 760px) {
+    .fullscreen-button {
+        right: 12px;
+    }
 }

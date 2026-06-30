@@ -8,16 +8,19 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let startScreen;
+let gameWrapper;
 
 // #endregion
 
 // #region initialization
 
-// Initializes the canvas and start button.
+// Initializes the canvas and menu buttons.
 function init() {
     canvas = document.getElementById('canvas');
     startScreen = document.getElementById('startScreen');
+    gameWrapper = document.querySelector('.game-wrapper');
     document.getElementById('startButton').addEventListener('click', startGame);
+    document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     window.keyboard = keyboard;
 }
@@ -44,6 +47,12 @@ function restartGame() {
 function hideEndScreens() {
     document.getElementById('gameOverScreen').classList.add('d-none');
     document.getElementById('winScreen').classList.add('d-none');
+}
+
+// Switches the game area in and out of fullscreen mode.
+function toggleFullscreen() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else gameWrapper.requestFullscreen();
 }
 
 // #endregion
