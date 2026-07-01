@@ -128,6 +128,20 @@ canvas {
     background-size: cover;
 }
 
+.game-over-screen {
+    justify-content: flex-end;
+    padding-bottom: 36px;
+    background-image: url('./assets/img/9_intro_outro_screens/game_over/game over.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.win-screen {
+    background-color: rgba(248, 196, 113, 0.95);
+    color: black;
+}
+
 .start-menu {
     position: absolute;
     top: 12px;
