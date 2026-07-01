@@ -25,6 +25,7 @@ function init() {
     document.getElementById('howToPlayScreen').addEventListener('click', closeHowToPlayByClick);
     document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
+    document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
     window.keyboard = keyboard;
 }
 
@@ -46,10 +47,27 @@ function restartGame() {
     window.world = world;
 }
 
+// Returns to the start screen without reloading the page.
+function showHomeScreen() {
+    IntervalHelper.stopAllIntervals();
+    keyboard = new Keyboard();
+    world = null;
+    hideEndScreens();
+    clearCanvas();
+    startScreen.classList.remove('d-none');
+    window.keyboard = keyboard;
+    window.world = world;
+}
+
 // Hides all game end screens.
 function hideEndScreens() {
     document.getElementById('gameOverScreen').classList.add('d-none');
     document.getElementById('winScreen').classList.add('d-none');
+}
+
+// Clears the canvas before showing the start screen again.
+function clearCanvas() {
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
 
 // Shows the key explanation screen.
