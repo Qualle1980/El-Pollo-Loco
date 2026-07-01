@@ -6,9 +6,19 @@
     <title>El Pollo Loco</title>
     <link rel="icon" type="image/png" href="./assets/img/2_character_pepe/2_walk/W-21.png">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
     <script src="./scripts/game.js" type="module"></script>
 </head>
 <body>
+    <div class="rotate-device-screen">
+        <div class="rotate-phone">
+            <div class="phone-shape"></div>
+            <div class="rotate-arrow top-arrow"></div>
+            <div class="rotate-arrow bottom-arrow"></div>
+        </div>
+        <p>Flip screen</p>
+    </div>
+
     <main class="page-wrapper">
         <h1>El Pollo Loco</h1>
 
@@ -53,6 +63,30 @@
                     <h2>You Win</h2>
                     <button class="menu-button restart-button" type="button">Restart</button>
                     <button class="menu-button home-button" type="button">Home</button>
+                </div>
+                <div class="mobile-controls">
+                    <div class="mobile-control-group">
+                        <button class="mobile-control-button" data-mobile-key="LEFT" type="button" aria-label="Move left">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M15.5 5 8.5 12l7 7-1.8 1.8L4.9 12l8.8-8.8L15.5 5Z"/>
+                            </svg>
+                        </button>
+                        <button class="mobile-control-button" data-mobile-key="RIGHT" type="button" aria-label="Move right">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="m8.5 19 7-7-7-7 1.8-1.8 8.8 8.8-8.8 8.8L8.5 19Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mobile-control-group">
+                        <button class="mobile-control-button" data-mobile-key="UP" type="button" aria-label="Jump">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="m12 4 8.8 8.8-1.8 1.8-5.8-5.8V21h-2.5V8.8l-5.8 5.8-1.8-1.8L12 4Z"/>
+                            </svg>
+                        </button>
+                        <button class="mobile-control-button throw-button" data-mobile-key="THROW" type="button" aria-label="Throw bottle">
+                            <img src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="">
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

@@ -136,9 +136,10 @@ canvas {
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 20px;
+    padding-top: 24px;
     background-color: rgba(0, 0, 0, 0.72);
     color: white;
     z-index: 2;
@@ -152,8 +153,6 @@ canvas {
 }
 
 .game-over-screen {
-    justify-content: flex-end;
-    padding-bottom: 36px;
     background-image: url('./assets/img/9_intro_outro_screens/game_over/game over.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -161,15 +160,22 @@ canvas {
 }
 
 .win-screen {
-    background-color: rgba(248, 196, 113, 0.95);
+    background-image: url('./assets/img/You won, you lost/You Win A.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     color: black;
+}
+
+.win-screen h2 {
+    display: none;
 }
 
 .start-menu {
     position: absolute;
     top: 12px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% - 6px));
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -177,9 +183,9 @@ canvas {
 
 .how-to-play-menu {
     position: absolute;
+    top: 12px;
     left: 50%;
-    bottom: 12px;
-    transform: translateX(-50%);
+    transform: translateX(6px);
 }
 
 .menu-screen h2,
@@ -200,6 +206,13 @@ canvas {
     font-family: 'Boogaloo', Arial, sans-serif;
     font-size: 28px;
     cursor: pointer;
+}
+
+.start-menu .menu-button,
+.how-to-play-menu .menu-button {
+    min-width: 160px;
+    padding: 6px 20px;
+    font-size: 24px;
 }
 
 .how-to-play-screen {

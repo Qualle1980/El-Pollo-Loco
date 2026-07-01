@@ -28,6 +28,7 @@ function init() {
     document.getElementById('muteButton').addEventListener('click', toggleMute);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
+    addMobileControlEvents();
     window.keyboard = keyboard;
 }
 
@@ -98,6 +99,39 @@ function toggleMute() {
     audioMuted = !audioMuted;
     document.getElementById('muteButton').classList.toggle('muted', audioMuted);
     window.audioMuted = audioMuted;
+}
+
+// #endregion
+
+// #region mobile controls
+
+// Adds touch events to all mobile control buttons.
+function addMobileControlEvents() {
+    document.querySelectorAll('.mobile-control-button').forEach((button) => {
+        button.addEventListener('touchstart', pressMobileButton);
+        button.addEventListener('touchend', releaseMobileButton);
+        button.addEventListener('touchcancel', releaseMobileButton);
+    });
+}
+
+// Stores a pressed mobile control.
+function pressMobileButton(event) {
+    event.preventDefault();
+    setMobileKey(event.currentTarget.dataset.mobileKey, true);
+}
+
+// Stores a released mobile control.
+function releaseMobileButton(event) {
+    event.preventDefault();
+    setMobileKey(event.currentTarget.dataset.mobileKey, false);
+}
+
+// Updates the matching mobile keyboard state.
+function setMobileKey(key, isPressed) {
+    if (key === 'LEFT') keyboard.LEFT = isPressed;
+    if (key === 'RIGHT') keyboard.RIGHT = isPressed;
+    if (key === 'UP') keyboard.UP = isPressed;
+    if (key === 'THROW') keyboard.THROW = isPressed;
 }
 
 // #endregion

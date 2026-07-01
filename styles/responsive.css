@@ -1,0 +1,205 @@
+/* #region mobile controls */
+
+.mobile-controls {
+    display: none;
+}
+
+.mobile-control-button {
+    width: 54px;
+    height: 54px;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: rgba(248, 196, 113, 0.08);
+    color: black;
+    font-family: 'Boogaloo', Arial, sans-serif;
+    font-size: 30px;
+    touch-action: none;
+}
+
+.mobile-control-button svg {
+    width: 34px;
+    height: 34px;
+    fill: currentColor;
+}
+
+.mobile-control-button img {
+    width: 22px;
+    height: 42px;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* #endregion */
+
+/* #region rotate screen */
+
+.rotate-device-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 24px;
+    background-color: black;
+    color: white;
+    font-family: 'Boogaloo', Arial, sans-serif;
+    font-size: 40px;
+}
+
+.rotate-phone {
+    position: relative;
+    width: 190px;
+    height: 150px;
+    animation: rotatePhone 1.8s ease-in-out infinite;
+}
+
+.phone-shape {
+    position: absolute;
+    top: 42px;
+    left: 34px;
+    width: 122px;
+    height: 66px;
+    border: 6px solid white;
+    border-radius: 16px;
+}
+
+.phone-shape::before,
+.phone-shape::after {
+    content: '';
+    position: absolute;
+    top: 22px;
+    width: 4px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.phone-shape::before {
+    left: 10px;
+}
+
+.phone-shape::after {
+    right: 10px;
+}
+
+.rotate-arrow {
+    position: absolute;
+    width: 112px;
+    height: 48px;
+    border: 5px solid white;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 80px 0 0;
+}
+
+.top-arrow {
+    top: 0;
+    right: 10px;
+    transform: rotate(-12deg);
+}
+
+.bottom-arrow {
+    left: 10px;
+    bottom: 0;
+    transform: rotate(168deg);
+}
+
+@keyframes rotatePhone {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(90deg);
+    }
+}
+
+/* #endregion */
+
+/* #region tablet and phone */
+
+@media (max-width: 1024px) {
+    body {
+        overflow: hidden;
+    }
+
+    .page-wrapper {
+        padding: 0;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .game-wrapper,
+    .game-stage {
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+    }
+
+    canvas,
+    .menu-screen,
+    .end-screen {
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+    }
+
+    .mobile-controls {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 0 18px 18px;
+        pointer-events: none;
+    }
+
+    .mobile-control-group {
+        display: flex;
+        gap: 14px;
+        pointer-events: auto;
+    }
+
+    .mobile-control-button {
+        border: none;
+    }
+
+    .mobile-control-button img {
+        width: 34px;
+        height: 50px;
+    }
+
+    .fullscreen-button {
+        display: none;
+    }
+
+    .start-menu .menu-button,
+    .how-to-play-menu .menu-button {
+        min-width: 132px;
+        padding: 4px 16px;
+        font-size: 20px;
+    }
+
+    .start-menu {
+        top: 10px;
+        transform: translateX(calc(-100% - 4px));
+    }
+
+    .how-to-play-menu {
+        top: 10px;
+        transform: translateX(4px);
+    }
+}
+
+@media (max-width: 1024px) and (orientation: portrait) {
+    .rotate-device-screen {
+        display: flex;
+    }
+}
+
+/* #endregion */
