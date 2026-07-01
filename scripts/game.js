@@ -9,6 +9,7 @@ let world;
 let keyboard = new Keyboard();
 let startScreen;
 let gameWrapper;
+let audioMuted = false;
 
 // #endregion
 
@@ -24,6 +25,7 @@ function init() {
     document.getElementById('closeHowToPlayButton').addEventListener('click', hideHowToPlay);
     document.getElementById('howToPlayScreen').addEventListener('click', closeHowToPlayByClick);
     document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
+    document.getElementById('muteButton').addEventListener('click', toggleMute);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
     window.keyboard = keyboard;
@@ -89,6 +91,13 @@ function closeHowToPlayByClick(event) {
 function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
     else gameWrapper.requestFullscreen();
+}
+
+// Switches all game sounds on or off.
+function toggleMute() {
+    audioMuted = !audioMuted;
+    document.getElementById('muteButton').classList.toggle('muted', audioMuted);
+    window.audioMuted = audioMuted;
 }
 
 // #endregion

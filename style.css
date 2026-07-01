@@ -75,10 +75,10 @@ canvas {
     border: 2px solid white;
 }
 
-.fullscreen-button {
+.fullscreen-button,
+.mute-button {
     position: absolute;
     top: 12px;
-    right: 12px;
     z-index: 3;
     display: flex;
     align-items: center;
@@ -92,16 +92,39 @@ canvas {
     cursor: pointer;
 }
 
-.fullscreen-button svg {
+.fullscreen-button {
+    right: 12px;
+}
+
+.mute-button {
+    left: 12px;
+}
+
+.fullscreen-button svg,
+.mute-button svg {
     width: 34px;
     height: 34px;
     display: block;
     fill: currentColor;
 }
 
+.mute-button .sound-off-icon,
+.mute-button.muted .sound-on-icon {
+    display: none;
+}
+
+.mute-button.muted .sound-off-icon {
+    display: block;
+}
+
 .game-stage:fullscreen .fullscreen-button {
     top: calc((100vh - min(100vh, calc(100vw / 1.5))) / 2 + 12px);
     right: calc((100vw - min(100vw, calc(100vh * 1.5))) / 2 + 12px);
+}
+
+.game-stage:fullscreen .mute-button {
+    top: calc((100vh - min(100vh, calc(100vw / 1.5))) / 2 + 12px);
+    left: calc((100vw - min(100vw, calc(100vh * 1.5))) / 2 + 12px);
 }
 
 .menu-screen,
