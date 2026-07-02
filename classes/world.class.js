@@ -118,7 +118,7 @@ export class World {
     checkCoinCollision(coin) {
         if (!this.character.isColliding(coin)) return;
         this.character.collectCoin();
-        this.coinStatusBar.setPercentage(this.character.coins * 20);
+        this.coinStatusBar.setPercentage(this.getCoinPercentage());
         this.removeObjectFromMap(this.coins, coin);
     }
 
@@ -129,10 +129,15 @@ export class World {
 
     // Collects one bottle when the character touches it.
     checkBottleCollision(bottle) {
-        if (!this.character.isColliding(bottle)) return;
+        if (!this.canCollectBottle(bottle)) return;
         this.character.collectBottle();
         this.bottleStatusBar.setPercentage(this.getBottlePercentage());
         this.removeObjectFromMap(this.bottles, bottle);
+    }
+
+    // Checks if the character can collect the touched bottle.
+    canCollectBottle(bottle) {
+        return this.character.isColliding(bottle) && this.character.bottles < 5;
     }
 
     // Removes one object from the given array.
@@ -199,6 +204,11 @@ export class World {
     // Converts collected bottles into status bar percentage.
     getBottlePercentage() {
         return this.character.bottles * 20;
+    }
+
+    // Converts collected coins into status bar percentage.
+    getCoinPercentage() {
+        return this.character.coins * 20;
     }
 
     // Removes bottles after they hit the ground.
