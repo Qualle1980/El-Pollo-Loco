@@ -180,6 +180,7 @@
 
     .start-menu .menu-button,
     .how-to-play-menu .menu-button,
+    .impressum-menu .menu-button,
     .end-screen .menu-button {
         min-width: 96px;
         padding: 3px 10px;
@@ -194,6 +195,16 @@
     .how-to-play-menu {
         top: 10px;
         transform: translateX(4px);
+    }
+
+    .impressum-menu {
+        bottom: 10px;
+    }
+
+    .impressum-box {
+        width: min(96%, 520px);
+        padding: 8px 14px;
+        font-size: 16px;
     }
 }
 

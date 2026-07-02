@@ -24,6 +24,9 @@ function init() {
     document.getElementById('howToPlayButton').addEventListener('click', showHowToPlay);
     document.getElementById('closeHowToPlayButton').addEventListener('click', hideHowToPlay);
     document.getElementById('howToPlayScreen').addEventListener('click', closeHowToPlayByClick);
+    document.getElementById('closeImpressumButton').addEventListener('click', hideImpressum);
+    document.getElementById('impressumScreen').addEventListener('click', closeImpressumByClick);
+    document.querySelectorAll('.impressum-button').forEach((button) => button.addEventListener('click', showImpressum));
     document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
     document.getElementById('muteButton').addEventListener('click', toggleMute);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
@@ -88,6 +91,21 @@ function closeHowToPlayByClick(event) {
     if (event.target.id === 'howToPlayScreen') hideHowToPlay();
 }
 
+// Shows the impressum screen.
+function showImpressum() {
+    document.getElementById('impressumScreen').classList.remove('d-none');
+}
+
+// Hides the impressum screen.
+function hideImpressum() {
+    document.getElementById('impressumScreen').classList.add('d-none');
+}
+
+// Closes the impressum when the dark background is clicked.
+function closeImpressumByClick(event) {
+    if (event.target.id === 'impressumScreen') hideImpressum();
+}
+
 // Switches the game area in and out of fullscreen mode.
 function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
@@ -141,6 +159,7 @@ function setMobileKey(key, isPressed) {
 // Stores pressed keyboard keys.
 window.addEventListener('keydown', (event) => {
     if (codeClosesHowToPlay(event.code)) hideHowToPlay();
+    if (codeClosesImpressum(event.code)) hideImpressum();
     if (codeStartsGame(event.code)) startGame();
     if (codeRestartsGame(event.code)) restartGame();
     updateKey(event.code, true);
@@ -178,6 +197,11 @@ function isEndScreenVisible() {
 // Checks if the key should close the key explanation.
 function codeClosesHowToPlay(code) {
     return code === 'Escape' && !document.getElementById('howToPlayScreen').classList.contains('d-none');
+}
+
+// Checks if the key should close the impressum.
+function codeClosesImpressum(code) {
+    return code === 'Escape' && !document.getElementById('impressumScreen').classList.contains('d-none');
 }
 
 // #endregion

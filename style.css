@@ -188,6 +188,13 @@ canvas {
     transform: translateX(6px);
 }
 
+.impressum-menu {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+}
+
 .menu-screen h2,
 .end-screen h2 {
     margin: 0;
@@ -209,7 +216,8 @@ canvas {
 }
 
 .start-menu .menu-button,
-.how-to-play-menu .menu-button {
+.how-to-play-menu .menu-button,
+.impressum-menu .menu-button {
     min-width: 140px;
     padding: 4px 16px;
     font-size: 20px;
@@ -231,7 +239,8 @@ canvas {
     z-index: 4;
 }
 
-.how-to-play {
+.how-to-play,
+.impressum-box {
     position: relative;
     min-width: 280px;
     padding: 22px 28px;
@@ -242,15 +251,45 @@ canvas {
     text-align: center;
 }
 
-.how-to-play h3 {
+.impressum-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+.impressum-box {
+    width: min(94%, 560px);
+    padding: 10px 18px;
+    font-size: 16px;
+}
+
+.impressum-box h4 {
+    margin: 5px 0 2px;
+    font-size: 16px;
+}
+
+.impressum-box hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid black;
+    margin: 6px 0;
+}
+
+.how-to-play h3,
+.impressum-box h3 {
     margin: 0 0 12px;
     font-family: 'Boogaloo', Arial, sans-serif;
     font-size: 36px;
     font-weight: 400;
 }
 
-.how-to-play p {
-    margin: 6px 0;
+.how-to-play p,
+.impressum-box p {
+    margin: 3px 0;
 }
 
 .close-button {
