@@ -16,14 +16,19 @@ export function createLevel1() {
         new SmallChicken(3),
         new Chicken(5),
         new SmallChicken(6),
-        new Endboss()
+        new Chicken(8),
+        new SmallChicken(9),
+        new Chicken(10),
+        new Endboss(3940)
     ],
     [
         new Cloud(100),
         new Cloud(500),
         new Cloud(900),
         new Cloud(1500),
-        new Cloud(2300)
+        new Cloud(2300),
+        new Cloud(3100),
+        new Cloud(3800)
     ],
     [
         new BackgroundObject('./assets/img/5_background/layers/air.png', -720),
@@ -49,7 +54,15 @@ export function createLevel1() {
         new BackgroundObject('./assets/img/5_background/layers/air.png', 2880),
         new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 2880),
         new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 2880),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 2880)
+        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 2880),
+        new BackgroundObject('./assets/img/5_background/layers/air.png', 3600),
+        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', 3600),
+        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', 3600),
+        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', 3600),
+        new BackgroundObject('./assets/img/5_background/layers/air.png', 4320),
+        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 4320),
+        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 4320),
+        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 4320)
     ],
     [
         new Coin(500, 120),
@@ -60,7 +73,13 @@ export function createLevel1() {
         new Coin(1400, 250),
         new Coin(1550, 120),
         new Coin(1650, 180),
-        new Coin(1750, 240)
+        new Coin(1750, 240),
+        new Coin(2300, 130),
+        new Coin(2450, 190),
+        new Coin(2600, 250),
+        new Coin(3000, 140),
+        new Coin(3150, 200),
+        new Coin(3300, 260)
     ],
     [
         new Bottle(450),
@@ -68,7 +87,10 @@ export function createLevel1() {
         new Bottle(1650),
         new Bottle(1800),
         new Bottle(1950),
-        new Bottle(2100)
+        new Bottle(2100),
+        new Bottle(2550),
+        new Bottle(3000),
+        new Bottle(3450)
     ],
-    2880);
+    4320);
 }

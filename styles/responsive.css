@@ -179,10 +179,11 @@
     }
 
     .start-menu .menu-button,
-    .how-to-play-menu .menu-button {
-        min-width: 132px;
-        padding: 4px 16px;
-        font-size: 20px;
+    .how-to-play-menu .menu-button,
+    .end-screen .menu-button {
+        min-width: 96px;
+        padding: 3px 10px;
+        font-size: 18px;
     }
 
     .start-menu {

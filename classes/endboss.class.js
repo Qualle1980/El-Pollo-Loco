@@ -33,8 +33,9 @@ export class Endboss extends MovableObject {
     // #region constructor
 
     // Creates the endboss and loads its alert animation.
-    constructor() {
+    constructor(x = 2500) {
         super();
+        this.x = x;
         this.loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
