@@ -11,6 +11,7 @@ export class Character extends MovableObject {
     speed = 5;
     coins = 0;
     bottles = 0;
+    maxBottles = 5;
     idleImageIndex = 0;
     idleFrameCounter = 0;
     longIdleImageIndex = 0;
@@ -163,8 +164,12 @@ export class Character extends MovableObject {
 
     // Increases the collected bottle amount.
     collectBottle() {
-        this.bottles++;
-        if (this.bottles > 5) this.bottles = 5;
+        if (this.canCollectBottle()) this.bottles++;
+    }
+
+    // Checks if another bottle can be collected.
+    canCollectBottle() {
+        return this.bottles < this.maxBottles;
     }
 
     // Reduces the collected bottle amount after throwing.

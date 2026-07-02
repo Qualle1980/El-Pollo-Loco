@@ -306,9 +306,3 @@ canvas {
 .d-none {
     display: none;
 }
-
-@media (max-width: 760px) {
-    .fullscreen-button {
-        right: 12px;
-    }
-}

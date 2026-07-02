@@ -118,7 +118,7 @@
 
 /* #endregion */
 
-/* #region tablet and phone */
+/* #region responsive sizes */
 
 @media (max-width: 1024px) {
     body {

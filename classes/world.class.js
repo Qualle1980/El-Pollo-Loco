@@ -137,7 +137,7 @@ export class World {
 
     // Checks if the character can collect the touched bottle.
     canCollectBottle(bottle) {
-        return this.character.isColliding(bottle) && this.character.bottles < 5;
+        return this.character.isColliding(bottle) && this.character.canCollectBottle();
     }
 
     // Removes one object from the given array.
