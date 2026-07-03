@@ -7,19 +7,18 @@
 .mobile-control-button {
     width: 54px;
     height: 54px;
-    border: 2px solid white;
+    border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 50%;
-    background-color: rgba(248, 196, 113, 0.08);
+    background-color: rgba(255, 255, 255, 0.22);
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Boogaloo', Arial, sans-serif;
     font-size: 30px;
+    line-height: 1;
     touch-action: none;
-}
-
-.mobile-control-button svg {
-    width: 34px;
-    height: 34px;
-    fill: currentColor;
+    backdrop-filter: blur(1px);
 }
 
 .mobile-control-button img {
@@ -166,7 +165,7 @@
     }
 
     .mobile-control-button {
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.65);
     }
 
     .mobile-control-button img {

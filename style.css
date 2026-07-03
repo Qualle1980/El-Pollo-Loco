@@ -101,20 +101,14 @@ canvas {
 }
 
 .fullscreen-button svg,
-.mute-button svg {
+.mute-button img {
     width: 34px;
     height: 34px;
     display: block;
+}
+
+.fullscreen-button svg {
     fill: currentColor;
-}
-
-.mute-button .sound-off-icon,
-.mute-button.muted .sound-on-icon {
-    display: none;
-}
-
-.mute-button.muted .sound-off-icon {
-    display: block;
 }
 
 .game-stage:fullscreen .fullscreen-button {

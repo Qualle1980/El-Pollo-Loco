@@ -120,7 +120,14 @@ function toggleFullscreen() {
 function toggleMute() {
     audioMuted = !audioMuted;
     document.getElementById('muteButton').classList.toggle('muted', audioMuted);
+    updateMuteIcon();
     window.audioMuted = audioMuted;
+}
+
+// Updates the mute button image.
+function updateMuteIcon() {
+    const image = document.getElementById('soundOnOffImage');
+    image.src = audioMuted ? './assets/img/icons/soundOff.png' : './assets/img/icons/soundOn.png';
 }
 
 // #endregion
