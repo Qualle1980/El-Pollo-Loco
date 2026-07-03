@@ -43,6 +43,7 @@ export class World {
         this.setWorld();
         this.setLevelObjects();
         this.draw();
+        this.run();
     }
 
     // #endregion
@@ -63,6 +64,18 @@ export class World {
         this.coins = this.level.coins;
         this.bottles = this.level.bottles;
         this.levelEndX = this.level.levelEndX;
+    }
+
+    // Runs all repeated game checks.
+    run() {
+        IntervalHelper.setStoppableInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
+            this.checkThrowableCollisions();
+            this.removeLandedBottles();
+            this.removeDeadEnemies();
+            this.checkGameEnd();
+        }, 1000 / 60);
     }
 
     // #endregion
@@ -156,17 +169,11 @@ export class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.cameraX, 0);
         this.drawWorldObjects();
-        this.checkCollisions();
-        this.checkThrowObjects();
-        this.checkThrowableCollisions();
-        this.removeLandedBottles();
-        this.removeDeadEnemies();
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.coinStatusBar);
         this.addToMap(this.bottleStatusBar);
         if (this.isNearEndboss()) this.addToMap(this.endbossStatusBar);
-        this.checkGameEnd();
         this.repeatDraw();
     }
 

@@ -1,6 +1,7 @@
 import { World } from '../classes/world.class.js';
 import { Keyboard } from '../classes/keyboard.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
+import { KeyboardHelper } from '../helper_classes/keyboard-helper.js';
 
 // #region variables
 
@@ -31,7 +32,8 @@ function init() {
     document.getElementById('muteButton').addEventListener('click', toggleMute);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
-    addMobileControlEvents();
+    KeyboardHelper.setKeyboard(keyboard);
+    KeyboardHelper.startEvents(handleKeyboardAction);
     window.keyboard = keyboard;
 }
 
@@ -47,6 +49,7 @@ function startGame() {
 function restartGame() {
     IntervalHelper.stopAllIntervals();
     keyboard = new Keyboard();
+    KeyboardHelper.setKeyboard(keyboard);
     hideEndScreens();
     world = new World(canvas, keyboard);
     window.keyboard = keyboard;
@@ -57,6 +60,7 @@ function restartGame() {
 function showHomeScreen() {
     IntervalHelper.stopAllIntervals();
     keyboard = new Keyboard();
+    KeyboardHelper.setKeyboard(keyboard);
     world = null;
     hideEndScreens();
     clearCanvas();
@@ -121,61 +125,14 @@ function toggleMute() {
 
 // #endregion
 
-// #region mobile controls
-
-// Adds touch events to all mobile control buttons.
-function addMobileControlEvents() {
-    document.querySelectorAll('.mobile-control-button').forEach((button) => {
-        button.addEventListener('touchstart', pressMobileButton);
-        button.addEventListener('touchend', releaseMobileButton);
-        button.addEventListener('touchcancel', releaseMobileButton);
-    });
-}
-
-// Stores a pressed mobile control.
-function pressMobileButton(event) {
-    event.preventDefault();
-    setMobileKey(event.currentTarget.dataset.mobileKey, true);
-}
-
-// Stores a released mobile control.
-function releaseMobileButton(event) {
-    event.preventDefault();
-    setMobileKey(event.currentTarget.dataset.mobileKey, false);
-}
-
-// Updates the matching mobile keyboard state.
-function setMobileKey(key, isPressed) {
-    if (key === 'LEFT') keyboard.LEFT = isPressed;
-    if (key === 'RIGHT') keyboard.RIGHT = isPressed;
-    if (key === 'UP') keyboard.UP = isPressed;
-    if (key === 'THROW') keyboard.THROW = isPressed;
-}
-
-// #endregion
-
 // #region keyboard events
 
-// Stores pressed keyboard keys.
-window.addEventListener('keydown', (event) => {
-    if (codeClosesHowToPlay(event.code)) hideHowToPlay();
-    if (codeClosesImpressum(event.code)) hideImpressum();
-    if (codeStartsGame(event.code)) startGame();
-    if (codeRestartsGame(event.code)) restartGame();
-    updateKey(event.code, true);
-});
-
-// Stores released keyboard keys.
-window.addEventListener('keyup', (event) => {
-    updateKey(event.code, false);
-});
-
-// Updates the matching keyboard state.
-function updateKey(code, isPressed) {
-    if (code === 'ArrowLeft') keyboard.LEFT = isPressed;
-    if (code === 'ArrowRight') keyboard.RIGHT = isPressed;
-    if (code === 'Space') keyboard.UP = isPressed;
-    if (code === 'KeyD') keyboard.THROW = isPressed;
+// Handles menu actions for pressed keys.
+function handleKeyboardAction(code) {
+    if (codeClosesHowToPlay(code)) hideHowToPlay();
+    if (codeClosesImpressum(code)) hideImpressum();
+    if (codeStartsGame(code)) startGame();
+    if (codeRestartsGame(code)) restartGame();
 }
 
 // Checks if the key should start the game.
