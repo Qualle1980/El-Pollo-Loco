@@ -100,15 +100,11 @@ canvas {
     left: 12px;
 }
 
-.fullscreen-button svg,
+.fullscreen-button img,
 .mute-button img {
     width: 34px;
     height: 34px;
     display: block;
-}
-
-.fullscreen-button svg {
-    fill: currentColor;
 }
 
 .game-stage:fullscreen .fullscreen-button {

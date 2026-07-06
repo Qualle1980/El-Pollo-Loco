@@ -32,6 +32,7 @@ function init() {
     document.getElementById('muteButton').addEventListener('click', toggleMute);
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
+    document.addEventListener('fullscreenchange', updateFullscreenIcon);
     KeyboardHelper.setKeyboard(keyboard);
     KeyboardHelper.startEvents(handleKeyboardAction);
     window.keyboard = keyboard;
@@ -114,6 +115,12 @@ function closeImpressumByClick(event) {
 function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
     else gameWrapper.requestFullscreen();
+}
+
+// Updates the fullscreen button image.
+function updateFullscreenIcon() {
+    const image = document.getElementById('fullscreenImage');
+    image.src = document.fullscreenElement ? './assets/img/icons/min.png' : './assets/img/icons/max.png';
 }
 
 // Switches all game sounds on or off.
