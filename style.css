@@ -31,15 +31,16 @@ body {
 }
 
 h1 {
-    margin: 0 0 24px;
+    margin: 0 0 18px;
     font-family: 'Boogaloo', Arial, sans-serif;
-    font-size: 64px;
+    font-size: 86px;
     font-weight: 400;
     color: #ffd24a;
-    -webkit-text-stroke: 1px #9f3a16;
+    -webkit-text-stroke: 1.5px #8f260d;
     text-shadow:
-        0 3px 0 #b94a18,
-        0 6px 8px rgba(70, 20, 10, 0.45);
+        0 4px 0 #b53613,
+        0 8px 10px rgba(111, 24, 8, 0.65),
+        0 0 18px rgba(187, 49, 16, 0.45);
 }
 
 .game-wrapper {
@@ -147,7 +148,7 @@ canvas {
 
 .menu-screen {
     background-image: url('./assets/img/9_intro_outro_screens/start/startscreen_1.png');
-    background-position: center;
+    background-position: 55% center;
     background-repeat: no-repeat;
     background-size: cover;
 }
