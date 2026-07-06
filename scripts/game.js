@@ -18,9 +18,20 @@ let audioMuted = false;
 
 // Initializes the canvas and menu buttons.
 function init() {
+    setGameElements();
+    setButtonEvents();
+    setKeyboard();
+}
+
+// Stores important html elements for the game.
+function setGameElements() {
     canvas = document.getElementById('canvas');
     startScreen = document.getElementById('startScreen');
     gameWrapper = document.querySelector('.game-stage');
+}
+
+// Adds click events to all menu buttons.
+function setButtonEvents() {
     document.getElementById('startButton').addEventListener('click', startGame);
     document.getElementById('howToPlayButton').addEventListener('click', showHowToPlay);
     document.getElementById('closeHowToPlayButton').addEventListener('click', hideHowToPlay);
@@ -33,6 +44,10 @@ function init() {
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
     document.addEventListener('fullscreenchange', updateFullscreenIcon);
+}
+
+// Connects the keyboard helper with the game keyboard.
+function setKeyboard() {
     KeyboardHelper.setKeyboard(keyboard);
     KeyboardHelper.startEvents(handleKeyboardAction);
     window.keyboard = keyboard;
