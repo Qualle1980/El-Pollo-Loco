@@ -207,26 +207,48 @@ canvas {
 
 .menu-button {
     min-width: 120px;
-    padding: 4px 14px;
-    border: 2px solid white;
-    background-color: #f8c471;
-    color: black;
+    padding: 7px 18px;
+    border: 3px solid #9b2d0e;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #ffe28a 0%, #f7b33b 54%, #df7017 100%);
+    color: #2a1004;
     font-family: 'Boogaloo', Arial, sans-serif;
     font-size: 20px;
+    line-height: 1;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+    box-shadow:
+        0 4px 0 #76200a,
+        0 8px 14px rgba(0, 0, 0, 0.28);
     cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.menu-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    box-shadow:
+        0 6px 0 #76200a,
+        0 12px 18px rgba(0, 0, 0, 0.32);
+}
+
+.menu-button:active {
+    transform: translateY(3px);
+    box-shadow:
+        0 1px 0 #76200a,
+        0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .start-menu .menu-button,
 .how-to-play-menu .menu-button,
 .impressum-menu .menu-button {
     min-width: 140px;
-    padding: 4px 16px;
+    padding: 7px 18px;
     font-size: 20px;
 }
 
 .end-screen .menu-button {
     min-width: 110px;
-    padding: 4px 12px;
+    padding: 7px 16px;
     font-size: 20px;
 }
 
