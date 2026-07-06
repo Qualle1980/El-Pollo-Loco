@@ -48,7 +48,7 @@ function startGame() {
 
 // Restarts the game without reloading the page.
 function restartGame() {
-    IntervalHelper.stopAllIntervals();
+    stopCurrentWorld();
     keyboard = new Keyboard();
     KeyboardHelper.setKeyboard(keyboard);
     hideEndScreens();
@@ -59,7 +59,7 @@ function restartGame() {
 
 // Returns to the start screen without reloading the page.
 function showHomeScreen() {
-    IntervalHelper.stopAllIntervals();
+    stopCurrentWorld();
     keyboard = new Keyboard();
     KeyboardHelper.setKeyboard(keyboard);
     world = null;
@@ -68,6 +68,12 @@ function showHomeScreen() {
     startScreen.classList.remove('d-none');
     window.keyboard = keyboard;
     window.world = world;
+}
+
+// Stops the active world before changing the game state.
+function stopCurrentWorld() {
+    if (world) world.gameStopped = true;
+    IntervalHelper.stopAllIntervals();
 }
 
 // Hides all game end screens.
