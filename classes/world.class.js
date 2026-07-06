@@ -117,7 +117,7 @@ export class World {
 
     // Damages the character and marks the enemy contact.
     hitCharacter(enemy) {
-        this.character.hit();
+        this.character.hit(enemy.damage);
         this.statusBar.setPercentage(this.character.energy);
         enemy.hasHitCharacter = true;
     }

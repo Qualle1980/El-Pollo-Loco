@@ -82,9 +82,9 @@ export class MovableObject extends DrawableObject {
 
     // #region damage
 
-    // Reduces energy and stores the hit time.
-    hit() {
-        this.energy -= this.damage;
+    // Reduces energy by damage and stores the hit time.
+    hit(damage = this.damage) {
+        this.energy -= damage;
         if (this.energy < 0) this.energy = 0;
         this.lastHit = new Date().getTime();
     }
