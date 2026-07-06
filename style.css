@@ -59,20 +59,22 @@ h1 {
     width: 100vw;
     height: 100vh;
     max-width: none;
-    align-items: center;
-    background-color: #f8c471;
+    background-color: black;
 }
 
 .game-stage:fullscreen canvas,
 .game-stage:fullscreen .menu-screen,
 .game-stage:fullscreen .end-screen {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: min(100vw, calc(100vh * 1.5));
-    height: min(100vh, calc(100vw / 1.5));
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
     max-width: none;
-    transform: translate(-50%, -50%);
+    transform: none;
+}
+
+.game-stage:fullscreen canvas {
+    object-fit: cover;
 }
 
 canvas {
@@ -116,13 +118,13 @@ canvas {
 }
 
 .game-stage:fullscreen .fullscreen-button {
-    top: calc((100vh - min(100vh, calc(100vw / 1.5))) / 2 + 12px);
-    right: calc((100vw - min(100vw, calc(100vh * 1.5))) / 2 + 12px);
+    top: 12px;
+    right: 12px;
 }
 
 .game-stage:fullscreen .mute-button {
-    top: calc((100vh - min(100vh, calc(100vw / 1.5))) / 2 + 12px);
-    left: calc((100vw - min(100vw, calc(100vh * 1.5))) / 2 + 12px);
+    top: 12px;
+    left: 12px;
 }
 
 .menu-screen,
