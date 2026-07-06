@@ -215,7 +215,7 @@ export class World {
 
     // Converts collected coins into status bar percentage.
     getCoinPercentage() {
-        return this.character.coins * 20;
+        return Math.ceil(this.character.coins / 2) * 20;
     }
 
     // Removes bottles after they hit the ground.

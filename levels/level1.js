@@ -74,12 +74,7 @@ export function createLevel1() {
         new Coin(1550, 120),
         new Coin(1650, 180),
         new Coin(1750, 240),
-        new Coin(2300, 130),
-        new Coin(2450, 190),
-        new Coin(2600, 250),
-        new Coin(3000, 140),
-        new Coin(3150, 200),
-        new Coin(3300, 260)
+        new Coin(2300, 130)
     ],
     [
         new Bottle(450),
