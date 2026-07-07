@@ -32,6 +32,8 @@ export class World {
     gameEnding = false;
     gameStopped = false;
     backgroundMusic = SoundHelper.createSound('./audio/game/backgroundMusic.mp3', true);
+    coinCollectSound = SoundHelper.createSound('./audio/collectibles/collectSound.wav');
+    bottleCollectSound = SoundHelper.createSound('./audio/collectibles/bottleCollectSound.wav');
 
     // #endregion
 
@@ -144,6 +146,7 @@ export class World {
     checkCoinCollision(coin) {
         if (!this.character.isColliding(coin)) return;
         this.character.collectCoin();
+        SoundHelper.playSound(this.coinCollectSound);
         this.coinStatusBar.setPercentage(this.getCoinPercentage());
         this.removeObjectFromMap(this.coins, coin);
     }
@@ -157,6 +160,7 @@ export class World {
     checkBottleCollision(bottle) {
         if (!this.canCollectBottle(bottle)) return;
         this.character.collectBottle();
+        SoundHelper.playSound(this.bottleCollectSound);
         this.bottleStatusBar.setPercentage(this.getBottlePercentage());
         this.removeObjectFromMap(this.bottles, bottle);
     }
