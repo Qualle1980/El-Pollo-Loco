@@ -1,6 +1,7 @@
 import { MovableObject } from './movable-object.class.js';
 import { ImageHelper } from '../helper_classes/image-helper.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 export class ThrowableObject extends MovableObject {
     // #region properties
@@ -10,6 +11,7 @@ export class ThrowableObject extends MovableObject {
     groundY = 380;
     bottleAboveGround = false;
     bottleFlying = false;
+    breakSound = SoundHelper.createSound('./audio/throwable/bottleBreak.mp3');
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
 
     // #endregion
@@ -52,8 +54,15 @@ export class ThrowableObject extends MovableObject {
     // Stops the bottle when it hits the ground.
     setOnGround() {
         super.setOnGround();
+        this.breakBottle();
+    }
+
+    // Stops the bottle and plays its break sound once.
+    breakBottle() {
+        if (!this.bottleFlying) return;
         this.bottleFlying = false;
         this.bottleAboveGround = false;
+        SoundHelper.playSound(this.breakSound);
     }
 
     // #endregion

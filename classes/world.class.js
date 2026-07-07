@@ -255,7 +255,7 @@ export class World {
         if (!this.canHitEnemyWithBottle(bottle, enemy)) return;
         if (enemy instanceof Endboss) this.hitEndboss(enemy);
         else enemy.kill();
-        bottle.bottleFlying = false;
+        bottle.breakBottle();
     }
 
     // Checks if a bottle can hit the given enemy.
