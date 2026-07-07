@@ -87,7 +87,8 @@ canvas {
 }
 
 .fullscreen-button,
-.mute-button {
+.mute-button,
+.music-volume-button {
     position: absolute;
     top: 12px;
     z-index: 3;
@@ -111,6 +112,58 @@ canvas {
     left: 12px;
 }
 
+.music-volume-button {
+    right: 64px;
+}
+
+.music-volume-icon,
+.music-volume-icon::before,
+.music-volume-icon::after {
+    display: block;
+    width: 6px;
+    border-radius: 6px;
+    background-color: black;
+}
+
+.music-volume-icon {
+    position: relative;
+    height: 26px;
+}
+
+.music-volume-icon::before,
+.music-volume-icon::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+}
+
+.music-volume-icon::before {
+    right: 12px;
+    height: 16px;
+}
+
+.music-volume-icon::after {
+    left: 12px;
+    height: 22px;
+}
+
+.music-volume-control {
+    position: absolute;
+    top: 18px;
+    right: 104px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    width: 112px;
+    height: 34px;
+}
+
+.music-volume-control input {
+    width: 100%;
+    accent-color: #f7b33b;
+    cursor: pointer;
+}
+
 .fullscreen-button img,
 .mute-button img {
     width: 34px;
@@ -126,6 +179,16 @@ canvas {
 .game-stage:fullscreen .mute-button {
     top: 12px;
     left: 12px;
+}
+
+.game-stage:fullscreen .music-volume-button {
+    top: 12px;
+    right: 64px;
+}
+
+.game-stage:fullscreen .music-volume-control {
+    top: 18px;
+    right: 104px;
 }
 
 .menu-screen,

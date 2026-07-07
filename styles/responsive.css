@@ -177,6 +177,17 @@
         display: none;
     }
 
+    .music-volume-button {
+        top: 12px;
+        right: 12px;
+    }
+
+    .music-volume-control {
+        top: 16px;
+        right: 58px;
+        width: 86px;
+    }
+
     .start-menu .menu-button,
     .how-to-play-menu .menu-button,
     .impressum-menu .menu-button,

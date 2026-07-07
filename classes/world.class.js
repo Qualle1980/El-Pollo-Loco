@@ -7,6 +7,7 @@ import { ThrowableObject } from './throwable-object.class.js';
 import { Endboss } from './endboss.class.js';
 import { createLevel1 } from '../levels/level1.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 export class World {
     // #region properties
@@ -30,6 +31,7 @@ export class World {
     levelEndX = 1440;
     gameEnding = false;
     gameStopped = false;
+    backgroundMusic = SoundHelper.createSound('./audio/game/backgroundMusic.mp3', true);
 
     // #endregion
 
@@ -44,6 +46,7 @@ export class World {
         this.setLevelObjects();
         this.draw();
         this.run();
+        this.startSounds();
     }
 
     // #endregion
@@ -76,6 +79,16 @@ export class World {
             this.removeDeadEnemies();
             this.checkGameEnd();
         }, 1000 / 60);
+    }
+
+    // Starts the sounds that belong to the world.
+    startSounds() {
+        SoundHelper.playMusic(this.backgroundMusic);
+    }
+
+    // Stops the sounds that belong to the world.
+    stopSounds() {
+        SoundHelper.pauseSound(this.backgroundMusic);
     }
 
     // #endregion
@@ -291,6 +304,7 @@ export class World {
     // Stops the game loop and all registered intervals.
     stopGame() {
         IntervalHelper.stopAllIntervals();
+        this.stopSounds();
         if (this.character.isDead()) this.showGameOverScreen();
         if (this.isEndbossDead()) this.showWinScreen();
         this.gameStopped = true;
