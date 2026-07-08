@@ -60,23 +60,24 @@ export class KeyboardHelper {
     // Adds touch events to all mobile control buttons.
     static addMobileControlEvents() {
         document.querySelectorAll('.mobile-control-button').forEach((button) => {
-            button.addEventListener('touchstart', KeyboardHelper.pressMobileButton);
-            button.addEventListener('touchend', KeyboardHelper.releaseMobileButton);
-            button.addEventListener('touchcancel', KeyboardHelper.releaseMobileButton);
+            button.addEventListener('touchstart', KeyboardHelper.pressMobileButton, { passive: false });
+            button.addEventListener('touchend', KeyboardHelper.releaseMobileButton, { passive: false });
+            button.addEventListener('touchcancel', KeyboardHelper.releaseMobileButton, { passive: false });
         });
     }
 
     // Stores a pressed mobile control.
     static pressMobileButton(event) {
-        event.preventDefault();
+        KeyboardHelper.preventTouchDefault(event);
         const key = event.currentTarget.dataset.mobileKey;
         if (key === 'UP') return KeyboardHelper.pressMobileJump();
+        if (key === 'THROW') return KeyboardHelper.pressMobileThrow();
         KeyboardHelper.setMobileKey(key, true);
     }
 
     // Stores a released mobile control.
     static releaseMobileButton(event) {
-        event.preventDefault();
+        KeyboardHelper.preventTouchDefault(event);
         KeyboardHelper.setMobileKey(event.currentTarget.dataset.mobileKey, false);
     }
 
@@ -92,6 +93,17 @@ export class KeyboardHelper {
     static pressMobileJump() {
         KeyboardHelper.keyboard.UP = true;
         setTimeout(() => KeyboardHelper.keyboard.UP = false, 120);
+    }
+
+    // Presses throw only shortly on mobile.
+    static pressMobileThrow() {
+        KeyboardHelper.keyboard.THROW = true;
+        setTimeout(() => KeyboardHelper.keyboard.THROW = false, 350);
+    }
+
+    // Prevents browser touch behavior only when possible.
+    static preventTouchDefault(event) {
+        if (event.cancelable) event.preventDefault();
     }
 
     // #endregion
