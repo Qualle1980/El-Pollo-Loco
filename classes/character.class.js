@@ -227,13 +227,18 @@ export class Character extends MovableObject {
 
     // Plays the idle animation once and keeps the last image.
     playIdleAnimation() {
-        if (!this.isIdle()) return;
+        if (!this.isIdle()) return this.playStandingImage();
         if (this.isLongIdle()) return this.playLongIdleAnimation();
         if (this.waitForIdleFrame()) return;
         const lastIndex = this.IMAGES_IDLE.length - 1;
         const imagePath = this.IMAGES_IDLE[this.idleImageIndex];
         this.img = this.imageCache[imagePath];
         if (this.idleImageIndex < lastIndex) this.idleImageIndex++;
+    }
+
+    // Shows the normal standing image before idle starts.
+    playStandingImage() {
+        this.img = this.imageCache[this.IMAGES_IDLE[0]];
     }
 
     // Slows down the idle animation to about two seconds.

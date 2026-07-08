@@ -35,8 +35,14 @@ export class KeyboardHelper {
 
     // Handles one pressed key.
     static handleKeyDown(event) {
+        if (KeyboardHelper.isRepeatedThrowKey(event)) return;
         if (KeyboardHelper.keyDownAction) KeyboardHelper.keyDownAction(event.code);
         KeyboardHelper.updateKey(event.code, true);
+    }
+
+    // Checks if the throw key is repeated while being held down.
+    static isRepeatedThrowKey(event) {
+        return event.code === 'KeyD' && event.repeat;
     }
 
     // Updates the matching keyboard state.
