@@ -57,9 +57,12 @@ h1 {
 }
 
 .game-stage:fullscreen {
+    position: fixed;
+    inset: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     max-width: none;
+    aspect-ratio: auto;
     background-color: black;
 }
 
@@ -68,8 +71,8 @@ h1 {
 .game-stage:fullscreen .end-screen {
     position: absolute;
     inset: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     max-width: none;
     transform: none;
 }
