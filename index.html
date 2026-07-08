@@ -38,14 +38,10 @@
                     <input id="musicVolumeSlider" type="range" min="0" max="1" step="0.01">
                 </label>
                 <div id="startScreen" class="menu-screen">
-                    <div class="start-menu">
-                        <button id="startButton" class="menu-button" type="button">Start Game</button>
-                    </div>
-                    <div class="how-to-play-menu">
-                        <button id="howToPlayButton" class="menu-button" type="button">How to play</button>
-                    </div>
-                    <div class="impressum-menu">
-                        <button class="menu-button impressum-button" type="button">Impressum</button>
+                    <div class="start-action-menu">
+                        <button id="startButton" class="menu-button icon-menu-button" type="button" aria-label="Start Game">&#9658;</button>
+                        <button id="howToPlayButton" class="menu-button icon-menu-button" type="button" aria-label="How to play">?</button>
+                        <button class="menu-button icon-menu-button impressum-button" type="button" aria-label="Impressum">i</button>
                     </div>
                     <div id="howToPlayScreen" class="how-to-play-screen d-none">
                         <div class="how-to-play">
@@ -58,15 +54,19 @@
                     </div>
                 </div>
                 <div id="gameOverScreen" class="end-screen game-over-screen d-none">
-                    <button class="menu-button restart-button" type="button">Restart</button>
-                    <button class="menu-button home-button" type="button">Home</button>
-                    <button class="menu-button impressum-button" type="button">Impressum</button>
+                    <div class="end-menu">
+                        <button class="menu-button icon-menu-button restart-button" type="button" aria-label="Restart">&#8635;</button>
+                        <button class="menu-button icon-menu-button home-button" type="button" aria-label="Home">&#8962;</button>
+                        <button class="menu-button icon-menu-button impressum-button" type="button" aria-label="Impressum">i</button>
+                    </div>
                 </div>
                 <div id="winScreen" class="end-screen win-screen d-none">
                     <h2>You Win</h2>
-                    <button class="menu-button restart-button" type="button">Restart</button>
-                    <button class="menu-button home-button" type="button">Home</button>
-                    <button class="menu-button impressum-button" type="button">Impressum</button>
+                    <div class="end-menu">
+                        <button class="menu-button icon-menu-button restart-button" type="button" aria-label="Restart">&#8635;</button>
+                        <button class="menu-button icon-menu-button home-button" type="button" aria-label="Home">&#8962;</button>
+                        <button class="menu-button icon-menu-button impressum-button" type="button" aria-label="Impressum">i</button>
+                    </div>
                 </div>
                 <div id="impressumScreen" class="impressum-screen d-none">
                     <div class="impressum-box">
@@ -106,8 +106,6 @@
     </main>
 </body>
 </html>
-
-
 
 
 

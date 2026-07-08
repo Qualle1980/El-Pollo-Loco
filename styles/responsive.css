@@ -188,27 +188,17 @@
         width: 86px;
     }
 
-    .start-menu .menu-button,
-    .how-to-play-menu .menu-button,
-    .impressum-menu .menu-button,
-    .end-screen .menu-button {
-        min-width: 96px;
-        padding: 3px 10px;
-        font-size: 18px;
+    .icon-menu-button {
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
     }
 
-    .start-menu {
+    .start-action-menu,
+    .end-menu {
         top: 10px;
-        transform: translateX(calc(-100% - 4px));
-    }
-
-    .how-to-play-menu {
-        top: 10px;
-        transform: translateX(4px);
-    }
-
-    .impressum-menu {
-        bottom: 10px;
+        left: 50%;
+        gap: 8px;
     }
 
     .impressum-box {

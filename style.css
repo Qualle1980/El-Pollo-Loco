@@ -235,28 +235,15 @@ canvas {
     display: none;
 }
 
-.start-menu {
+.start-action-menu,
+.end-menu {
     position: absolute;
     top: 12px;
     left: 50%;
-    transform: translateX(calc(-100% - 6px));
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
-    flex-direction: column;
-}
-
-.how-to-play-menu {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(6px);
-}
-
-.impressum-menu {
-    position: absolute;
-    left: 50%;
-    bottom: 12px;
-    transform: translateX(-50%);
+    gap: 10px;
 }
 
 .menu-screen h2,
@@ -301,18 +288,13 @@ canvas {
         0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
-.start-menu .menu-button,
-.how-to-play-menu .menu-button,
-.impressum-menu .menu-button {
-    min-width: 140px;
-    padding: 7px 18px;
-    font-size: 20px;
-}
-
-.end-screen .menu-button {
-    min-width: 110px;
-    padding: 7px 16px;
-    font-size: 20px;
+.icon-menu-button {
+    min-width: 0;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 26px;
 }
 
 .how-to-play-screen {
