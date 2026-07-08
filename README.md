@@ -15,7 +15,9 @@ A browser-based jump and run game built with HTML, CSS and JavaScript.
 - Game over and win screens
 - Restart and home buttons
 - Fullscreen mode
-- Mute button prepared for sounds
+- Game sound effects with mute and volume control
+- Background music with separate volume control
+- Saved sound settings with LocalStorage
 - Impressum overlay
 
 ## Controls
