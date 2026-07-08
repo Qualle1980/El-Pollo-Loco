@@ -1,6 +1,7 @@
 import { MovableObject } from './movable-object.class.js';
 import { ImageHelper } from '../helper_classes/image-helper.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 export class Endboss extends MovableObject {
     // #region properties
@@ -16,6 +17,8 @@ export class Endboss extends MovableObject {
     speed = 0.4;
     world;
     isMoving = false;
+    approachSoundPlayed = false;
+    approachSound = SoundHelper.createSound('./audio/endboss/endbossApproach.wav', false, 1);
     IMAGES_WALKING = ImageHelper.CHICKEN_BOSS.walk;
     IMAGES_ALERT = ImageHelper.CHICKEN_BOSS.alert;
     IMAGES_ATTACK = ImageHelper.CHICKEN_BOSS.attack;
@@ -67,12 +70,25 @@ export class Endboss extends MovableObject {
     // Moves the endboss when the character is nearby.
     moveEndboss() {
         this.isMoving = this.canMoveEndboss();
-        if (this.isMoving) this.moveLeft();
+        if (this.isMoving) this.startEndbossMovement();
     }
 
     // Checks if the endboss should start moving.
     canMoveEndboss() {
         return this.world && !this.dead && this.world.character.x > this.x - 600;
+    }
+
+    // Moves the endboss and starts its approach sound once.
+    startEndbossMovement() {
+        this.playApproachSound();
+        this.moveLeft();
+    }
+
+    // Plays the approach sound only once.
+    playApproachSound() {
+        if (this.approachSoundPlayed) return;
+        SoundHelper.playSound(this.approachSound);
+        this.approachSoundPlayed = true;
     }
 
     // Checks if the character is close enough for an attack.

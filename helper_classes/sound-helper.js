@@ -11,8 +11,9 @@ export class SoundHelper {
     // #region sound setup
 
     // Creates an audio file and stores it for global sound settings.
-    static createSound(path, isMusic = false) {
+    static createSound(path, isMusic = false, volume = 1) {
         const sound = new Audio(path);
+        sound.volume = SoundHelper.getValidVolume(volume);
         SoundHelper.registerSound(sound, isMusic);
         return sound;
     }
