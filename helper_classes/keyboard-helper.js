@@ -69,7 +69,9 @@ export class KeyboardHelper {
     // Stores a pressed mobile control.
     static pressMobileButton(event) {
         event.preventDefault();
-        KeyboardHelper.setMobileKey(event.currentTarget.dataset.mobileKey, true);
+        const key = event.currentTarget.dataset.mobileKey;
+        if (key === 'UP') return KeyboardHelper.pressMobileJump();
+        KeyboardHelper.setMobileKey(key, true);
     }
 
     // Stores a released mobile control.
@@ -84,6 +86,12 @@ export class KeyboardHelper {
         if (key === 'RIGHT') KeyboardHelper.keyboard.RIGHT = isPressed;
         if (key === 'UP') KeyboardHelper.keyboard.UP = isPressed;
         if (key === 'THROW') KeyboardHelper.keyboard.THROW = isPressed;
+    }
+
+    // Presses jump only shortly on mobile.
+    static pressMobileJump() {
+        KeyboardHelper.keyboard.UP = true;
+        setTimeout(() => KeyboardHelper.keyboard.UP = false, 120);
     }
 
     // #endregion

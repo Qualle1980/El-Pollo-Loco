@@ -75,6 +75,7 @@ function setGameControlEvents() {
     document.querySelectorAll('.restart-button').forEach((button) => button.addEventListener('click', restartGame));
     document.querySelectorAll('.home-button').forEach((button) => button.addEventListener('click', showHomeScreen));
     document.querySelectorAll('.mobile-control-button').forEach((button) => button.addEventListener('pointerdown', closeVolumeControls));
+    document.querySelectorAll('.mobile-control-button').forEach((button) => button.addEventListener('contextmenu', preventContextMenu));
 }
 
 // Shows the saved sound settings in the interface.
@@ -246,6 +247,11 @@ function closeVolumeControls() {
 // Removes focus from clicked sound controls.
 function removeControlFocus(event) {
     if (event && event.currentTarget) event.currentTarget.blur();
+}
+
+// Stops the mobile browser menu on long button presses.
+function preventContextMenu(event) {
+    event.preventDefault();
 }
 
 // #endregion
