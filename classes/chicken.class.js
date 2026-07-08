@@ -1,5 +1,6 @@
 import { MovableObject } from './movable-object.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 export class Chicken extends MovableObject {
     // #region properties
@@ -10,6 +11,7 @@ export class Chicken extends MovableObject {
     hasHitCharacter = false;
     dead = false;
     deadAt = 0;
+    deadSound = SoundHelper.createSound('./audio/chicken/chickenDead.mp3');
     offset = {
         top: 5,
         right: 5,
@@ -61,8 +63,10 @@ export class Chicken extends MovableObject {
 
     // Marks the chicken as dead.
     kill() {
+        if (this.dead) return;
         this.dead = true;
         this.deadAt = new Date().getTime();
+        SoundHelper.playSound(this.deadSound);
     }
 
     // #endregion

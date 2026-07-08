@@ -1,4 +1,5 @@
 import { Chicken } from './chicken.class.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 export class SmallChicken extends Chicken {
     // #region properties
@@ -6,6 +7,7 @@ export class SmallChicken extends Chicken {
     y = 370;
     width = 50;
     height = 50;
+    deadSound = SoundHelper.createSound('./audio/chicken/chickenDead2.mp3');
     offset = {
         top: 5,
         right: 5,
