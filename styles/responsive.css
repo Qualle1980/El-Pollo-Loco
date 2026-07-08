@@ -182,6 +182,12 @@
         right: 12px;
     }
 
+    .sound-volume-control {
+        top: 16px;
+        left: 58px;
+        width: 86px;
+    }
+
     .music-volume-control {
         top: 16px;
         right: 58px;

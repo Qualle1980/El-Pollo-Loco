@@ -28,9 +28,12 @@
                 <button id="fullscreenButton" class="fullscreen-button" type="button" aria-label="Fullscreen">
                     <img id="fullscreenImage" src="./assets/img/icons/max.png" alt="">
                 </button>
-                <button id="muteButton" class="mute-button" type="button" aria-label="Mute sound">
+                <button id="muteButton" class="mute-button" type="button" aria-label="Mute sound" aria-expanded="false">
                     <img id="soundOnOffImage" src="./assets/img/icons/soundOn.png" alt="">
                 </button>
+                <label id="soundVolumeControl" class="sound-volume-control d-none" aria-label="Game sound volume">
+                    <input id="soundVolumeSlider" type="range" min="0" max="1" step="0.01">
+                </label>
                 <button id="musicVolumeButton" class="music-volume-button" type="button" aria-label="Music volume" aria-expanded="false">
                     <span class="music-volume-icon"></span>
                 </button>
@@ -106,7 +109,6 @@
     </main>
 </body>
 </html>
-
 
 
 

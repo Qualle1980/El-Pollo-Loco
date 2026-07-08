@@ -147,10 +147,10 @@ canvas {
     height: 22px;
 }
 
+.sound-volume-control,
 .music-volume-control {
     position: absolute;
     top: 18px;
-    right: 104px;
     z-index: 3;
     display: flex;
     align-items: center;
@@ -158,6 +158,15 @@ canvas {
     height: 34px;
 }
 
+.sound-volume-control {
+    left: 58px;
+}
+
+.music-volume-control {
+    right: 104px;
+}
+
+.sound-volume-control input,
 .music-volume-control input {
     width: 100%;
     accent-color: #f7b33b;
@@ -179,6 +188,11 @@ canvas {
 .game-stage:fullscreen .mute-button {
     top: 12px;
     left: 12px;
+}
+
+.game-stage:fullscreen .sound-volume-control {
+    top: 18px;
+    left: 58px;
 }
 
 .game-stage:fullscreen .music-volume-button {

@@ -91,6 +91,7 @@ export class World {
     // Stops the sounds that belong to the world.
     stopSounds() {
         SoundHelper.pauseSound(this.backgroundMusic);
+        this.character.stopSounds();
     }
 
     // #endregion

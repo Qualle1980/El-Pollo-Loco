@@ -20,9 +20,11 @@ export class Character extends MovableObject {
     lastAction = new Date().getTime();
     deadImageIndex = 0;
     deathSoundPlayed = false;
+    snoringStarted = false;
     jumpSound = SoundHelper.createSound('./audio/character/characterJump.wav');
     damageSound = SoundHelper.createSound('./audio/character/characterDamage.mp3');
     deathSound = SoundHelper.createSound('./audio/character/characterDead.wav');
+    snoringSound = SoundHelper.createSound('./audio/character/characterSnoring.mp3');
     world;
     offset = {
         top: 80,
@@ -185,7 +187,9 @@ export class Character extends MovableObject {
 
     // Reduces the collected bottle amount after throwing.
     throwBottle() {
-        if (this.bottles > 0) this.bottles--;
+        if (this.bottles <= 0) return;
+        this.bottles--;
+        this.resetIdleAnimations();
     }
 
     // #endregion
@@ -194,6 +198,7 @@ export class Character extends MovableObject {
 
     // Damages the character and plays its hurt sound.
     hit(damage = this.damage) {
+        this.stopSnoring();
         super.hit(damage);
         if (this.isDead()) this.playDeathSound();
         else SoundHelper.playSound(this.damageSound);
@@ -204,6 +209,11 @@ export class Character extends MovableObject {
         if (this.deathSoundPlayed) return;
         SoundHelper.playSound(this.deathSound);
         this.deathSoundPlayed = true;
+    }
+
+    // Stops looped character sounds.
+    stopSounds() {
+        this.stopSnoring();
     }
 
     // #endregion
@@ -250,11 +260,27 @@ export class Character extends MovableObject {
 
     // Plays the sleeping animation once and keeps the last image.
     playLongIdleAnimation() {
+        this.startSnoring();
         if (this.waitForLongIdleFrame()) return;
         const imageIndex = this.longIdleImageIndex % this.IMAGES_LONG_IDLE.length;
         const imagePath = this.IMAGES_LONG_IDLE[imageIndex];
         this.img = this.imageCache[imagePath];
         this.longIdleImageIndex++;
+    }
+
+    // Starts the snoring sound while the character sleeps.
+    startSnoring() {
+        if (this.snoringStarted) return;
+        this.snoringSound.loop = true;
+        SoundHelper.playSound(this.snoringSound);
+        this.snoringStarted = true;
+    }
+
+    // Stops the snoring sound after the character wakes up.
+    stopSnoring() {
+        if (!this.snoringStarted) return;
+        SoundHelper.pauseSound(this.snoringSound);
+        this.snoringStarted = false;
     }
 
     // Slows down the long idle animation.
@@ -276,6 +302,7 @@ export class Character extends MovableObject {
 
     // Resets idle animations after an action.
     resetIdleAnimations() {
+        this.stopSnoring();
         this.lastAction = new Date().getTime();
         this.idleImageIndex = 0;
         this.idleFrameCounter = 0;
