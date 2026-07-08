@@ -1,5 +1,6 @@
 import { MovableObject } from './movable-object.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
+import { SoundHelper } from '../helper_classes/sound-helper.js';
 
 export class Character extends MovableObject {
     // #region properties
@@ -18,6 +19,7 @@ export class Character extends MovableObject {
     longIdleFrameCounter = 0;
     lastAction = new Date().getTime();
     deadImageIndex = 0;
+    jumpSound = SoundHelper.createSound('./audio/character/characterJump.wav');
     world;
     offset = {
         top: 80,
@@ -131,6 +133,12 @@ export class Character extends MovableObject {
     moveLeft() {
         super.moveLeft();
         this.otherDirection = true;
+    }
+
+    // Makes the character jump and plays its jump sound.
+    jump() {
+        super.jump();
+        SoundHelper.playSound(this.jumpSound);
     }
 
     // Checks if the character can move right.
