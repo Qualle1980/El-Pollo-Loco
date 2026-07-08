@@ -19,8 +19,10 @@ export class Character extends MovableObject {
     longIdleFrameCounter = 0;
     lastAction = new Date().getTime();
     deadImageIndex = 0;
+    deathSoundPlayed = false;
     jumpSound = SoundHelper.createSound('./audio/character/characterJump.wav');
     damageSound = SoundHelper.createSound('./audio/character/characterDamage.mp3');
+    deathSound = SoundHelper.createSound('./audio/character/characterDead.wav');
     world;
     offset = {
         top: 80,
@@ -193,7 +195,15 @@ export class Character extends MovableObject {
     // Damages the character and plays its hurt sound.
     hit(damage = this.damage) {
         super.hit(damage);
-        if (!this.isDead()) SoundHelper.playSound(this.damageSound);
+        if (this.isDead()) this.playDeathSound();
+        else SoundHelper.playSound(this.damageSound);
+    }
+
+    // Plays the death sound only once.
+    playDeathSound() {
+        if (this.deathSoundPlayed) return;
+        SoundHelper.playSound(this.deathSound);
+        this.deathSoundPlayed = true;
     }
 
     // #endregion
