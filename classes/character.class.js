@@ -20,6 +20,7 @@ export class Character extends MovableObject {
     lastAction = new Date().getTime();
     deadImageIndex = 0;
     jumpSound = SoundHelper.createSound('./audio/character/characterJump.wav');
+    damageSound = SoundHelper.createSound('./audio/character/characterDamage.mp3');
     world;
     offset = {
         top: 80,
@@ -183,6 +184,16 @@ export class Character extends MovableObject {
     // Reduces the collected bottle amount after throwing.
     throwBottle() {
         if (this.bottles > 0) this.bottles--;
+    }
+
+    // #endregion
+
+    // #region damage
+
+    // Damages the character and plays its hurt sound.
+    hit(damage = this.damage) {
+        super.hit(damage);
+        if (!this.isDead()) SoundHelper.playSound(this.damageSound);
     }
 
     // #endregion
