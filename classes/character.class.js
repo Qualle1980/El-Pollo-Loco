@@ -21,7 +21,9 @@ export class Character extends MovableObject {
     deadImageIndex = 0;
     deathSoundPlayed = false;
     snoringStarted = false;
+    walkingSoundStarted = false;
     jumpSound = SoundHelper.createSound('./audio/character/characterJump.wav');
+    walkingSound = SoundHelper.createSound('./audio/character/characterRun.mp3', false, 0.35);
     damageSound = SoundHelper.createSound('./audio/character/characterDamage.mp3');
     deathSound = SoundHelper.createSound('./audio/character/characterDead.wav');
     snoringSound = SoundHelper.createSound('./audio/character/characterSnoring.mp3');
@@ -142,6 +144,7 @@ export class Character extends MovableObject {
 
     // Makes the character jump and plays its jump sound.
     jump() {
+        this.stopWalkingSound();
         super.jump();
         SoundHelper.playSound(this.jumpSound);
     }
@@ -199,6 +202,7 @@ export class Character extends MovableObject {
     // Damages the character and plays its hurt sound.
     hit(damage = this.damage) {
         this.stopSnoring();
+        this.stopWalkingSound();
         super.hit(damage);
         if (this.isDead()) this.playDeathSound();
         else SoundHelper.playSound(this.damageSound);
@@ -214,6 +218,7 @@ export class Character extends MovableObject {
     // Stops looped character sounds.
     stopSounds() {
         this.stopSnoring();
+        this.stopWalkingSound();
     }
 
     // #endregion
@@ -222,17 +227,37 @@ export class Character extends MovableObject {
 
     // Plays the current character animation.
     playCharacter() {
-        if (this.isDead()) this.playDeathAnimation();
-        else if (this.isHurt()) this.playMovingAnimation(this.IMAGES_HURT);
-        else if (this.isAboveGround()) this.playMovingAnimation(this.IMAGES_JUMPING);
-        else if (this.isMoving()) this.playMovingAnimation(this.IMAGES_WALKING);
-        else this.playIdleAnimation();
+        if (this.isDead()) return this.playDeadCharacter();
+        if (this.isHurt()) return this.playActiveCharacter(this.IMAGES_HURT);
+        if (this.isAboveGround()) return this.playActiveCharacter(this.IMAGES_JUMPING);
+        if (this.isMoving()) return this.playWalkingCharacter();
+        this.playIdleCharacter();
     }
 
-    // Plays an active animation and resets the idle sequence.
-    playMovingAnimation(images) {
+    // Plays an active animation without walking sound.
+    playActiveCharacter(images) {
+        this.stopWalkingSound();
         this.resetIdleAnimations();
         this.playAnimation(images);
+    }
+
+    // Plays the character death animation.
+    playDeadCharacter() {
+        this.stopWalkingSound();
+        this.playDeathAnimation();
+    }
+
+    // Plays the walking animation and sound.
+    playWalkingCharacter() {
+        this.startWalkingSound();
+        this.resetIdleAnimations();
+        this.playAnimation(this.IMAGES_WALKING);
+    }
+
+    // Plays idle animation and stops walking sound.
+    playIdleCharacter() {
+        this.stopWalkingSound();
+        this.playIdleAnimation();
     }
 
     // Plays the idle animation once and keeps the last image.
@@ -281,6 +306,21 @@ export class Character extends MovableObject {
         if (!this.snoringStarted) return;
         SoundHelper.pauseSound(this.snoringSound);
         this.snoringStarted = false;
+    }
+
+    // Starts the walking sound while the character walks.
+    startWalkingSound() {
+        if (this.walkingSoundStarted) return;
+        this.walkingSound.loop = true;
+        SoundHelper.playSound(this.walkingSound);
+        this.walkingSoundStarted = true;
+    }
+
+    // Stops the walking sound when the character stops.
+    stopWalkingSound() {
+        if (!this.walkingSoundStarted) return;
+        SoundHelper.pauseSound(this.walkingSound);
+        this.walkingSoundStarted = false;
     }
 
     // Slows down the long idle animation.
