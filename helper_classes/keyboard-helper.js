@@ -1,3 +1,7 @@
+/**
+ * Handles keyboard and mobile touch input for the game.
+ * @class
+ */
 export class KeyboardHelper {
     // #region properties
 
@@ -9,12 +13,18 @@ export class KeyboardHelper {
 
     // #region keyboard setup
 
-    // Stores the active keyboard instance.
+    /**
+     * Stores the active keyboard instance.
+     * @param {Keyboard} keyboard - The keyboard object used by the game.
+     */
     static setKeyboard(keyboard) {
         KeyboardHelper.keyboard = keyboard;
     }
 
-    // Starts keyboard and mobile button events once.
+    /**
+     * Starts keyboard and mobile button events once.
+     * @param {Function} keyDownAction - Function that reacts to keydown actions.
+     */
     static startEvents(keyDownAction) {
         if (KeyboardHelper.eventsStarted) return;
         KeyboardHelper.keyDownAction = keyDownAction;
@@ -33,19 +43,30 @@ export class KeyboardHelper {
         window.addEventListener('keyup', (event) => KeyboardHelper.updateKey(event.code, false));
     }
 
-    // Handles one pressed key.
+    /**
+     * Handles one pressed key.
+     * @param {KeyboardEvent} event - The pressed keyboard event.
+     */
     static handleKeyDown(event) {
         if (KeyboardHelper.isRepeatedThrowKey(event)) return;
         if (KeyboardHelper.keyDownAction) KeyboardHelper.keyDownAction(event.code);
         KeyboardHelper.updateKey(event.code, true);
     }
 
-    // Checks if the throw key is repeated while being held down.
+    /**
+     * Checks if the throw key is repeated while being held down.
+     * @param {KeyboardEvent} event - The pressed keyboard event.
+     * @returns {boolean} True if the repeated key is the throw key.
+     */
     static isRepeatedThrowKey(event) {
         return event.code === 'KeyD' && event.repeat;
     }
 
-    // Updates the matching keyboard state.
+    /**
+     * Updates the matching keyboard state.
+     * @param {string} code - The pressed or released key code.
+     * @param {boolean} isPressed - True if the key is currently pressed.
+     */
     static updateKey(code, isPressed) {
         if (code === 'ArrowLeft') KeyboardHelper.keyboard.LEFT = isPressed;
         if (code === 'ArrowRight') KeyboardHelper.keyboard.RIGHT = isPressed;
@@ -66,7 +87,10 @@ export class KeyboardHelper {
         });
     }
 
-    // Stores a pressed mobile control.
+    /**
+     * Stores a pressed mobile control.
+     * @param {TouchEvent} event - The mobile touch event.
+     */
     static pressMobileButton(event) {
         KeyboardHelper.preventTouchDefault(event);
         const key = event.currentTarget.dataset.mobileKey;
@@ -75,13 +99,20 @@ export class KeyboardHelper {
         KeyboardHelper.setMobileKey(key, true);
     }
 
-    // Stores a released mobile control.
+    /**
+     * Stores a released mobile control.
+     * @param {TouchEvent} event - The mobile touch event.
+     */
     static releaseMobileButton(event) {
         KeyboardHelper.preventTouchDefault(event);
         KeyboardHelper.setMobileKey(event.currentTarget.dataset.mobileKey, false);
     }
 
-    // Updates the matching mobile keyboard state.
+    /**
+     * Updates the matching mobile keyboard state.
+     * @param {string} key - The mobile button key.
+     * @param {boolean} isPressed - True if the mobile button is pressed.
+     */
     static setMobileKey(key, isPressed) {
         if (key === 'LEFT') KeyboardHelper.keyboard.LEFT = isPressed;
         if (key === 'RIGHT') KeyboardHelper.keyboard.RIGHT = isPressed;
@@ -101,7 +132,10 @@ export class KeyboardHelper {
         setTimeout(() => KeyboardHelper.keyboard.THROW = false, 350);
     }
 
-    // Prevents browser touch behavior only when possible.
+    /**
+     * Prevents browser touch behavior only when possible.
+     * @param {TouchEvent} event - The mobile touch event.
+     */
     static preventTouchDefault(event) {
         if (event.cancelable) event.preventDefault();
     }
