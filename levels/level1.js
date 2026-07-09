@@ -9,7 +9,12 @@ import { Bottle } from '../classes/bottle.class.js';
 
 // Creates a fresh first level for a new game.
 export function createLevel1() {
-    return new Level([
+    return new Level(createEnemies(), createClouds(), createBackgroundObjects(), createCoins(), createBottles(), 4320);
+}
+
+// Creates all enemies for the first level.
+function createEnemies() {
+    return [
         new Chicken(0),
         new SmallChicken(1),
         new Chicken(2),
@@ -20,8 +25,12 @@ export function createLevel1() {
         new SmallChicken(9),
         new Chicken(10),
         new Endboss(3940)
-    ],
-    [
+    ];
+}
+
+// Creates all clouds for the first level.
+function createClouds() {
+    return [
         new Cloud(100),
         new Cloud(500),
         new Cloud(900),
@@ -29,42 +38,30 @@ export function createLevel1() {
         new Cloud(2300),
         new Cloud(3100),
         new Cloud(3800)
-    ],
-    [
-        new BackgroundObject('./assets/img/5_background/layers/air.png', -720),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', -720),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', -720),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', -720),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 0),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 0),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 720),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', 720),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', 720),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', 720),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 1440),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 1440),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 1440),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 1440),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 2160),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', 2160),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', 2160),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', 2160),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 2880),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 2880),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 2880),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 2880),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 3600),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/2.png', 3600),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/2.png', 3600),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/2.png', 3600),
-        new BackgroundObject('./assets/img/5_background/layers/air.png', 4320),
-        new BackgroundObject('./assets/img/5_background/layers/3_third_layer/1.png', 4320),
-        new BackgroundObject('./assets/img/5_background/layers/2_second_layer/1.png', 4320),
-        new BackgroundObject('./assets/img/5_background/layers/1_first_layer/1.png', 4320)
-    ],
-    [
+    ];
+}
+
+// Creates all background layers for the first level.
+function createBackgroundObjects() {
+    const backgroundObjects = [];
+    [-720, 0, 720, 1440, 2160, 2880, 3600, 4320].forEach((x, index) => {
+        const imageNumber = index % 2 === 0 ? 2 : 1;
+        addBackgroundLayers(backgroundObjects, x, imageNumber);
+    });
+    return backgroundObjects;
+}
+
+// Adds one complete background set at one x position.
+function addBackgroundLayers(backgroundObjects, x, imageNumber) {
+    backgroundObjects.push(new BackgroundObject('./assets/img/5_background/layers/air.png', x));
+    backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/3_third_layer/${imageNumber}.png`, x));
+    backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/2_second_layer/${imageNumber}.png`, x));
+    backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/1_first_layer/${imageNumber}.png`, x));
+}
+
+// Creates all coins for the first level.
+function createCoins() {
+    return [
         new Coin(500, 120),
         new Coin(650, 190),
         new Coin(1050, 250),
@@ -75,8 +72,12 @@ export function createLevel1() {
         new Coin(2700, 130),
         new Coin(3000, 210),
         new Coin(3300, 150)
-    ],
-    [
+    ];
+}
+
+// Creates all bottles for the first level.
+function createBottles() {
+    return [
         new Bottle(450),
         new Bottle(1000),
         new Bottle(1650),
@@ -86,6 +87,5 @@ export function createLevel1() {
         new Bottle(2550),
         new Bottle(3000),
         new Bottle(3450)
-    ],
-    4320);
+    ];
 }
