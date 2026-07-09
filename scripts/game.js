@@ -15,6 +15,7 @@ let soundVolumeSlider;
 let soundVolumeControl;
 let musicVolumeSlider;
 let musicVolumeControl;
+let gameStartSound;
 
 // #endregion
 
@@ -37,6 +38,7 @@ function setGameElements() {
     soundVolumeControl = document.getElementById('soundVolumeControl');
     musicVolumeSlider = document.getElementById('musicVolumeSlider');
     musicVolumeControl = document.getElementById('musicVolumeControl');
+    gameStartSound = SoundHelper.createSound('./audio/game/gameStart.mp3');
 }
 
 // Adds click events to all menu buttons.
@@ -99,6 +101,7 @@ function startGame() {
     if (world) return;
     closeVolumeControls();
     startScreen.classList.add('d-none');
+    SoundHelper.playSound(gameStartSound);
     world = new World(canvas, keyboard);
     window.world = world;
 }
