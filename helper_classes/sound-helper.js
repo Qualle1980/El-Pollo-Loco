@@ -1,3 +1,7 @@
+/**
+ * Handles sound creation, playback and saved audio settings.
+ * @class
+ */
 export class SoundHelper {
     // #region properties
 
@@ -12,7 +16,13 @@ export class SoundHelper {
 
     // #region sound setup
 
-    // Creates an audio file and stores it for global sound settings.
+    /**
+     * Creates an audio file and stores it for global sound settings.
+     * @param {string} path - The audio file path.
+     * @param {boolean} isMusic - True if the sound is background music.
+     * @param {number} volume - The base volume from 0 to 1.
+     * @returns {HTMLAudioElement} The created audio element.
+     */
     static createSound(path, isMusic = false, volume = 1) {
         const sound = new Audio(path);
         sound.baseVolume = SoundHelper.getValidVolume(volume);
@@ -20,7 +30,11 @@ export class SoundHelper {
         return sound;
     }
 
-    // Stores one sound and applies the saved settings.
+    /**
+     * Stores one sound and applies the saved settings.
+     * @param {HTMLAudioElement} sound - The audio element.
+     * @param {boolean} isMusic - True if the sound is background music.
+     */
     static registerSound(sound, isMusic) {
         SoundHelper.sounds.push(sound);
         if (isMusic) SoundHelper.musicSounds.push(sound);
@@ -28,7 +42,11 @@ export class SoundHelper {
         SoundHelper.applySettings(sound, isMusic);
     }
 
-    // Applies mute and volume settings to one audio file.
+    /**
+     * Applies mute and volume settings to one audio file.
+     * @param {HTMLAudioElement} sound - The audio element.
+     * @param {boolean} isMusic - True if the sound is background music.
+     */
     static applySettings(sound, isMusic) {
         if (isMusic) SoundHelper.applyMusicSettings(sound);
         else SoundHelper.applyEffectSettings(sound);
@@ -50,21 +68,30 @@ export class SoundHelper {
 
     // #region playback
 
-    // Plays a short sound effect from the beginning.
+    /**
+     * Plays a short sound effect from the beginning.
+     * @param {HTMLAudioElement} sound - The audio element.
+     */
     static playSound(sound) {
         if (!sound || SoundHelper.muted) return;
         sound.currentTime = 0;
         sound.play().catch(() => {});
     }
 
-    // Starts a music file and keeps it looping.
+    /**
+     * Starts a music file and keeps it looping.
+     * @param {HTMLAudioElement} sound - The audio element.
+     */
     static playMusic(sound) {
         if (!sound) return;
         sound.loop = true;
         sound.play().catch(() => {});
     }
 
-    // Pauses one audio file and resets it.
+    /**
+     * Pauses one audio file and resets it.
+     * @param {HTMLAudioElement} sound - The audio element.
+     */
     static pauseSound(sound) {
         if (!sound) return;
         sound.pause();
@@ -75,20 +102,29 @@ export class SoundHelper {
 
     // #region settings
 
-    // Switches all game sound effects on or off.
+    /**
+     * Switches all game sound effects on or off.
+     * @returns {boolean} True if sound effects are muted.
+     */
     static toggleMuted() {
         SoundHelper.setMuted(!SoundHelper.muted);
         return SoundHelper.muted;
     }
 
-    // Stores and applies the effect mute setting.
+    /**
+     * Stores and applies the effect mute setting.
+     * @param {boolean} isMuted - True if game sound effects should be muted.
+     */
     static setMuted(isMuted) {
         SoundHelper.muted = isMuted;
         localStorage.setItem('audioMuted', String(isMuted));
         SoundHelper.effectSounds.forEach((sound) => sound.muted = isMuted);
     }
 
-    // Stores and applies the game sound volume.
+    /**
+     * Stores and applies the game sound volume.
+     * @param {number|string} volume - The game sound volume from 0 to 1.
+     */
     static setSoundVolume(volume) {
         SoundHelper.soundVolume = SoundHelper.getValidVolume(volume);
         localStorage.setItem('soundVolume', SoundHelper.soundVolume);
@@ -96,7 +132,10 @@ export class SoundHelper {
         SoundHelper.effectSounds.forEach((sound) => SoundHelper.setEffectSoundVolume(sound));
     }
 
-    // Stores and applies the music volume.
+    /**
+     * Stores and applies the music volume.
+     * @param {number|string} volume - The music volume from 0 to 1.
+     */
     static setMusicVolume(volume) {
         SoundHelper.musicVolume = SoundHelper.getValidVolume(volume);
         localStorage.setItem('musicVolume', SoundHelper.musicVolume);
@@ -136,7 +175,11 @@ export class SoundHelper {
         return volume === null ? 0.2 : SoundHelper.getValidVolume(volume);
     }
 
-    // Keeps the volume between 0 and 1.
+    /**
+     * Keeps the volume between 0 and 1.
+     * @param {number|string} volume - The volume value.
+     * @returns {number} A valid volume between 0 and 1.
+     */
     static getValidVolume(volume) {
         const number = Number(volume);
         if (Number.isNaN(number)) return 0.2;

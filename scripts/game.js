@@ -4,6 +4,11 @@ import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { KeyboardHelper } from '../helper_classes/keyboard-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Starts and controls the game user interface.
+ * @module Game
+ */
+
 // #region variables
 
 let canvas;
@@ -160,7 +165,10 @@ function hideHowToPlay() {
     document.getElementById('howToPlayScreen').classList.add('d-none');
 }
 
-// Closes the key explanation when the dark background is clicked.
+/**
+ * Closes the key explanation when the dark background is clicked.
+ * @param {MouseEvent} event - The click event on the overlay.
+ */
 function closeHowToPlayByClick(event) {
     if (event.target.id === 'howToPlayScreen') hideHowToPlay();
 }
@@ -175,7 +183,10 @@ function hideImpressum() {
     document.getElementById('impressumScreen').classList.add('d-none');
 }
 
-// Closes the impressum when the dark background is clicked.
+/**
+ * Closes the impressum when the dark background is clicked.
+ * @param {MouseEvent} event - The click event on the overlay.
+ */
 function closeImpressumByClick(event) {
     if (event.target.id === 'impressumScreen') hideImpressum();
 }
@@ -192,7 +203,10 @@ function updateFullscreenIcon() {
     image.src = document.fullscreenElement ? './assets/img/icons/min.png' : './assets/img/icons/max.png';
 }
 
-// Opens or closes the game sound volume slider.
+/**
+ * Opens or closes the game sound volume slider.
+ * @param {MouseEvent} event - The click event on the sound button.
+ */
 function toggleSoundVolume(event) {
     soundVolumeControl.classList.toggle('d-none');
     updateSoundControlState();
@@ -226,7 +240,10 @@ function updateMusicVolume() {
     SoundHelper.setMusicVolume(musicVolumeSlider.value);
 }
 
-// Opens or closes the background music volume slider.
+/**
+ * Opens or closes the background music volume slider.
+ * @param {MouseEvent} event - The click event on the music button.
+ */
 function toggleMusicVolume(event) {
     musicVolumeControl.classList.toggle('d-none');
     updateMusicVolumeButtonState();
@@ -247,12 +264,18 @@ function closeVolumeControls() {
     updateMusicVolumeButtonState();
 }
 
-// Removes focus from clicked sound controls.
+/**
+ * Removes focus from clicked sound controls.
+ * @param {Event} event - The control event.
+ */
 function removeControlFocus(event) {
     if (event && event.currentTarget) event.currentTarget.blur();
 }
 
-// Stops the mobile browser menu on long button presses.
+/**
+ * Stops the mobile browser menu on long button presses.
+ * @param {Event} event - The context menu event.
+ */
 function preventContextMenu(event) {
     event.preventDefault();
 }
@@ -261,7 +284,10 @@ function preventContextMenu(event) {
 
 // #region keyboard events
 
-// Handles menu actions for pressed keys.
+/**
+ * Handles menu actions for pressed keys.
+ * @param {string} code - The pressed key code.
+ */
 function handleKeyboardAction(code) {
     closeVolumeControls();
     if (codeClosesHowToPlay(code)) hideHowToPlay();
@@ -270,28 +296,47 @@ function handleKeyboardAction(code) {
     if (codeRestartsGame(code)) restartGame();
 }
 
-// Checks if the key should start the game.
+/**
+ * Checks if the key should start the game.
+ * @param {string} code - The pressed key code.
+ * @returns {boolean} True if Enter should start the game.
+ */
 function codeStartsGame(code) {
     return code === 'Enter' && !world;
 }
 
-// Checks if the key should restart the game.
+/**
+ * Checks if the key should restart the game.
+ * @param {string} code - The pressed key code.
+ * @returns {boolean} True if Enter should restart the game.
+ */
 function codeRestartsGame(code) {
     return code === 'Enter' && isEndScreenVisible();
 }
 
-// Checks if an end screen is currently visible.
+/**
+ * Checks if an end screen is currently visible.
+ * @returns {boolean} True if win or game over screen is visible.
+ */
 function isEndScreenVisible() {
     return !document.getElementById('gameOverScreen').classList.contains('d-none') ||
         !document.getElementById('winScreen').classList.contains('d-none');
 }
 
-// Checks if the key should close the key explanation.
+/**
+ * Checks if the key should close the key explanation.
+ * @param {string} code - The pressed key code.
+ * @returns {boolean} True if Escape should close how to play.
+ */
 function codeClosesHowToPlay(code) {
     return code === 'Escape' && !document.getElementById('howToPlayScreen').classList.contains('d-none');
 }
 
-// Checks if the key should close the impressum.
+/**
+ * Checks if the key should close the impressum.
+ * @param {string} code - The pressed key code.
+ * @returns {boolean} True if Escape should close the impressum.
+ */
 function codeClosesImpressum(code) {
     return code === 'Escape' && !document.getElementById('impressumScreen').classList.contains('d-none');
 }

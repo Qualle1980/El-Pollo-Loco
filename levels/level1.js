@@ -7,12 +7,18 @@ import { BackgroundObject } from '../classes/background-object.class.js';
 import { Coin } from '../classes/coin.class.js';
 import { Bottle } from '../classes/bottle.class.js';
 
-// Creates a fresh first level for a new game.
+/**
+ * Creates a fresh first level for a new game.
+ * @returns {Level} The first game level.
+ */
 export function createLevel1() {
     return new Level(createEnemies(), createClouds(), createBackgroundObjects(), createCoins(), createBottles(), 4320);
 }
 
-// Creates all enemies for the first level.
+/**
+ * Creates all enemies for the first level.
+ * @returns {MovableObject[]} The level enemies.
+ */
 function createEnemies() {
     return [
         new Chicken(0),
@@ -28,7 +34,10 @@ function createEnemies() {
     ];
 }
 
-// Creates all clouds for the first level.
+/**
+ * Creates all clouds for the first level.
+ * @returns {Cloud[]} The level clouds.
+ */
 function createClouds() {
     return [
         new Cloud(100),
@@ -41,7 +50,10 @@ function createClouds() {
     ];
 }
 
-// Creates all background layers for the first level.
+/**
+ * Creates all background layers for the first level.
+ * @returns {BackgroundObject[]} The level background layers.
+ */
 function createBackgroundObjects() {
     const backgroundObjects = [];
     [-720, 0, 720, 1440, 2160, 2880, 3600, 4320].forEach((x, index) => {
@@ -51,7 +63,12 @@ function createBackgroundObjects() {
     return backgroundObjects;
 }
 
-// Adds one complete background set at one x position.
+/**
+ * Adds one complete background set at one x position.
+ * @param {BackgroundObject[]} backgroundObjects - The background object list.
+ * @param {number} x - The x position of the background set.
+ * @param {number} imageNumber - The image number for alternating layers.
+ */
 function addBackgroundLayers(backgroundObjects, x, imageNumber) {
     backgroundObjects.push(new BackgroundObject('./assets/img/5_background/layers/air.png', x));
     backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/3_third_layer/${imageNumber}.png`, x));
@@ -59,7 +76,10 @@ function addBackgroundLayers(backgroundObjects, x, imageNumber) {
     backgroundObjects.push(new BackgroundObject(`./assets/img/5_background/layers/1_first_layer/${imageNumber}.png`, x));
 }
 
-// Creates all coins for the first level.
+/**
+ * Creates all coins for the first level.
+ * @returns {Coin[]} The level coins.
+ */
 function createCoins() {
     return [
         new Coin(500, 120),
@@ -75,7 +95,10 @@ function createCoins() {
     ];
 }
 
-// Creates all bottles for the first level.
+/**
+ * Creates all bottles for the first level.
+ * @returns {Bottle[]} The level bottles.
+ */
 function createBottles() {
     return [
         new Bottle(450),

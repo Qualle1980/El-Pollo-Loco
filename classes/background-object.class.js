@@ -1,5 +1,9 @@
 import { MovableObject } from './movable-object.class.js';
 
+/**
+ * Represents one background layer in the game world.
+ * @class
+ */
 export class BackgroundObject extends MovableObject {
     // #region properties
 
@@ -11,7 +15,11 @@ export class BackgroundObject extends MovableObject {
 
     // #region constructor
 
-    // Creates a background layer at the given x position.
+    /**
+     * Creates a background layer at the given x position.
+     * @param {string} imagePath - The path of the background image.
+     * @param {number} x - The x position of the background layer.
+     */
     constructor(imagePath, x) {
         super();
         this.x = x;

@@ -9,6 +9,10 @@ import { createLevel1 } from '../levels/level1.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Controls the game state, drawing, collisions and win or lose logic.
+ * @class
+ */
 export class World {
     // #region properties
 
@@ -39,7 +43,11 @@ export class World {
 
     // #region constructor
 
-    // Creates the world and starts drawing it.
+    /**
+     * Creates the world and starts drawing it.
+     * @param {HTMLCanvasElement} canvas - The game canvas.
+     * @param {Keyboard} keyboard - The active keyboard state.
+     */
     constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -105,7 +113,10 @@ export class World {
         this.checkBottleCollisions();
     }
 
-    // Handles one enemy collision with the character.
+    /**
+     * Handles one enemy collision with the character.
+     * @param {MovableObject} enemy - The enemy that should be checked.
+     */
     checkEnemyCollision(enemy) {
         if (enemy.dead) return;
         if (enemy instanceof Endboss) return this.checkEndbossCollision(enemy);
@@ -114,24 +125,37 @@ export class World {
         if (!this.character.isColliding(enemy)) enemy.hasHitCharacter = false;
     }
 
-    // Handles the collision between the character and the endboss.
+    /**
+     * Handles the collision between the character and the endboss.
+     * @param {Endboss} endboss - The endboss object.
+     */
     checkEndbossCollision(endboss) {
         if (this.canEndbossHitCharacter(endboss)) this.hitCharacter(endboss);
         if (!this.character.isColliding(endboss)) endboss.hasHitCharacter = false;
     }
 
-    // Checks if the endboss can damage the character.
+    /**
+     * Checks if the endboss can damage the character.
+     * @param {Endboss} endboss - The endboss object.
+     * @returns {boolean} True if the endboss can damage the character.
+     */
     canEndbossHitCharacter(endboss) {
         return endboss.canAttack() && this.character.isColliding(endboss) && !endboss.hasHitCharacter;
     }
 
-    // Kills the enemy after the character hits it from above.
+    /**
+     * Kills the enemy after the character hits it from above.
+     * @param {MovableObject} enemy - The enemy hit from above.
+     */
     hitEnemyFromAbove(enemy) {
         enemy.kill();
         enemy.hasHitCharacter = true;
     }
 
-    // Damages the character and marks the enemy contact.
+    /**
+     * Damages the character and marks the enemy contact.
+     * @param {MovableObject} enemy - The enemy that hits the character.
+     */
     hitCharacter(enemy) {
         this.character.hit(enemy.damage);
         this.statusBar.setPercentage(this.character.energy);
@@ -143,7 +167,10 @@ export class World {
         this.coins.forEach((coin) => this.checkCoinCollision(coin));
     }
 
-    // Collects one coin when the character touches it.
+    /**
+     * Collects one coin when the character touches it.
+     * @param {Coin} coin - The touched coin.
+     */
     checkCoinCollision(coin) {
         if (!this.character.isColliding(coin)) return;
         this.character.collectCoin();
@@ -157,7 +184,10 @@ export class World {
         this.bottles.forEach((bottle) => this.checkBottleCollision(bottle));
     }
 
-    // Collects one bottle when the character touches it.
+    /**
+     * Collects one bottle when the character touches it.
+     * @param {Bottle} bottle - The touched bottle.
+     */
     checkBottleCollision(bottle) {
         if (!this.canCollectBottle(bottle)) return;
         this.character.collectBottle();
@@ -166,12 +196,20 @@ export class World {
         this.removeObjectFromMap(this.bottles, bottle);
     }
 
-    // Checks if the character can collect the touched bottle.
+    /**
+     * Checks if the character can collect the touched bottle.
+     * @param {Bottle} bottle - The touched bottle.
+     * @returns {boolean} True if the bottle can be collected.
+     */
     canCollectBottle(bottle) {
         return this.character.isColliding(bottle) && this.character.canCollectBottle();
     }
 
-    // Removes one object from the given array.
+    /**
+     * Removes one object from the given array.
+     * @param {Object[]} array - The array that contains the object.
+     * @param {Object} objectToRemove - The object that should be removed.
+     */
     removeObjectFromMap(array, objectToRemove) {
         const index = array.indexOf(objectToRemove);
         if (index > -1) array.splice(index, 1);
@@ -213,7 +251,10 @@ export class World {
         this.keyboard.THROW = false;
     }
 
-    // Checks if the character has a bottle to throw.
+    /**
+     * Checks if the character has a bottle to throw.
+     * @returns {boolean} True if a bottle can be thrown.
+     */
     canThrowBottle() {
         return this.keyboard.THROW && this.character.bottles > 0;
     }
@@ -226,12 +267,18 @@ export class World {
         this.bottleStatusBar.setPercentage(this.getBottlePercentage());
     }
 
-    // Converts collected bottles into status bar percentage.
+    /**
+     * Converts collected bottles into status bar percentage.
+     * @returns {number} The bottle status percentage.
+     */
     getBottlePercentage() {
         return this.character.bottles * 20;
     }
 
-    // Converts collected coins into status bar percentage.
+    /**
+     * Converts collected coins into status bar percentage.
+     * @returns {number} The coin status percentage.
+     */
     getCoinPercentage() {
         return Math.ceil(this.character.coins / 2) * 20;
     }
@@ -246,12 +293,19 @@ export class World {
         this.throwableObjects.forEach((bottle) => this.checkThrowableCollision(bottle));
     }
 
-    // Checks one thrown bottle against all enemies.
+    /**
+     * Checks one thrown bottle against all enemies.
+     * @param {ThrowableObject} bottle - The thrown bottle.
+     */
     checkThrowableCollision(bottle) {
         this.enemies.forEach((enemy) => this.hitEnemyWithBottle(bottle, enemy));
     }
 
-    // Kills a normal enemy when it is hit by a bottle.
+    /**
+     * Kills a normal enemy when it is hit by a bottle.
+     * @param {ThrowableObject} bottle - The thrown bottle.
+     * @param {MovableObject} enemy - The enemy that can be hit.
+     */
     hitEnemyWithBottle(bottle, enemy) {
         if (!this.canHitEnemyWithBottle(bottle, enemy)) return;
         if (enemy instanceof Endboss) this.hitEndboss(enemy);
@@ -259,19 +313,30 @@ export class World {
         bottle.breakBottle();
     }
 
-    // Checks if a bottle can hit the given enemy.
+    /**
+     * Checks if a bottle can hit the given enemy.
+     * @param {ThrowableObject} bottle - The thrown bottle.
+     * @param {MovableObject} enemy - The enemy that can be hit.
+     * @returns {boolean} True if the bottle can hit the enemy.
+     */
     canHitEnemyWithBottle(bottle, enemy) {
         return bottle.bottleFlying && !enemy.dead && bottle.isColliding(enemy);
     }
 
-    // Damages the endboss and updates its status bar.
+    /**
+     * Damages the endboss and updates its status bar.
+     * @param {Endboss} endboss - The endboss object.
+     */
     hitEndboss(endboss) {
         endboss.hit();
         this.endbossStatusBar.setPercentage(endboss.energy);
         if (endboss.isDead()) endboss.kill();
     }
 
-    // Checks if the character is close enough to show the endboss bar.
+    /**
+     * Checks if the character is close enough to show the endboss bar.
+     * @returns {boolean} True if the character is near the endboss.
+     */
     isNearEndboss() {
         const endboss = this.enemies.find((enemy) => enemy instanceof Endboss);
         return endboss && this.character.x > endboss.x - 600;
@@ -282,7 +347,11 @@ export class World {
         this.enemies = this.enemies.filter((enemy) => !this.canRemoveEnemy(enemy));
     }
 
-    // Checks if a dead enemy can be removed.
+    /**
+     * Checks if a dead enemy can be removed.
+     * @param {MovableObject} enemy - The enemy to check.
+     * @returns {boolean} True if the enemy can be removed.
+     */
     canRemoveEnemy(enemy) {
         const timePassed = new Date().getTime() - enemy.deadAt;
         return !(enemy instanceof Endboss) && enemy.dead && timePassed > 800;
@@ -294,7 +363,10 @@ export class World {
         if (this.character.isDead() || this.isEndbossDead()) this.stopGameSoon();
     }
 
-    // Checks if the endboss has no energy left.
+    /**
+     * Checks if the endboss has no energy left.
+     * @returns {boolean} True if the endboss is dead.
+     */
     isEndbossDead() {
         const endboss = this.enemies.find((enemy) => enemy instanceof Endboss);
         return endboss && endboss.isDead();
@@ -325,12 +397,18 @@ export class World {
         document.getElementById('winScreen').classList.remove('d-none');
     }
 
-    // Draws all objects from the given array.
+    /**
+     * Draws all objects from the given array.
+     * @param {DrawableObject[]} objects - The objects to draw.
+     */
     addObjectsToMap(objects) {
         objects.forEach((object) => this.addToMap(object));
     }
 
-    // Draws one object with optional horizontal flipping.
+    /**
+     * Draws one object with optional horizontal flipping.
+     * @param {DrawableObject} object - The object to draw.
+     */
     addToMap(object) {
         if (object.otherDirection) this.flipImage(object);
         object.draw(this.ctx);
@@ -342,7 +420,10 @@ export class World {
         requestAnimationFrame(() => this.draw());
     }
 
-    // Flips an object before drawing it.
+    /**
+     * Flips an object before drawing it.
+     * @param {DrawableObject} object - The object to flip.
+     */
     flipImage(object) {
         this.ctx.save();
         this.ctx.translate(object.width, 0);
@@ -350,7 +431,10 @@ export class World {
         object.x = object.x * -1;
     }
 
-    // Restores an object after drawing it flipped.
+    /**
+     * Restores an object after drawing it flipped.
+     * @param {DrawableObject} object - The object to restore.
+     */
     flipImageBack(object) {
         object.x = object.x * -1;
         this.ctx.restore();

@@ -1,3 +1,7 @@
+/**
+ * Stores and clears game intervals.
+ * @class
+ */
 export class IntervalHelper {
     // #region properties
 
@@ -7,7 +11,11 @@ export class IntervalHelper {
 
     // #region interval control
 
-    // Starts an interval and stores its id.
+    /**
+     * Starts an interval and stores its id.
+     * @param {Function} fn - The function that should run repeatedly.
+     * @param {number} time - The interval time in milliseconds.
+     */
     static setStoppableInterval(fn, time) {
         const id = setInterval(fn, time);
         IntervalHelper.intervalIds.push(id);

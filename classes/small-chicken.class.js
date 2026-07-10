@@ -1,6 +1,10 @@
 import { Chicken } from './chicken.class.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Represents a small chicken enemy.
+ * @class
+ */
 export class SmallChicken extends Chicken {
     // #region properties
 
@@ -25,7 +29,10 @@ export class SmallChicken extends Chicken {
 
     // #region constructor
 
-    // Creates a small chicken and loads its own images.
+    /**
+     * Creates a small chicken and loads its own images.
+     * @param {number} position - The position index inside the level.
+     */
     constructor(position = 0) {
         super(position);
         this.loadImage(this.IMAGES_WALKING[0]);

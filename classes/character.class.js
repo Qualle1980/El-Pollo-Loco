@@ -2,6 +2,10 @@ import { MovableObject } from './movable-object.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Represents the playable character Pepe.
+ * @class
+ */
 export class Character extends MovableObject {
     // #region properties
 
@@ -149,17 +153,26 @@ export class Character extends MovableObject {
         SoundHelper.playSound(this.jumpSound);
     }
 
-    // Checks if the character can move right.
+    /**
+     * Checks if the character can move right.
+     * @returns {boolean} True if the character can move right.
+     */
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.levelEndX;
     }
 
-    // Checks if the character can move left.
+    /**
+     * Checks if the character can move left.
+     * @returns {boolean} True if the character can move left.
+     */
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
 
-    // Checks if the character can jump.
+    /**
+     * Checks if the character can jump.
+     * @returns {boolean} True if the character can jump.
+     */
     canJump() {
         return this.world.keyboard.UP && !this.isAboveGround();
     }
@@ -183,7 +196,10 @@ export class Character extends MovableObject {
         if (this.canCollectBottle()) this.bottles++;
     }
 
-    // Checks if another bottle can be collected.
+    /**
+     * Checks if another bottle can be collected.
+     * @returns {boolean} True if the character can collect another bottle.
+     */
     canCollectBottle() {
         return this.bottles < this.maxBottles;
     }
@@ -199,7 +215,10 @@ export class Character extends MovableObject {
 
     // #region damage
 
-    // Damages the character and plays its hurt sound.
+    /**
+     * Damages the character and plays its hurt sound.
+     * @param {number} damage - The amount of damage.
+     */
     hit(damage = this.damage) {
         this.stopSnoring();
         this.stopWalkingSound();
@@ -234,7 +253,10 @@ export class Character extends MovableObject {
         this.playIdleCharacter();
     }
 
-    // Plays an active animation without walking sound.
+    /**
+     * Plays an active animation without walking sound.
+     * @param {string[]} images - The animation image paths.
+     */
     playActiveCharacter(images) {
         this.stopWalkingSound();
         this.resetIdleAnimations();
@@ -276,7 +298,10 @@ export class Character extends MovableObject {
         this.img = this.imageCache[this.IMAGES_IDLE[0]];
     }
 
-    // Slows down the idle animation to about two seconds.
+    /**
+     * Slows down the idle animation to about two seconds.
+     * @returns {boolean} True if the current frame should wait.
+     */
     waitForIdleFrame() {
         this.idleFrameCounter++;
         if (this.idleFrameCounter >= 2) this.idleFrameCounter = 0;
@@ -323,19 +348,28 @@ export class Character extends MovableObject {
         this.walkingSoundStarted = false;
     }
 
-    // Slows down the long idle animation.
+    /**
+     * Slows down the long idle animation.
+     * @returns {boolean} True if the current frame should wait.
+     */
     waitForLongIdleFrame() {
         this.longIdleFrameCounter++;
         if (this.longIdleFrameCounter >= 2) this.longIdleFrameCounter = 0;
         return this.longIdleFrameCounter !== 0;
     }
 
-    // Checks if the character has been idle long enough to sleep.
+    /**
+     * Checks if the character has been idle long enough to sleep.
+     * @returns {boolean} True if the long idle animation should play.
+     */
     isLongIdle() {
         return new Date().getTime() - this.lastAction > 4000;
     }
 
-    // Checks if the character has been idle long enough.
+    /**
+     * Checks if the character has been idle long enough.
+     * @returns {boolean} True if the idle animation should play.
+     */
     isIdle() {
         return new Date().getTime() - this.lastAction > 2000;
     }
@@ -358,7 +392,10 @@ export class Character extends MovableObject {
         if (this.deadImageIndex < lastIndex) this.deadImageIndex++;
     }
 
-    // Checks if the character is currently moving.
+    /**
+     * Checks if the character is currently moving.
+     * @returns {boolean} True if left or right is pressed.
+     */
     isMoving() {
         return this.world.keyboard.RIGHT || this.world.keyboard.LEFT;
     }

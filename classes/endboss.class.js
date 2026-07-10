@@ -3,6 +3,10 @@ import { ImageHelper } from '../helper_classes/image-helper.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Represents the stronger endboss enemy.
+ * @class
+ */
 export class Endboss extends MovableObject {
     // #region properties
 
@@ -35,7 +39,10 @@ export class Endboss extends MovableObject {
 
     // #region constructor
 
-    // Creates the endboss and loads its alert animation.
+    /**
+     * Creates the endboss and loads all endboss animations.
+     * @param {number} x - The x position of the endboss.
+     */
     constructor(x = 2500) {
         super();
         this.x = x;
@@ -73,7 +80,10 @@ export class Endboss extends MovableObject {
         if (this.isMoving) this.startEndbossMovement();
     }
 
-    // Checks if the endboss should start moving.
+    /**
+     * Checks if the endboss should start moving.
+     * @returns {boolean} True if the character is close enough.
+     */
     canMoveEndboss() {
         return this.world && !this.dead && this.world.character.x > this.x - 600;
     }
@@ -91,7 +101,10 @@ export class Endboss extends MovableObject {
         this.approachSoundPlayed = true;
     }
 
-    // Checks if the character is close enough for an attack.
+    /**
+     * Checks if the character is close enough for an attack.
+     * @returns {boolean} True if the endboss can attack.
+     */
     canAttack() {
         return this.world && !this.dead && this.world.character.x > this.x - 180;
     }

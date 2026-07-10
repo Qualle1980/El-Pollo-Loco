@@ -1,3 +1,7 @@
+/**
+ * Stores the current keyboard and mobile input state.
+ * @class
+ */
 export class Keyboard {
     // #region properties
 

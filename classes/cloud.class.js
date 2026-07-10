@@ -1,6 +1,10 @@
 import { MovableObject } from './movable-object.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 
+/**
+ * Represents a moving cloud in the background.
+ * @class
+ */
 export class Cloud extends MovableObject {
     // #region properties
 
@@ -13,7 +17,10 @@ export class Cloud extends MovableObject {
 
     // #region constructor
 
-    // Creates a cloud at the given x position.
+    /**
+     * Creates a cloud at the given x position.
+     * @param {number} x - The x position of the cloud.
+     */
     constructor(x) {
         super();
         this.x = x;

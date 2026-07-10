@@ -1,6 +1,10 @@
 import { StatusBar } from './status-bar.class.js';
 import { ImageHelper } from '../helper_classes/image-helper.js';
 
+/**
+ * Represents the bottle status bar.
+ * @class
+ */
 export class BottleStatusBar extends StatusBar {
     // #region properties
 

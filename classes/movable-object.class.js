@@ -1,6 +1,10 @@
 import { DrawableObject } from './drawable-object.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 
+/**
+ * Base class for moving game objects with gravity, collision and damage logic.
+ * @class
+ */
 export class MovableObject extends DrawableObject {
     // #region properties
 
@@ -56,7 +60,10 @@ export class MovableObject extends DrawableObject {
         this.speedY -= this.acceleration;
     }
 
-    // Checks if the object is above the ground.
+    /**
+     * Checks if the object is above the ground.
+     * @returns {boolean} True if the object is above the ground.
+     */
     isAboveGround() {
         return this.y < this.groundY;
     }
@@ -65,7 +72,11 @@ export class MovableObject extends DrawableObject {
 
     // #region collision
 
-    // Checks if this object touches another object.
+    /**
+     * Checks if this object touches another object.
+     * @param {DrawableObject} object - The object to check against.
+     * @returns {boolean} True if both objects collide.
+     */
     isColliding(object) {
         return this.rX + this.rW > object.rX &&
             this.rY + this.rH > object.rY &&
@@ -73,7 +84,11 @@ export class MovableObject extends DrawableObject {
             this.rY < object.rY + object.rH;
     }
 
-    // Checks if this object touches another object from above.
+    /**
+     * Checks if this object touches another object from above.
+     * @param {DrawableObject} object - The object to check against.
+     * @returns {boolean} True if this object collides while falling.
+     */
     isCollidingFromAbove(object) {
         return this.isColliding(object) && this.speedY < 0;
     }
@@ -82,20 +97,29 @@ export class MovableObject extends DrawableObject {
 
     // #region damage
 
-    // Reduces energy by damage and stores the hit time.
+    /**
+     * Reduces energy by damage and stores the hit time.
+     * @param {number} damage - The amount of damage.
+     */
     hit(damage = this.damage) {
         this.energy -= damage;
         if (this.energy < 0) this.energy = 0;
         this.lastHit = new Date().getTime();
     }
 
-    // Checks if the object was recently hit.
+    /**
+     * Checks if the object was recently hit.
+     * @returns {boolean} True if the object is in hurt state.
+     */
     isHurt() {
         const timePassed = new Date().getTime() - this.lastHit;
         return timePassed / 1000 < 0.5;
     }
 
-    // Checks if the object has no energy left.
+    /**
+     * Checks if the object has no energy left.
+     * @returns {boolean} True if the object is dead.
+     */
     isDead() {
         return this.energy === 0;
     }
@@ -104,7 +128,10 @@ export class MovableObject extends DrawableObject {
 
     // #region animation
 
-    // Plays an animation by cycling through its image paths.
+    /**
+     * Plays an animation by cycling through its image paths.
+     * @param {string[]} images - The animation image paths.
+     */
     playAnimation(images) {
         const imageIndex = this.currentImage % images.length;
         const imagePath = images[imageIndex];

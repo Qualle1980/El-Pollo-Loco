@@ -1,3 +1,7 @@
+/**
+ * Stores all image paths grouped by game object.
+ * @class
+ */
 export class ImageHelper {
     // #region statusbar images
 

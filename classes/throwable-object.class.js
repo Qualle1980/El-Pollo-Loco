@@ -3,6 +3,10 @@ import { ImageHelper } from '../helper_classes/image-helper.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Represents a thrown salsa bottle.
+ * @class
+ */
 export class ThrowableObject extends MovableObject {
     // #region properties
 
@@ -18,7 +22,12 @@ export class ThrowableObject extends MovableObject {
 
     // #region constructor
 
-    // Creates a throwable bottle and starts its movement.
+    /**
+     * Creates a throwable bottle and starts its movement.
+     * @param {number} x - The start x position.
+     * @param {number} y - The start y position.
+     * @param {boolean} otherDirection - True if the bottle is thrown to the left.
+     */
     constructor(x, y, otherDirection) {
         super();
         this.x = x;

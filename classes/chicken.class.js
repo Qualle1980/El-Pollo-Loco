@@ -2,6 +2,10 @@ import { MovableObject } from './movable-object.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
 
+/**
+ * Represents a normal chicken enemy.
+ * @class
+ */
 export class Chicken extends MovableObject {
     // #region properties
 
@@ -29,7 +33,10 @@ export class Chicken extends MovableObject {
 
     // #region constructor
 
-    // Creates a chicken enemy at a random x position.
+    /**
+     * Creates a chicken enemy at a random x position.
+     * @param {number} position - The position index inside the level.
+     */
     constructor(position = 0) {
         super();
         this.x = 600 + position * 300 + Math.random() * 150;

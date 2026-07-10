@@ -2,6 +2,10 @@ import { CollectibleObject } from './collectible-object.class.js';
 import { ImageHelper } from '../helper_classes/image-helper.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 
+/**
+ * Represents a collectable coin.
+ * @class
+ */
 export class Coin extends CollectibleObject {
     // #region properties
 
@@ -19,7 +23,11 @@ export class Coin extends CollectibleObject {
 
     // #region constructor
 
-    // Creates a coin at the given position.
+    /**
+     * Creates a coin at the given position.
+     * @param {number} x - The x position of the coin.
+     * @param {number} y - The y position of the coin.
+     */
     constructor(x, y) {
         super();
         this.x = x;
