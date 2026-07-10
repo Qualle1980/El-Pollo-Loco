@@ -3,6 +3,7 @@ import { Keyboard } from '../classes/keyboard.class.js';
 import { IntervalHelper } from '../helper_classes/interval-helper.js';
 import { KeyboardHelper } from '../helper_classes/keyboard-helper.js';
 import { SoundHelper } from '../helper_classes/sound-helper.js';
+import { ImageHelper } from '../helper_classes/image-helper.js';
 
 /**
  * Starts and controls the game user interface.
@@ -15,12 +16,22 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let startScreen;
+let loadingScreen;
 let gameWrapper;
 let soundVolumeSlider;
 let soundVolumeControl;
 let musicVolumeSlider;
 let musicVolumeControl;
 let gameStartSound;
+let gameLoading = false;
+let loadedGameplayImages = [];
+
+const GAMEPLAY_IMAGES = [
+    ...getCharacterImages(),
+    ...getEnemyImages(),
+    ...getLevelImages(),
+    ...getHelperImages()
+];
 
 // #endregion
 
@@ -38,6 +49,7 @@ function init() {
 function setGameElements() {
     canvas = document.getElementById('canvas');
     startScreen = document.getElementById('startScreen');
+    loadingScreen = document.getElementById('loadingScreen');
     gameWrapper = document.querySelector('.game-stage');
     soundVolumeSlider = document.getElementById('soundVolumeSlider');
     soundVolumeControl = document.getElementById('soundVolumeControl');
@@ -101,14 +113,131 @@ function setKeyboard() {
     window.keyboard = keyboard;
 }
 
+// Returns all character images that are used during the game.
+function getCharacterImages() {
+    return [
+        ...createImagePaths('2_character_pepe/1_idle/idle/I-', 1, 10),
+        ...createImagePaths('2_character_pepe/1_idle/long_idle/I-', 11, 20),
+        ...createImagePaths('2_character_pepe/2_walk/W-', 21, 26),
+        ...createImagePaths('2_character_pepe/3_jump/J-', 31, 39),
+        ...createImagePaths('2_character_pepe/4_hurt/H-', 41, 43),
+        ...createImagePaths('2_character_pepe/5_dead/D-', 51, 57)
+    ];
+}
+
+// Returns all enemy images that are used during the game.
+function getEnemyImages() {
+    return [
+        ...createEnemyImages('chicken_normal'),
+        ...createEnemyImages('chicken_small'),
+        ...ImageHelper.CHICKEN_BOSS.walk,
+        ...ImageHelper.CHICKEN_BOSS.alert,
+        ...ImageHelper.CHICKEN_BOSS.attack,
+        ...ImageHelper.CHICKEN_BOSS.hurt,
+        ...ImageHelper.CHICKEN_BOSS.dead
+    ];
+}
+
+// Returns all level images that must be visible after start.
+function getLevelImages() {
+    return [
+        './assets/img/5_background/layers/air.png',
+        './assets/img/5_background/layers/4_clouds/1.png',
+        ...createBackgroundImages(),
+        ...ImageHelper.COIN.idle,
+        ...ImageHelper.BOTTLE.ground
+    ];
+}
+
+// Returns all helper image groups for bars and throwable bottles.
+function getHelperImages() {
+    return [
+        ...ImageHelper.STATUSBAR.healthBlue,
+        ...ImageHelper.STATUSBAR.coinBlue,
+        ...ImageHelper.STATUSBAR.bottleBlue,
+        ...ImageHelper.STATUSBAR.endbossBlue,
+        ...ImageHelper.BOTTLE.rotation,
+        ...ImageHelper.BOTTLE.splash
+    ];
+}
+
+// Creates numbered image paths inside the assets image folder.
+function createImagePaths(folder, start, end) {
+    const paths = [];
+    for (let i = start; i <= end; i++) paths.push(`./assets/img/${folder}${i}.png`);
+    return paths;
+}
+
+// Returns walking and dead images for one chicken type.
+function createEnemyImages(type) {
+    return [
+        `./assets/img/3_enemies_chicken/${type}/1_walk/1_w.png`,
+        `./assets/img/3_enemies_chicken/${type}/1_walk/2_w.png`,
+        `./assets/img/3_enemies_chicken/${type}/1_walk/3_w.png`,
+        `./assets/img/3_enemies_chicken/${type}/2_dead/dead.png`
+    ];
+}
+
+// Returns both background variants for all visible layers.
+function createBackgroundImages() {
+    const paths = [];
+    [1, 2].forEach((number) => addBackgroundImagePaths(paths, number));
+    return paths;
+}
+
+// Adds one background variant to the loading list.
+function addBackgroundImagePaths(paths, number) {
+    paths.push(`./assets/img/5_background/layers/3_third_layer/${number}.png`);
+    paths.push(`./assets/img/5_background/layers/2_second_layer/${number}.png`);
+    paths.push(`./assets/img/5_background/layers/1_first_layer/${number}.png`);
+}
+
 // Starts the game world after the start screen.
 function startGame() {
-    if (world) return;
+    if (world || gameLoading) return;
+    gameLoading = true;
     closeVolumeControls();
+    showLoadingScreen();
+    loadGameplayImages(startWorld);
+}
+
+// Creates the world after important images are loaded.
+function startWorld() {
     startScreen.classList.add('d-none');
+    hideLoadingScreen();
     SoundHelper.playSound(gameStartSound);
     world = new World(canvas, keyboard);
     window.world = world;
+    gameLoading = false;
+}
+
+// Shows the loading screen while important gameplay images load.
+function showLoadingScreen() {
+    loadingScreen.classList.remove('d-none');
+}
+
+// Hides the loading screen when the game can start.
+function hideLoadingScreen() {
+    loadingScreen.classList.add('d-none');
+}
+
+// Loads important gameplay images before the world starts.
+function loadGameplayImages(callback) {
+    let loadedImages = 0;
+    loadedGameplayImages = [];
+    GAMEPLAY_IMAGES.forEach((path) => loadGameplayImage(path, () => {
+        loadedImages++;
+        if (loadedImages === GAMEPLAY_IMAGES.length) callback();
+    }));
+}
+
+// Loads one image and keeps it in the browser cache.
+function loadGameplayImage(path, callback) {
+    const image = new Image();
+    loadedGameplayImages.push(image);
+    image.onload = callback;
+    image.onerror = callback;
+    image.src = path;
 }
 
 // Restarts the game without reloading the page.
@@ -126,10 +255,12 @@ function restartGame() {
 // Returns to the start screen without reloading the page.
 function showHomeScreen() {
     stopCurrentWorld();
+    gameLoading = false;
     keyboard = new Keyboard();
     KeyboardHelper.setKeyboard(keyboard);
     world = null;
     closeVolumeControls();
+    hideLoadingScreen();
     hideEndScreens();
     clearCanvas();
     startScreen.classList.remove('d-none');

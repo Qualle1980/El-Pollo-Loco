@@ -316,6 +316,24 @@ canvas {
     font-size: 26px;
 }
 
+.loading-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.loading-box {
+    font-family: 'Boogaloo', Arial, sans-serif;
+    font-size: 42px;
+    color: #ffd24a;
+    -webkit-text-stroke: 1px #8f260d;
+    text-shadow: 0 4px 0 #b53613, 0 8px 14px rgba(0, 0, 0, 0.45);
+}
+
 .how-to-play-screen {
     position: absolute;
     inset: 0;

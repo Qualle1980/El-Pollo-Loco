@@ -6,7 +6,8 @@
     <title>El Pollo Loco</title>
     <link rel="icon" type="image/png" href="./assets/img/2_character_pepe/2_walk/W-21.png">
     <link rel="preload" href="./assets/img/9_intro_outro_screens/start/startscreen_1.png" as="image">
-    <link rel="preload" href="./assets/img/9_intro_outro_screens/body-background.png" as="image">
+    <link rel="preload" href="./assets/img/icons/soundOn.png" as="image">
+    <link rel="preload" href="./assets/img/icons/max.png" as="image">
     <link rel="preload" href="./assets/fonts/Boogaloo-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/responsive.css">
@@ -29,10 +30,10 @@
             <div class="game-stage">
                 <canvas id="canvas" width="720" height="480"></canvas>
                 <button id="fullscreenButton" class="fullscreen-button" type="button" aria-label="Fullscreen">
-                    <img id="fullscreenImage" src="./assets/img/icons/max.png" alt="">
+                    <img id="fullscreenImage" src="./assets/img/icons/max.png" width="34" height="34" alt="">
                 </button>
                 <button id="muteButton" class="mute-button" type="button" aria-label="Mute sound" aria-expanded="false">
-                    <img id="soundOnOffImage" src="./assets/img/icons/soundOn.png" alt="">
+                    <img id="soundOnOffImage" src="./assets/img/icons/soundOn.png" width="34" height="34" alt="">
                 </button>
                 <label id="soundVolumeControl" class="sound-volume-control d-none" aria-label="Game sound volume">
                     <input id="soundVolumeSlider" type="range" min="0" max="1" step="0.01">
@@ -48,6 +49,9 @@
                         <button id="startButton" class="menu-button icon-menu-button" type="button" aria-label="Start Game">&#9658;</button>
                         <button id="howToPlayButton" class="menu-button icon-menu-button" type="button" aria-label="How to play">?</button>
                         <button class="menu-button icon-menu-button impressum-button" type="button" aria-label="Impressum">i</button>
+                    </div>
+                    <div id="loadingScreen" class="loading-screen d-none">
+                        <div class="loading-box">Loading...</div>
                     </div>
                     <div id="howToPlayScreen" class="how-to-play-screen d-none">
                         <div class="how-to-play">
@@ -112,6 +116,3 @@
     </main>
 </body>
 </html>
-
-
-
