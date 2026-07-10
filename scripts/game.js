@@ -26,6 +26,10 @@ let gameStartSound;
 let gameLoading = false;
 let loadedGameplayImages = [];
 
+/**
+ * Image paths that should be loaded before the world starts.
+ * @type {string[]}
+ */
 const GAMEPLAY_IMAGES = [
     ...getCharacterImages(),
     ...getEnemyImages(),
@@ -113,7 +117,10 @@ function setKeyboard() {
     window.keyboard = keyboard;
 }
 
-// Returns all character images that are used during the game.
+/**
+ * Returns all character images that are used during the game.
+ * @returns {string[]} The character image paths.
+ */
 function getCharacterImages() {
     return [
         ...createImagePaths('2_character_pepe/1_idle/idle/I-', 1, 10),
@@ -125,7 +132,10 @@ function getCharacterImages() {
     ];
 }
 
-// Returns all enemy images that are used during the game.
+/**
+ * Returns all enemy images that are used during the game.
+ * @returns {string[]} The enemy image paths.
+ */
 function getEnemyImages() {
     return [
         ...createEnemyImages('chicken_normal'),
@@ -138,7 +148,10 @@ function getEnemyImages() {
     ];
 }
 
-// Returns all level images that must be visible after start.
+/**
+ * Returns all level images that must be visible after start.
+ * @returns {string[]} The level image paths.
+ */
 function getLevelImages() {
     return [
         './assets/img/5_background/layers/air.png',
@@ -149,7 +162,10 @@ function getLevelImages() {
     ];
 }
 
-// Returns all helper image groups for bars and throwable bottles.
+/**
+ * Returns all helper image groups for bars and throwable bottles.
+ * @returns {string[]} The helper image paths.
+ */
 function getHelperImages() {
     return [
         ...ImageHelper.STATUSBAR.healthBlue,
@@ -161,14 +177,24 @@ function getHelperImages() {
     ];
 }
 
-// Creates numbered image paths inside the assets image folder.
+/**
+ * Creates numbered image paths inside the assets image folder.
+ * @param {string} folder - The folder and image prefix after assets/img.
+ * @param {number} start - The first image number.
+ * @param {number} end - The last image number.
+ * @returns {string[]} The created image paths.
+ */
 function createImagePaths(folder, start, end) {
     const paths = [];
     for (let i = start; i <= end; i++) paths.push(`./assets/img/${folder}${i}.png`);
     return paths;
 }
 
-// Returns walking and dead images for one chicken type.
+/**
+ * Returns walking and dead images for one chicken type.
+ * @param {string} type - The chicken folder name.
+ * @returns {string[]} The chicken image paths.
+ */
 function createEnemyImages(type) {
     return [
         `./assets/img/3_enemies_chicken/${type}/1_walk/1_w.png`,
@@ -178,21 +204,30 @@ function createEnemyImages(type) {
     ];
 }
 
-// Returns both background variants for all visible layers.
+/**
+ * Returns both background variants for all visible layers.
+ * @returns {string[]} The background image paths.
+ */
 function createBackgroundImages() {
     const paths = [];
     [1, 2].forEach((number) => addBackgroundImagePaths(paths, number));
     return paths;
 }
 
-// Adds one background variant to the loading list.
+/**
+ * Adds one background variant to the loading list.
+ * @param {string[]} paths - The image path list.
+ * @param {number} number - The background image number.
+ */
 function addBackgroundImagePaths(paths, number) {
     paths.push(`./assets/img/5_background/layers/3_third_layer/${number}.png`);
     paths.push(`./assets/img/5_background/layers/2_second_layer/${number}.png`);
     paths.push(`./assets/img/5_background/layers/1_first_layer/${number}.png`);
 }
 
-// Starts the game world after the start screen.
+/**
+ * Starts loading important images before the game world is created.
+ */
 function startGame() {
     if (world || gameLoading) return;
     gameLoading = true;
@@ -201,7 +236,9 @@ function startGame() {
     loadGameplayImages(startWorld);
 }
 
-// Creates the world after important images are loaded.
+/**
+ * Creates the world after important images are loaded.
+ */
 function startWorld() {
     startScreen.classList.add('d-none');
     hideLoadingScreen();
@@ -211,17 +248,24 @@ function startWorld() {
     gameLoading = false;
 }
 
-// Shows the loading screen while important gameplay images load.
+/**
+ * Shows the loading screen while important gameplay images load.
+ */
 function showLoadingScreen() {
     loadingScreen.classList.remove('d-none');
 }
 
-// Hides the loading screen when the game can start.
+/**
+ * Hides the loading screen when the game can start.
+ */
 function hideLoadingScreen() {
     loadingScreen.classList.add('d-none');
 }
 
-// Loads important gameplay images before the world starts.
+/**
+ * Loads important gameplay images before the world starts.
+ * @param {Function} callback - The function that runs after all images are loaded.
+ */
 function loadGameplayImages(callback) {
     let loadedImages = 0;
     loadedGameplayImages = [];
@@ -231,7 +275,11 @@ function loadGameplayImages(callback) {
     }));
 }
 
-// Loads one image and keeps it in the browser cache.
+/**
+ * Loads one image and keeps it in the browser cache.
+ * @param {string} path - The image path.
+ * @param {Function} callback - The function that runs after the image request ends.
+ */
 function loadGameplayImage(path, callback) {
     const image = new Image();
     loadedGameplayImages.push(image);
