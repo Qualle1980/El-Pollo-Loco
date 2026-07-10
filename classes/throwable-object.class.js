@@ -15,8 +15,11 @@ export class ThrowableObject extends MovableObject {
     groundY = 380;
     bottleAboveGround = false;
     bottleFlying = false;
+    bottleSplashing = false;
+    splashImageIndex = 0;
     breakSound = SoundHelper.createSound('./audio/throwable/bottleBreak.mp3');
     IMAGES_ROTATION = ImageHelper.BOTTLE.rotation;
+    IMAGES_SPLASH = ImageHelper.BOTTLE.splash;
 
     // #endregion
 
@@ -35,6 +38,7 @@ export class ThrowableObject extends MovableObject {
         this.otherDirection = otherDirection;
         this.loadImage(this.IMAGES_ROTATION[0]);
         this.loadImages(this.IMAGES_ROTATION);
+        this.loadImages(this.IMAGES_SPLASH);
         this.throw();
         this.animate();
     }
@@ -71,6 +75,8 @@ export class ThrowableObject extends MovableObject {
         if (!this.bottleFlying) return;
         this.bottleFlying = false;
         this.bottleAboveGround = false;
+        this.bottleSplashing = true;
+        this.splashImageIndex = 0;
         SoundHelper.playSound(this.breakSound);
     }
 
@@ -78,14 +84,26 @@ export class ThrowableObject extends MovableObject {
 
     // #region animation
 
-    // Plays the bottle rotation animation.
+    // Plays the bottle animation.
     animate() {
-        IntervalHelper.setStoppableInterval(() => this.playFlyingBottle(), 150);
+        IntervalHelper.setStoppableInterval(() => this.playBottleAnimation(), 100);
     }
 
-    // Plays the animation while the bottle is flying.
-    playFlyingBottle() {
+    // Plays the matching bottle animation.
+    playBottleAnimation() {
         if (this.bottleFlying) this.playAnimation(this.IMAGES_ROTATION);
+        if (this.bottleSplashing) this.playSplashAnimation();
+    }
+
+    // Plays the splash animation once.
+    playSplashAnimation() {
+        if (this.splashImageIndex >= this.IMAGES_SPLASH.length) {
+            this.bottleSplashing = false;
+            return;
+        }
+        const imagePath = this.IMAGES_SPLASH[this.splashImageIndex];
+        this.img = this.imageCache[imagePath];
+        this.splashImageIndex++;
     }
 
     // #endregion

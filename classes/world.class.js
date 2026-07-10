@@ -285,7 +285,7 @@ export class World {
 
     // Removes bottles after they hit the ground.
     removeLandedBottles() {
-        this.throwableObjects = this.throwableObjects.filter((bottle) => bottle.bottleFlying);
+        this.throwableObjects = this.throwableObjects.filter((bottle) => bottle.bottleFlying || bottle.bottleSplashing);
     }
 
     // Checks if thrown bottles hit enemies.
