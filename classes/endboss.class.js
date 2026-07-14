@@ -17,7 +17,7 @@ export class Endboss extends MovableObject {
     hasHitCharacter = false;
     dead = false;
     deadAt = 0;
-    damage = 20;
+    damage = 40;
     speed = 0.4;
     world;
     isMoving = false;
