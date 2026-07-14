@@ -85,12 +85,46 @@ export class Endboss extends MovableObject {
      * @returns {boolean} True if the character is close enough.
      */
     canMoveEndboss() {
-        return this.world && !this.dead && this.world.character.x > this.x - 600;
+        return this.world && !this.dead && (this.approachSoundPlayed || this.world.character.x > this.x - 600);
     }
 
-    // Moves the endboss and starts its approach sound once.
+    /**
+     * Moves the endboss and starts its approach sound once.
+     */
     startEndbossMovement() {
         this.playApproachSound();
+        this.moveTowardsCharacter();
+    }
+
+    /**
+     * Moves the endboss in the direction of the character.
+     */
+    moveTowardsCharacter() {
+        if (this.isCharacterOnRightSide()) return this.moveRightToCharacter();
+        this.moveLeftToCharacter();
+    }
+
+    /**
+     * Checks if the character is on the right side of the endboss.
+     * @returns {boolean} True if the character is right of the endboss.
+     */
+    isCharacterOnRightSide() {
+        return this.world.character.x > this.x;
+    }
+
+    /**
+     * Moves the endboss to the right and turns it around.
+     */
+    moveRightToCharacter() {
+        this.otherDirection = true;
+        this.moveRight();
+    }
+
+    /**
+     * Moves the endboss to the left and uses its normal direction.
+     */
+    moveLeftToCharacter() {
+        this.otherDirection = false;
         this.moveLeft();
     }
 
@@ -106,7 +140,15 @@ export class Endboss extends MovableObject {
      * @returns {boolean} True if the endboss can attack.
      */
     canAttack() {
-        return this.world && !this.dead && this.world.character.x > this.x - 180;
+        return this.world && !this.dead && this.getCharacterDistance() < 180;
+    }
+
+    /**
+     * Returns the horizontal distance to the character.
+     * @returns {number} The distance between character and endboss.
+     */
+    getCharacterDistance() {
+        return Math.abs(this.world.character.x - this.x);
     }
 
     // Marks the endboss as dead.
