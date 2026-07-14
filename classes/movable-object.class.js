@@ -22,39 +22,53 @@ export class MovableObject extends DrawableObject {
 
     // #region movement
 
-    // Moves the object to the right.
+    /**
+     * Moves the object to the right.
+     */
     moveRight() {
         this.x += this.speed;
     }
 
-    // Moves the object to the left.
+    /**
+     * Moves the object to the left.
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
-    // Makes the object jump.
+    /**
+     * Makes the object jump.
+     */
     jump() {
         this.speedY = 25;
     }
 
-    // Applies gravity to the object.
+    /**
+     * Applies gravity to the object.
+     */
     applyGravity() {
         IntervalHelper.setStoppableInterval(() => this.handleGravity(), 1000 / 25);
     }
 
-    // Updates the vertical position while falling or jumping.
+    /**
+     * Updates the vertical position while falling or jumping.
+     */
     handleGravity() {
         if (this.isAboveGround() || this.speedY > 0) this.moveVertically();
         if (!this.isAboveGround()) this.setOnGround();
     }
 
-    // Places the object on the ground and stops falling.
+    /**
+     * Places the object on the ground and stops falling.
+     */
     setOnGround() {
         this.y = this.groundY;
         this.speedY = 0;
     }
 
-    // Moves the object vertically based on its y speed.
+    /**
+     * Moves the object vertically based on its y speed.
+     */
     moveVertically() {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;

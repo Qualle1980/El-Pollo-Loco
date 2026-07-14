@@ -47,7 +47,9 @@ export class ThrowableObject extends MovableObject {
 
     // #region movement
 
-    // Throws the bottle in the character direction.
+    /**
+     * Throws the bottle in the character direction.
+     */
     throw() {
         this.speedY = 30;
         this.bottleAboveGround = true;
@@ -57,20 +59,26 @@ export class ThrowableObject extends MovableObject {
         IntervalHelper.setStoppableInterval(() => this.moveBottle(), 25);
     }
 
-    // Moves the bottle horizontally.
+    /**
+     * Moves the bottle horizontally.
+     */
     moveBottle() {
         if (!this.bottleFlying) return;
         if (this.otherDirection) this.x -= 10;
         else this.x += 10;
     }
 
-    // Stops the bottle when it hits the ground.
+    /**
+     * Stops the bottle when it hits the ground.
+     */
     setOnGround() {
         super.setOnGround();
         this.breakBottle();
     }
 
-    // Stops the bottle and plays its break sound once.
+    /**
+     * Stops the bottle and plays its break sound once.
+     */
     breakBottle() {
         if (!this.bottleFlying) return;
         this.bottleFlying = false;
@@ -84,18 +92,24 @@ export class ThrowableObject extends MovableObject {
 
     // #region animation
 
-    // Plays the bottle animation.
+    /**
+     * Plays the bottle animation.
+     */
     animate() {
         IntervalHelper.setStoppableInterval(() => this.playBottleAnimation(), 100);
     }
 
-    // Plays the matching bottle animation.
+    /**
+     * Plays the matching bottle animation.
+     */
     playBottleAnimation() {
         if (this.bottleFlying) this.playAnimation(this.IMAGES_ROTATION);
         if (this.bottleSplashing) this.playSplashAnimation();
     }
 
-    // Plays the splash animation once.
+    /**
+     * Plays the splash animation once.
+     */
     playSplashAnimation() {
         if (this.splashImageIndex >= this.IMAGES_SPLASH.length) {
             this.bottleSplashing = false;

@@ -51,24 +51,32 @@ export class Chicken extends MovableObject {
 
     // #region animation
 
-    // Moves and animates the chicken continuously.
+    /**
+     * Moves and animates the chicken continuously.
+     */
     animate() {
         IntervalHelper.setStoppableInterval(() => this.moveChicken(), 1000 / 60);
         IntervalHelper.setStoppableInterval(() => this.playChicken(), 200);
     }
 
-    // Moves the chicken while it is alive.
+    /**
+     * Moves the chicken while it is alive.
+     */
     moveChicken() {
         if (!this.dead) this.moveLeft();
     }
 
-    // Plays the matching chicken image.
+    /**
+     * Plays the matching chicken image.
+     */
     playChicken() {
         if (this.dead) this.img = this.imageCache[this.IMAGE_DEAD];
         else this.playAnimation(this.IMAGES_WALKING);
     }
 
-    // Marks the chicken as dead.
+    /**
+     * Marks the chicken as dead.
+     */
     kill() {
         if (this.dead) return;
         this.dead = true;

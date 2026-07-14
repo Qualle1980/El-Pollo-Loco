@@ -41,7 +41,9 @@ const GAMEPLAY_IMAGES = [
 
 // #region initialization
 
-// Initializes the canvas and menu buttons.
+/**
+ * Initializes the canvas and menu buttons.
+ */
 function init() {
     setGameElements();
     setButtonEvents();
@@ -49,7 +51,9 @@ function init() {
     setSoundSettings();
 }
 
-// Stores important html elements for the game.
+/**
+ * Stores important html elements for the game.
+ */
 function setGameElements() {
     canvas = document.getElementById('canvas');
     startScreen = document.getElementById('startScreen');
@@ -62,7 +66,9 @@ function setGameElements() {
     gameStartSound = SoundHelper.createSound('./audio/game/gameStart.mp3');
 }
 
-// Adds click events to all menu buttons.
+/**
+ * Adds click events to all menu buttons.
+ */
 function setButtonEvents() {
     setStartButtonEvents();
     setOverlayButtonEvents();
@@ -70,7 +76,9 @@ function setButtonEvents() {
     document.addEventListener('fullscreenchange', updateFullscreenIcon);
 }
 
-// Adds events for start screen buttons.
+/**
+ * Adds events for start screen buttons.
+ */
 function setStartButtonEvents() {
     document.getElementById('startButton').addEventListener('click', startGame);
     document.getElementById('howToPlayButton').addEventListener('click', showHowToPlay);
@@ -78,14 +86,18 @@ function setStartButtonEvents() {
     document.getElementById('howToPlayScreen').addEventListener('click', closeHowToPlayByClick);
 }
 
-// Adds events for overlay buttons.
+/**
+ * Adds events for overlay buttons.
+ */
 function setOverlayButtonEvents() {
     document.getElementById('closeImpressumButton').addEventListener('click', hideImpressum);
     document.getElementById('impressumScreen').addEventListener('click', closeImpressumByClick);
     document.querySelectorAll('.impressum-button').forEach((button) => button.addEventListener('click', showImpressum));
 }
 
-// Adds events for global game controls.
+/**
+ * Adds events for global game controls.
+ */
 function setGameControlEvents() {
     document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
     document.getElementById('muteButton').addEventListener('click', toggleSoundVolume);
@@ -101,7 +113,9 @@ function setGameControlEvents() {
     document.querySelectorAll('.mobile-control-button').forEach((button) => button.addEventListener('contextmenu', preventContextMenu));
 }
 
-// Shows the saved sound settings in the interface.
+/**
+ * Shows the saved sound settings in the interface.
+ */
 function setSoundSettings() {
     soundVolumeSlider.value = SoundHelper.soundVolume;
     musicVolumeSlider.value = SoundHelper.musicVolume;
@@ -110,7 +124,9 @@ function setSoundSettings() {
     updateMuteIcon();
 }
 
-// Connects the keyboard helper with the game keyboard.
+/**
+ * Connects the keyboard helper with the game keyboard.
+ */
 function setKeyboard() {
     KeyboardHelper.setKeyboard(keyboard);
     KeyboardHelper.startEvents(handleKeyboardAction);
@@ -288,7 +304,9 @@ function loadGameplayImage(path, callback) {
     image.src = path;
 }
 
-// Restarts the game without reloading the page.
+/**
+ * Restarts the game without reloading the page.
+ */
 function restartGame() {
     stopCurrentWorld();
     keyboard = new Keyboard();
@@ -300,7 +318,9 @@ function restartGame() {
     window.world = world;
 }
 
-// Returns to the start screen without reloading the page.
+/**
+ * Returns to the start screen without reloading the page.
+ */
 function showHomeScreen() {
     stopCurrentWorld();
     gameLoading = false;
@@ -316,30 +336,40 @@ function showHomeScreen() {
     window.world = world;
 }
 
-// Stops the active world before changing the game state.
+/**
+ * Stops the active world before changing the game state.
+ */
 function stopCurrentWorld() {
     if (world) world.gameStopped = true;
     if (world) world.stopSounds();
     IntervalHelper.stopAllIntervals();
 }
 
-// Hides all game end screens.
+/**
+ * Hides all game end screens.
+ */
 function hideEndScreens() {
     document.getElementById('gameOverScreen').classList.add('d-none');
     document.getElementById('winScreen').classList.add('d-none');
 }
 
-// Clears the canvas before showing the start screen again.
+/**
+ * Clears the canvas before showing the start screen again.
+ */
 function clearCanvas() {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
 
-// Shows the key explanation screen.
+/**
+ * Shows the key explanation screen.
+ */
 function showHowToPlay() {
     document.getElementById('howToPlayScreen').classList.remove('d-none');
 }
 
-// Hides the key explanation screen.
+/**
+ * Hides the key explanation screen.
+ */
 function hideHowToPlay() {
     document.getElementById('howToPlayScreen').classList.add('d-none');
 }
@@ -352,12 +382,16 @@ function closeHowToPlayByClick(event) {
     if (event.target.id === 'howToPlayScreen') hideHowToPlay();
 }
 
-// Shows the impressum screen.
+/**
+ * Shows the impressum screen.
+ */
 function showImpressum() {
     document.getElementById('impressumScreen').classList.remove('d-none');
 }
 
-// Hides the impressum screen.
+/**
+ * Hides the impressum screen.
+ */
 function hideImpressum() {
     document.getElementById('impressumScreen').classList.add('d-none');
 }
@@ -370,13 +404,17 @@ function closeImpressumByClick(event) {
     if (event.target.id === 'impressumScreen') hideImpressum();
 }
 
-// Switches the game area in and out of fullscreen mode.
+/**
+ * Switches the game area in and out of fullscreen mode.
+ */
 function toggleFullscreen() {
     if (document.fullscreenElement) document.exitFullscreen();
     else gameWrapper.requestFullscreen();
 }
 
-// Updates the fullscreen button image.
+/**
+ * Updates the fullscreen button image.
+ */
 function updateFullscreenIcon() {
     const image = document.getElementById('fullscreenImage');
     image.src = document.fullscreenElement ? './assets/img/icons/min.png' : './assets/img/icons/max.png';
@@ -392,14 +430,18 @@ function toggleSoundVolume(event) {
     removeControlFocus(event);
 }
 
-// Updates the saved game sound volume.
+/**
+ * Updates the saved game sound volume.
+ */
 function updateSoundVolume() {
     SoundHelper.setSoundVolume(soundVolumeSlider.value);
     updateSoundControlState();
     updateMuteIcon();
 }
 
-// Updates the mute button state.
+/**
+ * Updates the mute button state.
+ */
 function updateSoundControlState() {
     const muteButton = document.getElementById('muteButton');
     const isOpen = !soundVolumeControl.classList.contains('d-none');
@@ -407,14 +449,18 @@ function updateSoundControlState() {
     muteButton.setAttribute('aria-expanded', isOpen);
 }
 
-// Updates the mute button image.
+/**
+ * Updates the mute button image.
+ */
 function updateMuteIcon() {
     const image = document.getElementById('soundOnOffImage');
     const soundIsOff = SoundHelper.muted || SoundHelper.soundVolume === 0;
     image.src = soundIsOff ? './assets/img/icons/soundOff.png' : './assets/img/icons/soundOn.png';
 }
 
-// Updates the saved background music volume.
+/**
+ * Updates the saved background music volume.
+ */
 function updateMusicVolume() {
     SoundHelper.setMusicVolume(musicVolumeSlider.value);
 }
@@ -429,13 +475,17 @@ function toggleMusicVolume(event) {
     removeControlFocus(event);
 }
 
-// Updates the music volume button state.
+/**
+ * Updates the music volume button state.
+ */
 function updateMusicVolumeButtonState() {
     const isOpen = !musicVolumeControl.classList.contains('d-none');
     document.getElementById('musicVolumeButton').setAttribute('aria-expanded', isOpen);
 }
 
-// Closes both volume controls while the game is played.
+/**
+ * Closes both volume controls while the game is played.
+ */
 function closeVolumeControls() {
     soundVolumeControl.classList.add('d-none');
     musicVolumeControl.classList.add('d-none');

@@ -6,16 +6,11 @@ import { IntervalHelper } from '../helper_classes/interval-helper.js';
  * @class
  */
 export class Cloud extends MovableObject {
-    // #region properties
 
     y = 20;
     width = 500;
     height = 250;
     speed = 0.15;
-
-    // #endregion
-
-    // #region constructor
 
     /**
      * Creates a cloud at the given x position.
@@ -28,14 +23,11 @@ export class Cloud extends MovableObject {
         this.animate();
     }
 
-    // #endregion
-
-    // #region animation
-
-    // Moves the cloud continuously to the left.
+    /**
+     * Moves the cloud continuously to the left.
+     */
     animate() {
         IntervalHelper.setStoppableInterval(() => this.moveLeft(), 1000 / 60);
     }
 
-    // #endregion
 }

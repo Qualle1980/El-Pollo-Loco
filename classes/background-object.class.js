@@ -5,15 +5,10 @@ import { MovableObject } from './movable-object.class.js';
  * @class
  */
 export class BackgroundObject extends MovableObject {
-    // #region properties
 
     width = 720;
     height = 480;
     y = 0;
-
-    // #endregion
-
-    // #region constructor
 
     /**
      * Creates a background layer at the given x position.
@@ -26,5 +21,4 @@ export class BackgroundObject extends MovableObject {
         this.loadImage(imagePath);
     }
 
-    // #endregion
 }

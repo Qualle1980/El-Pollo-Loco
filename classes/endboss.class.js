@@ -59,13 +59,17 @@ export class Endboss extends MovableObject {
 
     // #region animation
 
-    // Plays the matching endboss animation.
+    /**
+     * Plays the matching endboss animation.
+     */
     animate() {
         IntervalHelper.setStoppableInterval(() => this.moveEndboss(), 1000 / 60);
         IntervalHelper.setStoppableInterval(() => this.playEndboss(), 200);
     }
 
-    // Selects the animation for the current endboss state.
+    /**
+     * Selects the animation for the current endboss state.
+     */
     playEndboss() {
         if (this.isDead()) this.playAnimation(this.IMAGES_DEAD);
         else if (this.isHurt()) this.playAnimation(this.IMAGES_HURT);
@@ -74,7 +78,9 @@ export class Endboss extends MovableObject {
         else this.playAnimation(this.IMAGES_ALERT);
     }
 
-    // Moves the endboss when the character is nearby.
+    /**
+     * Moves the endboss when the character is nearby.
+     */
     moveEndboss() {
         this.isMoving = this.canMoveEndboss();
         if (this.isMoving) this.startEndbossMovement();
@@ -128,7 +134,9 @@ export class Endboss extends MovableObject {
         this.moveLeft();
     }
 
-    // Plays the approach sound only once.
+    /**
+     * Plays the approach sound only once.
+     */
     playApproachSound() {
         if (this.approachSoundPlayed) return;
         SoundHelper.playSound(this.approachSound);
@@ -151,7 +159,9 @@ export class Endboss extends MovableObject {
         return Math.abs(this.world.character.x - this.x);
     }
 
-    // Marks the endboss as dead.
+    /**
+     * Marks the endboss as dead.
+     */
     kill() {
         this.dead = true;
         this.deadAt = new Date().getTime();

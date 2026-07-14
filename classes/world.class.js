@@ -63,12 +63,16 @@ export class World {
 
     // #region setup
 
-    // Connects world references to game objects.
+    /**
+     * Connects world references to game objects.
+     */
     setWorld() {
         this.character.world = this;
     }
 
-    // Gets all visible objects from the current level.
+    /**
+     * Gets all visible objects from the current level.
+     */
     setLevelObjects() {
         this.enemies = this.level.enemies;
         this.enemies.forEach((enemy) => enemy.world = this);
@@ -79,7 +83,9 @@ export class World {
         this.levelEndX = this.level.levelEndX;
     }
 
-    // Runs all repeated game checks.
+    /**
+     * Runs all repeated game checks.
+     */
     run() {
         IntervalHelper.setStoppableInterval(() => {
             this.checkCollisions();
@@ -91,12 +97,16 @@ export class World {
         }, 1000 / 60);
     }
 
-    // Starts the sounds that belong to the world.
+    /**
+     * Starts the sounds that belong to the world.
+     */
     startSounds() {
         SoundHelper.playMusic(this.backgroundMusic);
     }
 
-    // Stops the sounds that belong to the world.
+    /**
+     * Stops the sounds that belong to the world.
+     */
     stopSounds() {
         SoundHelper.pauseSound(this.backgroundMusic);
         this.character.stopSounds();
@@ -106,7 +116,9 @@ export class World {
 
     // #region collision
 
-    // Checks if the character touches an enemy.
+    /**
+     * Checks if the character touches an enemy.
+     */
     checkCollisions() {
         this.enemies.forEach((enemy) => this.checkEnemyCollision(enemy));
         this.checkCoinCollisions();
@@ -162,7 +174,9 @@ export class World {
         enemy.hasHitCharacter = true;
     }
 
-    // Checks if the character touches coins.
+    /**
+     * Checks if the character touches coins.
+     */
     checkCoinCollisions() {
         this.coins.forEach((coin) => this.checkCoinCollision(coin));
     }
@@ -179,7 +193,9 @@ export class World {
         this.removeObjectFromMap(this.coins, coin);
     }
 
-    // Checks if the character touches bottles.
+    /**
+     * Checks if the character touches bottles.
+     */
     checkBottleCollisions() {
         this.bottles.forEach((bottle) => this.checkBottleCollision(bottle));
     }
@@ -219,7 +235,9 @@ export class World {
 
     // #region drawing
 
-    // Clears the canvas and draws all world objects.
+    /**
+     * Clears the canvas and draws all world objects.
+     */
     draw() {
         if (this.gameStopped) return;
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -233,7 +251,9 @@ export class World {
         this.repeatDraw();
     }
 
-    // Draws all objects inside the world.
+    /**
+     * Draws all objects inside the world.
+     */
     drawWorldObjects() {
         this.addObjectsToMap(this.backgroundObjects);
         this.addObjectsToMap(this.clouds);
@@ -244,7 +264,9 @@ export class World {
         this.addObjectsToMap(this.throwableObjects);
     }
 
-    // Throws one bottle when the throw key is pressed.
+    /**
+     * Throws one bottle when the throw key is pressed.
+     */
     checkThrowObjects() {
         if (!this.canThrowBottle()) return;
         this.throwBottle();
@@ -259,7 +281,9 @@ export class World {
         return this.keyboard.THROW && this.character.bottles > 0;
     }
 
-    // Creates a throwable bottle and updates the bottle bar.
+    /**
+     * Creates a throwable bottle and updates the bottle bar.
+     */
     throwBottle() {
         const bottle = new ThrowableObject(this.character.x + 80, this.character.y + 100, this.character.otherDirection);
         this.throwableObjects.push(bottle);
@@ -283,12 +307,16 @@ export class World {
         return Math.ceil(this.character.coins / 2) * 20;
     }
 
-    // Removes bottles after they hit the ground.
+    /**
+     * Removes bottles after they hit the ground.
+     */
     removeLandedBottles() {
         this.throwableObjects = this.throwableObjects.filter((bottle) => bottle.bottleFlying || bottle.bottleSplashing);
     }
 
-    // Checks if thrown bottles hit enemies.
+    /**
+     * Checks if thrown bottles hit enemies.
+     */
     checkThrowableCollisions() {
         this.throwableObjects.forEach((bottle) => this.checkThrowableCollision(bottle));
     }
@@ -342,7 +370,9 @@ export class World {
         return endboss && this.character.x > endboss.x - 600;
     }
 
-    // Removes dead enemies after a short delay.
+    /**
+     * Removes dead enemies after a short delay.
+     */
     removeDeadEnemies() {
         this.enemies = this.enemies.filter((enemy) => !this.canRemoveEnemy(enemy));
     }
@@ -357,7 +387,9 @@ export class World {
         return !(enemy instanceof Endboss) && enemy.dead && timePassed > 800;
     }
 
-    // Checks if the game should stop after win or death.
+    /**
+     * Checks if the game should stop after win or death.
+     */
     checkGameEnd() {
         if (this.gameEnding) return;
         if (this.character.isDead() || this.isEndbossDead()) this.stopGameSoon();
@@ -372,13 +404,17 @@ export class World {
         return endboss && endboss.isDead();
     }
 
-    // Stops all intervals after the final animation can play.
+    /**
+     * Stops all intervals after the final animation can play.
+     */
     stopGameSoon() {
         this.gameEnding = true;
         setTimeout(() => this.stopGame(), 1200);
     }
 
-    // Stops the game loop and all registered intervals.
+    /**
+     * Stops the game loop and all registered intervals.
+     */
     stopGame() {
         IntervalHelper.stopAllIntervals();
         this.stopSounds();
@@ -387,12 +423,16 @@ export class World {
         this.gameStopped = true;
     }
 
-    // Shows the game over screen.
+    /**
+     * Shows the game over screen.
+     */
     showGameOverScreen() {
         document.getElementById('gameOverScreen').classList.remove('d-none');
     }
 
-    // Shows the win screen.
+    /**
+     * Shows the win screen.
+     */
     showWinScreen() {
         document.getElementById('winScreen').classList.remove('d-none');
     }
@@ -415,7 +455,9 @@ export class World {
         if (object.otherDirection) this.flipImageBack(object);
     }
 
-    // Requests the next draw frame.
+    /**
+     * Requests the next draw frame.
+     */
     repeatDraw() {
         requestAnimationFrame(() => this.draw());
     }

@@ -101,7 +101,9 @@ export class Character extends MovableObject {
 
     // #region constructor
 
-    // Creates the character and loads its animation images.
+    /**
+     * Creates the character and loads its animation images.
+     */
     constructor() {
         super();
         this.loadImage(this.IMAGES_IDLE[0]);
@@ -119,13 +121,17 @@ export class Character extends MovableObject {
 
     // #region movement
 
-    // Moves and animates the character based on pressed keys.
+    /**
+     * Moves and animates the character based on pressed keys.
+     */
     animate() {
         IntervalHelper.setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
         IntervalHelper.setStoppableInterval(() => this.playCharacter(), 100);
     }
 
-    // Handles horizontal movement and jumping.
+    /**
+     * Handles horizontal movement and jumping.
+     */
     moveCharacter() {
         if (this.isDead()) return;
         if (this.canMoveRight()) this.moveRight();
@@ -134,19 +140,25 @@ export class Character extends MovableObject {
         this.updateCamera();
     }
 
-    // Moves the character right and sets its direction.
+    /**
+     * Moves the character right and sets its direction.
+     */
     moveRight() {
         super.moveRight();
         this.otherDirection = false;
     }
 
-    // Moves the character left and sets its direction.
+    /**
+     * Moves the character left and sets its direction.
+     */
     moveLeft() {
         super.moveLeft();
         this.otherDirection = true;
     }
 
-    // Makes the character jump and plays its jump sound.
+    /**
+     * Makes the character jump and plays its jump sound.
+     */
     jump() {
         this.stopWalkingSound();
         super.jump();
@@ -177,7 +189,9 @@ export class Character extends MovableObject {
         return this.world.keyboard.UP && !this.isAboveGround();
     }
 
-    // Updates the world camera position.
+    /**
+     * Updates the world camera position.
+     */
     updateCamera() {
         this.world.cameraX = -this.x + 120;
     }
@@ -186,12 +200,16 @@ export class Character extends MovableObject {
 
     // #region collecting
 
-    // Increases the collected coin amount.
+    /**
+     * Increases the collected coin amount.
+     */
     collectCoin() {
         this.coins++;
     }
 
-    // Increases the collected bottle amount.
+    /**
+     * Increases the collected bottle amount.
+     */
     collectBottle() {
         if (this.canCollectBottle()) this.bottles++;
     }
@@ -204,7 +222,9 @@ export class Character extends MovableObject {
         return this.bottles < this.maxBottles;
     }
 
-    // Reduces the collected bottle amount after throwing.
+    /**
+     * Reduces the collected bottle amount after throwing.
+     */
     throwBottle() {
         if (this.bottles <= 0) return;
         this.bottles--;
@@ -227,14 +247,18 @@ export class Character extends MovableObject {
         else SoundHelper.playSound(this.damageSound);
     }
 
-    // Plays the death sound only once.
+    /**
+     * Plays the death sound only once.
+     */
     playDeathSound() {
         if (this.deathSoundPlayed) return;
         SoundHelper.playSound(this.deathSound);
         this.deathSoundPlayed = true;
     }
 
-    // Stops looped character sounds.
+    /**
+     * Stops looped character sounds.
+     */
     stopSounds() {
         this.stopSnoring();
         this.stopWalkingSound();
@@ -244,7 +268,9 @@ export class Character extends MovableObject {
 
     // #region animation
 
-    // Plays the current character animation.
+    /**
+     * Plays the current character animation.
+     */
     playCharacter() {
         if (this.isDead()) return this.playDeadCharacter();
         if (this.isHurt()) return this.playActiveCharacter(this.IMAGES_HURT);
@@ -263,26 +289,34 @@ export class Character extends MovableObject {
         this.playAnimation(images);
     }
 
-    // Plays the character death animation.
+    /**
+     * Plays the character death animation.
+     */
     playDeadCharacter() {
         this.stopWalkingSound();
         this.playDeathAnimation();
     }
 
-    // Plays the walking animation and sound.
+    /**
+     * Plays the walking animation and sound.
+     */
     playWalkingCharacter() {
         this.startWalkingSound();
         this.resetIdleAnimations();
         this.playAnimation(this.IMAGES_WALKING);
     }
 
-    // Plays idle animation and stops walking sound.
+    /**
+     * Plays idle animation and stops walking sound.
+     */
     playIdleCharacter() {
         this.stopWalkingSound();
         this.playIdleAnimation();
     }
 
-    // Plays the idle animation once and keeps the last image.
+    /**
+     * Plays the idle animation once and keeps the last image.
+     */
     playIdleAnimation() {
         if (!this.isIdle()) return this.playStandingImage();
         if (this.isLongIdle()) return this.playLongIdleAnimation();
@@ -293,7 +327,9 @@ export class Character extends MovableObject {
         if (this.idleImageIndex < lastIndex) this.idleImageIndex++;
     }
 
-    // Shows the normal standing image before idle starts.
+    /**
+     * Shows the normal standing image before idle starts.
+     */
     playStandingImage() {
         this.img = this.imageCache[this.IMAGES_IDLE[0]];
     }
@@ -308,7 +344,9 @@ export class Character extends MovableObject {
         return this.idleFrameCounter !== 0;
     }
 
-    // Plays the sleeping animation once and keeps the last image.
+    /**
+     * Plays the sleeping animation once and keeps the last image.
+     */
     playLongIdleAnimation() {
         this.startSnoring();
         if (this.waitForLongIdleFrame()) return;
@@ -318,7 +356,9 @@ export class Character extends MovableObject {
         this.longIdleImageIndex++;
     }
 
-    // Starts the snoring sound while the character sleeps.
+    /**
+     * Starts the snoring sound while the character sleeps.
+     */
     startSnoring() {
         if (this.snoringStarted) return;
         this.snoringSound.loop = true;
@@ -326,14 +366,18 @@ export class Character extends MovableObject {
         this.snoringStarted = true;
     }
 
-    // Stops the snoring sound after the character wakes up.
+    /**
+     * Stops the snoring sound after the character wakes up.
+     */
     stopSnoring() {
         if (!this.snoringStarted) return;
         SoundHelper.pauseSound(this.snoringSound);
         this.snoringStarted = false;
     }
 
-    // Starts the walking sound while the character walks.
+    /**
+     * Starts the walking sound while the character walks.
+     */
     startWalkingSound() {
         if (this.walkingSoundStarted) return;
         this.walkingSound.loop = true;
@@ -341,7 +385,9 @@ export class Character extends MovableObject {
         this.walkingSoundStarted = true;
     }
 
-    // Stops the walking sound when the character stops.
+    /**
+     * Stops the walking sound when the character stops.
+     */
     stopWalkingSound() {
         if (!this.walkingSoundStarted) return;
         SoundHelper.pauseSound(this.walkingSound);
@@ -374,7 +420,9 @@ export class Character extends MovableObject {
         return new Date().getTime() - this.lastAction > 2000;
     }
 
-    // Resets idle animations after an action.
+    /**
+     * Resets idle animations after an action.
+     */
     resetIdleAnimations() {
         this.stopSnoring();
         this.lastAction = new Date().getTime();
@@ -384,7 +432,9 @@ export class Character extends MovableObject {
         this.longIdleFrameCounter = 0;
     }
 
-    // Plays the death animation once and keeps the last image.
+    /**
+     * Plays the death animation once and keeps the last image.
+     */
     playDeathAnimation() {
         const lastIndex = this.IMAGES_DEAD.length - 1;
         const imagePath = this.IMAGES_DEAD[this.deadImageIndex];

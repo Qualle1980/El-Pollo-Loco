@@ -5,9 +5,7 @@ import { MovableObject } from './movable-object.class.js';
  * @class
  */
 export class CollectibleObject extends MovableObject {
-    // #region properties
 
     collected = false;
 
-    // #endregion
 }

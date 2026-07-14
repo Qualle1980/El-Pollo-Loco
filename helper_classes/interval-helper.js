@@ -3,13 +3,8 @@
  * @class
  */
 export class IntervalHelper {
-    // #region properties
 
     static intervalIds = [];
-
-    // #endregion
-
-    // #region interval control
 
     /**
      * Starts an interval and stores its id.
@@ -21,11 +16,12 @@ export class IntervalHelper {
         IntervalHelper.intervalIds.push(id);
     }
 
-    // Stops all stored intervals.
+    /**
+     * Stops all stored intervals.
+     */
     static stopAllIntervals() {
         IntervalHelper.intervalIds.forEach(clearInterval);
         IntervalHelper.intervalIds = [];
     }
 
-    // #endregion
 }

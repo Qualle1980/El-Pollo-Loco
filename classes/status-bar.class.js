@@ -19,7 +19,9 @@ export class StatusBar extends DrawableObject {
 
     // #region constructor
 
-    // Creates the health bar and loads its images.
+    /**
+     * Creates the health bar and loads its images.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

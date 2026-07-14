@@ -3,7 +3,6 @@
  * @class
  */
 export class Level {
-    // #region properties
 
     enemies;
     clouds;
@@ -11,10 +10,6 @@ export class Level {
     coins;
     bottles;
     levelEndX = 1440;
-
-    // #endregion
-
-    // #region constructor
 
     /**
      * Creates a level with enemies, clouds, items, background objects and an end position.
@@ -34,5 +29,4 @@ export class Level {
         this.levelEndX = levelEndX;
     }
 
-    // #endregion
 }

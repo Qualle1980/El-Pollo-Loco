@@ -6,21 +6,17 @@ import { ImageHelper } from '../helper_classes/image-helper.js';
  * @class
  */
 export class CoinStatusBar extends StatusBar {
-    // #region properties
 
     y = 60;
     IMAGES = ImageHelper.STATUSBAR.coinBlue;
 
-    // #endregion
-
-    // #region constructor
-
-    // Creates the coin bar and starts it empty.
+    /**
+     * Creates the coin bar and starts it empty.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
         this.setPercentage(0);
     }
 
-    // #endregion
 }

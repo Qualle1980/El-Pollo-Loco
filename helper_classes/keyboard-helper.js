@@ -37,7 +37,9 @@ export class KeyboardHelper {
 
     // #region keyboard events
 
-    // Adds keydown and keyup events.
+    /**
+     * Adds keydown and keyup events.
+     */
     static addKeyboardEvents() {
         window.addEventListener('keydown', (event) => KeyboardHelper.handleKeyDown(event));
         window.addEventListener('keyup', (event) => KeyboardHelper.updateKey(event.code, false));
@@ -78,7 +80,9 @@ export class KeyboardHelper {
 
     // #region mobile controls
 
-    // Adds touch events to all mobile control buttons.
+    /**
+     * Adds touch events to all mobile control buttons.
+     */
     static addMobileControlEvents() {
         document.querySelectorAll('.mobile-control-button').forEach((button) => {
             button.addEventListener('touchstart', KeyboardHelper.pressMobileButton, { passive: false });
@@ -120,13 +124,17 @@ export class KeyboardHelper {
         if (key === 'THROW') KeyboardHelper.keyboard.THROW = isPressed;
     }
 
-    // Presses jump only shortly on mobile.
+    /**
+     * Presses jump only shortly on mobile.
+     */
     static pressMobileJump() {
         KeyboardHelper.keyboard.UP = true;
         setTimeout(() => KeyboardHelper.keyboard.UP = false, 120);
     }
 
-    // Presses throw only shortly on mobile.
+    /**
+     * Presses throw only shortly on mobile.
+     */
     static pressMobileThrow() {
         KeyboardHelper.keyboard.THROW = true;
         setTimeout(() => KeyboardHelper.keyboard.THROW = false, 350);

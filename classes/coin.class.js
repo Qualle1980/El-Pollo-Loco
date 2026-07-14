@@ -41,12 +41,16 @@ export class Coin extends CollectibleObject {
 
     // #region animation
 
-    // Plays the coin animation continuously.
+    /**
+     * Plays the coin animation continuously.
+     */
     animate() {
         IntervalHelper.setStoppableInterval(() => this.playCoin(), 300);
     }
 
-    // Shows the next coin image.
+    /**
+     * Shows the next coin image.
+     */
     playCoin() {
         this.playAnimation(this.IMAGES_IDLE);
     }

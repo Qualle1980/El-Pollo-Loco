@@ -52,13 +52,19 @@ export class SoundHelper {
         else SoundHelper.applyEffectSettings(sound);
     }
 
-    // Applies settings to one effect sound.
+    /**
+     * Applies settings to one effect sound.
+     * @param {HTMLAudioElement} sound - The effect sound.
+     */
     static applyEffectSettings(sound) {
         sound.muted = SoundHelper.muted;
         SoundHelper.setEffectSoundVolume(sound);
     }
 
-    // Applies settings to one music sound.
+    /**
+     * Applies settings to one music sound.
+     * @param {HTMLAudioElement} sound - The music sound.
+     */
     static applyMusicSettings(sound) {
         sound.muted = false;
         SoundHelper.setMusicSoundVolume(sound);
@@ -142,13 +148,19 @@ export class SoundHelper {
         SoundHelper.musicSounds.forEach((sound) => SoundHelper.setMusicSoundVolume(sound));
     }
 
-    // Applies the saved volume to one effect sound.
+    /**
+     * Applies the saved volume to one effect sound.
+     * @param {HTMLAudioElement} sound - The effect sound.
+     */
     static setEffectSoundVolume(sound) {
         const baseVolume = sound.baseVolume === undefined ? 1 : sound.baseVolume;
         sound.volume = SoundHelper.soundVolume * baseVolume;
     }
 
-    // Applies the saved volume to one music sound.
+    /**
+     * Applies the saved volume to one music sound.
+     * @param {HTMLAudioElement} sound - The music sound.
+     */
     static setMusicSoundVolume(sound) {
         sound.volume = SoundHelper.musicVolume;
     }
@@ -157,19 +169,28 @@ export class SoundHelper {
 
     // #region storage
 
-    // Reads the saved mute setting.
+    /**
+     * Reads the saved mute setting.
+     * @returns {boolean} True if game sound effects are muted.
+     */
     static getStoredMuted() {
         return localStorage.getItem('audioMuted') === 'true';
     }
 
-    // Reads the saved game sound volume.
+    /**
+     * Reads the saved game sound volume.
+     * @returns {number} The stored game sound volume.
+     */
     static getStoredSoundVolume() {
         const volume = localStorage.getItem('soundVolume');
         if (SoundHelper.getStoredMuted()) return 0;
         return volume === null ? 1 : SoundHelper.getValidVolume(volume);
     }
 
-    // Reads the saved music volume.
+    /**
+     * Reads the saved music volume.
+     * @returns {number} The stored music volume.
+     */
     static getStoredMusicVolume() {
         const volume = localStorage.getItem('musicVolume');
         return volume === null ? 0.2 : SoundHelper.getValidVolume(volume);
