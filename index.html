@@ -32,18 +32,9 @@
                 <button id="fullscreenButton" class="fullscreen-button" type="button" aria-label="Fullscreen">
                     <img id="fullscreenImage" src="./assets/img/icons/max.png" width="34" height="34" alt="">
                 </button>
-                <button id="muteButton" class="mute-button" type="button" aria-label="Mute sound" aria-expanded="false">
-                    <img id="soundOnOffImage" src="./assets/img/icons/soundOn.png" width="34" height="34" alt="">
+                <button id="soundSettingsButton" class="sound-settings-button" type="button" aria-label="Sound settings">
+                    &#9835;
                 </button>
-                <label id="soundVolumeControl" class="sound-volume-control d-none" aria-label="Game sound volume">
-                    <input id="soundVolumeSlider" type="range" min="0" max="1" step="0.01">
-                </label>
-                <button id="musicVolumeButton" class="music-volume-button" type="button" aria-label="Music volume" aria-expanded="false">
-                    <span class="music-volume-icon"></span>
-                </button>
-                <label id="musicVolumeControl" class="music-volume-control d-none" aria-label="Background music volume">
-                    <input id="musicVolumeSlider" type="range" min="0" max="1" step="0.01">
-                </label>
                 <div id="startScreen" class="menu-screen">
                     <div class="start-action-menu">
                         <button id="startButton" class="menu-button icon-menu-button" type="button" aria-label="Start Game">&#9658;</button>
@@ -91,6 +82,21 @@
                         <h4>Hinweis</h4>
                         <p>Diese Website wurde ausschliesslich als Lernprojekt erstellt und dient ausschliesslich Demonstrations- und Ausbildungszwecken.</p>
                         <p>"El Pollo Loco" sowie alle verwendeten Marken, Grafiken und Bezeichnungen sind Eigentum ihrer jeweiligen Rechteinhaber und werden ausschliesslich zu nicht-kommerziellen Lernzwecken verwendet.</p>
+                    </div>
+                </div>
+                <div id="soundSettingsScreen" class="sound-settings-screen d-none">
+                    <div class="sound-settings-box">
+                        <button id="closeSoundSettingsButton" class="close-button" type="button">X</button>
+                        <h3>Sound</h3>
+                        <label>
+                            Game sound
+                            <input id="soundVolumeSlider" type="range" min="0" max="1" step="0.01">
+                        </label>
+                        <label>
+                            Music
+                            <input id="musicVolumeSlider" type="range" min="0" max="1" step="0.01">
+                        </label>
+                        <button id="muteAllButton" class="menu-button sound-settings-action" type="button">Mute All</button>
                     </div>
                 </div>
                 <div class="mobile-controls">

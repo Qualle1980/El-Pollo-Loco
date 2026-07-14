@@ -165,6 +165,40 @@ export class SoundHelper {
         sound.volume = SoundHelper.musicVolume;
     }
 
+    /**
+     * Switches game sounds and music on or off together.
+     * @returns {boolean} True if all sounds are muted.
+     */
+    static toggleAllMuted() {
+        if (SoundHelper.allMuted()) SoundHelper.restoreAllSounds();
+        else SoundHelper.muteAllSounds();
+        return SoundHelper.allMuted();
+    }
+
+    /**
+     * Checks if game sounds and music are muted.
+     * @returns {boolean} True if both sound sliders are at zero.
+     */
+    static allMuted() {
+        return SoundHelper.soundVolume === 0 && SoundHelper.musicVolume === 0;
+    }
+
+    /**
+     * Sets game sounds and music to zero.
+     */
+    static muteAllSounds() {
+        SoundHelper.setSoundVolume(0);
+        SoundHelper.setMusicVolume(0);
+    }
+
+    /**
+     * Restores game sounds and music to useful default values.
+     */
+    static restoreAllSounds() {
+        SoundHelper.setSoundVolume(1);
+        SoundHelper.setMusicVolume(0.2);
+    }
+
     // #endregion
 
     // #region storage

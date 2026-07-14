@@ -18,10 +18,9 @@ let keyboard = new Keyboard();
 let startScreen;
 let loadingScreen;
 let gameWrapper;
+let soundSettingsScreen;
 let soundVolumeSlider;
-let soundVolumeControl;
 let musicVolumeSlider;
-let musicVolumeControl;
 let gameStartSound;
 let gameLoading = false;
 let loadedGameplayImages = [];
@@ -59,10 +58,9 @@ function setGameElements() {
     startScreen = document.getElementById('startScreen');
     loadingScreen = document.getElementById('loadingScreen');
     gameWrapper = document.querySelector('.game-stage');
+    soundSettingsScreen = document.getElementById('soundSettingsScreen');
     soundVolumeSlider = document.getElementById('soundVolumeSlider');
-    soundVolumeControl = document.getElementById('soundVolumeControl');
     musicVolumeSlider = document.getElementById('musicVolumeSlider');
-    musicVolumeControl = document.getElementById('musicVolumeControl');
     gameStartSound = SoundHelper.createSound('./audio/game/gameStart.mp3');
 }
 
@@ -100,8 +98,10 @@ function setOverlayButtonEvents() {
  */
 function setGameControlEvents() {
     document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
-    document.getElementById('muteButton').addEventListener('click', toggleSoundVolume);
-    document.getElementById('musicVolumeButton').addEventListener('click', toggleMusicVolume);
+    document.getElementById('soundSettingsButton').addEventListener('click', showSoundSettings);
+    document.getElementById('closeSoundSettingsButton').addEventListener('click', hideSoundSettings);
+    document.getElementById('soundSettingsScreen').addEventListener('click', closeSoundSettingsByClick);
+    document.getElementById('muteAllButton').addEventListener('click', toggleMuteAll);
     soundVolumeSlider.addEventListener('input', updateSoundVolume);
     soundVolumeSlider.addEventListener('change', removeControlFocus);
     musicVolumeSlider.addEventListener('input', updateMusicVolume);
@@ -119,9 +119,7 @@ function setGameControlEvents() {
 function setSoundSettings() {
     soundVolumeSlider.value = SoundHelper.soundVolume;
     musicVolumeSlider.value = SoundHelper.musicVolume;
-    updateSoundControlState();
-    updateMusicVolumeButtonState();
-    updateMuteIcon();
+    updateMuteAllButton();
 }
 
 /**
@@ -421,12 +419,39 @@ function updateFullscreenIcon() {
 }
 
 /**
- * Opens or closes the game sound volume slider.
+ * Shows the sound settings screen.
  * @param {MouseEvent} event - The click event on the sound button.
  */
-function toggleSoundVolume(event) {
-    soundVolumeControl.classList.toggle('d-none');
-    updateSoundControlState();
+function showSoundSettings(event) {
+    soundSettingsScreen.classList.remove('d-none');
+    updateMuteAllButton();
+    removeControlFocus(event);
+}
+
+/**
+ * Hides the sound settings screen.
+ */
+function hideSoundSettings() {
+    soundSettingsScreen.classList.add('d-none');
+}
+
+/**
+ * Closes sound settings when the dark background is clicked.
+ * @param {MouseEvent} event - The click event on the overlay.
+ */
+function closeSoundSettingsByClick(event) {
+    if (event.target.id === 'soundSettingsScreen') hideSoundSettings();
+}
+
+/**
+ * Switches all sounds on or off.
+ * @param {MouseEvent} event - The click event on the mute all button.
+ */
+function toggleMuteAll(event) {
+    SoundHelper.toggleAllMuted();
+    soundVolumeSlider.value = SoundHelper.soundVolume;
+    musicVolumeSlider.value = SoundHelper.musicVolume;
+    updateMuteAllButton();
     removeControlFocus(event);
 }
 
@@ -435,27 +460,7 @@ function toggleSoundVolume(event) {
  */
 function updateSoundVolume() {
     SoundHelper.setSoundVolume(soundVolumeSlider.value);
-    updateSoundControlState();
-    updateMuteIcon();
-}
-
-/**
- * Updates the mute button state.
- */
-function updateSoundControlState() {
-    const muteButton = document.getElementById('muteButton');
-    const isOpen = !soundVolumeControl.classList.contains('d-none');
-    muteButton.classList.toggle('muted', SoundHelper.muted || SoundHelper.soundVolume === 0);
-    muteButton.setAttribute('aria-expanded', isOpen);
-}
-
-/**
- * Updates the mute button image.
- */
-function updateMuteIcon() {
-    const image = document.getElementById('soundOnOffImage');
-    const soundIsOff = SoundHelper.muted || SoundHelper.soundVolume === 0;
-    image.src = soundIsOff ? './assets/img/icons/soundOff.png' : './assets/img/icons/soundOn.png';
+    updateMuteAllButton();
 }
 
 /**
@@ -463,34 +468,24 @@ function updateMuteIcon() {
  */
 function updateMusicVolume() {
     SoundHelper.setMusicVolume(musicVolumeSlider.value);
+    updateMuteAllButton();
 }
 
 /**
- * Opens or closes the background music volume slider.
- * @param {MouseEvent} event - The click event on the music button.
+ * Updates the mute all button text and state.
  */
-function toggleMusicVolume(event) {
-    musicVolumeControl.classList.toggle('d-none');
-    updateMusicVolumeButtonState();
-    removeControlFocus(event);
+function updateMuteAllButton() {
+    const muteAllButton = document.getElementById('muteAllButton');
+    const allMuted = SoundHelper.allMuted();
+    muteAllButton.classList.toggle('muted', allMuted);
+    muteAllButton.textContent = allMuted ? 'Sound On' : 'Mute All';
 }
 
 /**
- * Updates the music volume button state.
- */
-function updateMusicVolumeButtonState() {
-    const isOpen = !musicVolumeControl.classList.contains('d-none');
-    document.getElementById('musicVolumeButton').setAttribute('aria-expanded', isOpen);
-}
-
-/**
- * Closes both volume controls while the game is played.
+ * Closes the sound settings while the game is played.
  */
 function closeVolumeControls() {
-    soundVolumeControl.classList.add('d-none');
-    musicVolumeControl.classList.add('d-none');
-    updateSoundControlState();
-    updateMusicVolumeButtonState();
+    hideSoundSettings();
 }
 
 /**
@@ -521,6 +516,7 @@ function handleKeyboardAction(code) {
     closeVolumeControls();
     if (codeClosesHowToPlay(code)) hideHowToPlay();
     if (codeClosesImpressum(code)) hideImpressum();
+    if (codeClosesSoundSettings(code)) hideSoundSettings();
     if (codeStartsGame(code)) startGame();
     if (codeRestartsGame(code)) restartGame();
 }
@@ -568,6 +564,15 @@ function codeClosesHowToPlay(code) {
  */
 function codeClosesImpressum(code) {
     return code === 'Escape' && !document.getElementById('impressumScreen').classList.contains('d-none');
+}
+
+/**
+ * Checks if the key should close the sound settings.
+ * @param {string} code - The pressed key code.
+ * @returns {boolean} True if Escape should close the sound settings.
+ */
+function codeClosesSoundSettings(code) {
+    return code === 'Escape' && !soundSettingsScreen.classList.contains('d-none');
 }
 
 // #endregion

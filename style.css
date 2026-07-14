@@ -91,8 +91,7 @@ canvas {
 }
 
 .fullscreen-button,
-.mute-button,
-.music-volume-button {
+.sound-settings-button {
     position: absolute;
     top: 12px;
     z-index: 3;
@@ -112,73 +111,15 @@ canvas {
     right: 12px;
 }
 
-.mute-button {
-    left: 12px;
-}
-
-.music-volume-button {
+.sound-settings-button {
     right: 64px;
-}
-
-.music-volume-icon,
-.music-volume-icon::before,
-.music-volume-icon::after {
-    display: block;
-    width: 6px;
-    border-radius: 6px;
-    background-color: black;
-}
-
-.music-volume-icon {
-    position: relative;
-    height: 26px;
-}
-
-.music-volume-icon::before,
-.music-volume-icon::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-}
-
-.music-volume-icon::before {
-    right: 12px;
-    height: 16px;
-}
-
-.music-volume-icon::after {
-    left: 12px;
-    height: 22px;
-}
-
-.sound-volume-control,
-.music-volume-control {
-    position: absolute;
-    top: 18px;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    width: 112px;
-    height: 34px;
-}
-
-.sound-volume-control {
-    left: 58px;
-}
-
-.music-volume-control {
-    right: 104px;
-}
-
-.sound-volume-control input,
-.music-volume-control input {
-    width: 100%;
-    accent-color: #f7b33b;
-    cursor: pointer;
+    font-family: 'Boogaloo', Arial, sans-serif;
+    font-size: 38px;
+    line-height: 1;
 }
 
 .fullscreen-button img,
-.mute-button img {
+.sound-settings-button img {
     width: 34px;
     height: 34px;
     display: block;
@@ -189,24 +130,9 @@ canvas {
     right: 12px;
 }
 
-.game-stage:fullscreen .mute-button {
-    top: 12px;
-    left: 12px;
-}
-
-.game-stage:fullscreen .sound-volume-control {
-    top: 18px;
-    left: 58px;
-}
-
-.game-stage:fullscreen .music-volume-button {
+.game-stage:fullscreen .sound-settings-button {
     top: 12px;
     right: 64px;
-}
-
-.game-stage:fullscreen .music-volume-control {
-    top: 18px;
-    right: 104px;
 }
 
 .menu-screen,
@@ -366,10 +292,54 @@ canvas {
     background-color: rgba(0, 0, 0, 0.55);
 }
 
+.sound-settings-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
 .impressum-box {
     width: min(94%, 560px);
     padding: 10px 18px;
     font-size: 16px;
+}
+
+.sound-settings-box {
+    position: relative;
+    width: min(90%, 360px);
+    padding: 22px 28px;
+    border: 2px solid white;
+    background-color: #f8c471;
+    color: black;
+    font-family: 'Boogaloo', Arial, sans-serif;
+    font-size: 24px;
+    text-align: center;
+}
+
+.sound-settings-box label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 14px 0;
+}
+
+.sound-settings-box input {
+    width: 100%;
+    accent-color: #f7b33b;
+    cursor: pointer;
+}
+
+.sound-settings-action {
+    min-width: 150px;
+    margin-top: 8px;
+}
+
+.sound-settings-action.muted {
+    filter: grayscale(0.7) brightness(0.85);
 }
 
 .impressum-box h4 {
@@ -385,6 +355,7 @@ canvas {
 }
 
 .how-to-play h3,
+.sound-settings-box h3,
 .impressum-box h3 {
     margin: 0 0 12px;
     font-family: 'Boogaloo', Arial, sans-serif;

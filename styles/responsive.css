@@ -197,21 +197,9 @@
         display: none;
     }
 
-    .music-volume-button {
+    .sound-settings-button {
         top: 12px;
         right: 12px;
-    }
-
-    .sound-volume-control {
-        top: 16px;
-        left: 58px;
-        width: 86px;
-    }
-
-    .music-volume-control {
-        top: 16px;
-        right: 58px;
-        width: 86px;
     }
 
     .icon-menu-button {
@@ -231,6 +219,12 @@
         width: min(96%, 520px);
         padding: 8px 14px;
         font-size: 16px;
+    }
+
+    .sound-settings-box {
+        width: min(92%, 360px);
+        padding: 18px 22px;
+        font-size: 22px;
     }
 }
 
