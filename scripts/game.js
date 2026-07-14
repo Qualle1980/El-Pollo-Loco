@@ -424,6 +424,7 @@ function updateFullscreenIcon() {
  */
 function showSoundSettings(event) {
     soundSettingsScreen.classList.remove('d-none');
+    if (world) IntervalHelper.pauseAllIntervals();
     updateMuteAllButton();
     removeControlFocus(event);
 }
@@ -433,6 +434,7 @@ function showSoundSettings(event) {
  */
 function hideSoundSettings() {
     soundSettingsScreen.classList.add('d-none');
+    if (world && !world.gameStopped) IntervalHelper.resumeAllIntervals();
 }
 
 /**

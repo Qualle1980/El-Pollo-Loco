@@ -12,7 +12,7 @@ import { Bottle } from '../classes/bottle.class.js';
  * @returns {Level} The first game level.
  */
 export function createLevel1() {
-    return new Level(createEnemies(), createClouds(), createBackgroundObjects(), createCoins(), createBottles(), 4320);
+    return new Level(createEnemies(), createClouds(), createBackgroundObjects(), createCoins(), createBottles(), 5040);
 }
 
 /**
@@ -56,7 +56,7 @@ function createClouds() {
  */
 function createBackgroundObjects() {
     const backgroundObjects = [];
-    [-720, 0, 720, 1440, 2160, 2880, 3600, 4320].forEach((x, index) => {
+    [-720, 0, 720, 1440, 2160, 2880, 3600, 4320, 5040].forEach((x, index) => {
         const imageNumber = index % 2 === 0 ? 2 : 1;
         addBackgroundLayers(backgroundObjects, x, imageNumber);
     });
