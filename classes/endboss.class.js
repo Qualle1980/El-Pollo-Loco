@@ -160,6 +160,14 @@ export class Endboss extends MovableObject {
     }
 
     /**
+     * Damages the endboss after a bottle hit.
+     * @param {number} damage - The amount of damage.
+     */
+    hit(damage = 20) {
+        super.hit(damage);
+    }
+
+    /**
      * Marks the endboss as dead.
      */
     kill() {
