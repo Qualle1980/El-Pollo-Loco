@@ -1,0 +1,35 @@
+name: Deploy El Pollo Loco
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: production-el-pollo-loco
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install deployment client
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Deploy to Netcup
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<'EOF'
+          set cmd:fail-exit yes
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate yes
+          mirror --reverse --verbose --delete --exclude-glob .git/** --exclude-glob .github/** ./ /ahmad-ataya.de/httpdocs/el-pollo-loco/
+          bye
+          EOF
